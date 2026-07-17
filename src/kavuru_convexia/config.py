@@ -40,6 +40,15 @@ MAX_TOKENS: int = 1024
 REPRO_TEMPERATURE: float = 0.7
 # Repetitions per asset for the reproducibility / conflict-consistency audits.
 N_REPETITIONS: int = 8
+# Max concurrent evaluator calls (LLM I/O bound; the SDK retries 429s).
+MAX_CONCURRENCY: int = 10
+
+# Published external anchor: BIO/Informa/QLS clinical development success rates.
+# The aggregate Phase-1-to-approval likelihood of approval (~7.9%, "all indications"
+# 2011-2020) is the base rate a PoS score should be sanity-checked against; a mean
+# PoS far above it signals systematic optimism. Cited in the calibration report.
+BASE_RATE_PHASE1_TO_APPROVAL: float = 0.079
+BASE_RATE_SOURCE: str = "BIO/Informa/QLS, Clinical Development Success Rates 2011-2020"
 
 # Offline mode swaps the API for a deterministic stub agent (used by the test
 # suite and by anyone without a key). Never let offline runs masquerade as real.
