@@ -1,32 +1,52 @@
 {
   "evaluator_name": "ReferenceAgent(claude-sonnet-5)",
   "model": "claude-sonnet-5",
-  "created": "2026-07-17T19:01:11",
-  "n_assets": 20,
-  "reliability_score": 0.9178,
+  "created": "2026-07-17T19:43:24",
+  "n_assets": 28,
+  "reliability_score": 0.9208,
+  "reliability_score_ci": [
+    0.8942,
+    0.9424
+  ],
   "overall_status": "fail",
   "headline_flags": [
     "reproducibility: [warn] verubecestat: PoS std 0.052",
     "robustness: [fail] preladenant: +0.10 PoS drift under reorder",
     "robustness: [warn] osimertinib-tagrisso: +0.10 PoS drift under reorder",
     "robustness: [warn] SYN-BORDERLINE-THIN: +0.07 PoS drift under reorder",
-    "calibration: [warn] ECE 0.113 (bins=6); predicted confidence deviates from observed outcome frequency",
-    "calibration_blinded: [warn] ECE 0.113 (bins=6); predicted confidence deviates from observed outcome frequency"
+    "evidence_sensitivity: [warn] SYN-CONFLICT-EFFICACY-TOX: single-point-of-failure \u2014 removing `SYN-CONFLICT-EFFICACY-TOX-ev3` (tox, \u0394-0.20) flips the recommendation",
+    "evidence_sensitivity: [warn] SYN-CONFLICT-LATE-TOX: single-point-of-failure \u2014 removing `SYN-CONFLICT-LATE-TOX-ev4` (tox, \u0394-0.51) flips the recommendation",
+    "calibration: [warn] ECE 0.116 (bins=10); predicted confidence deviates from observed outcome frequency",
+    "calibration_blinded: [warn] ECE 0.117 (bins=10); predicted confidence deviates from observed outcome frequency"
   ],
   "checks": {
     "reproducibility": {
       "name": "reproducibility",
       "status": "warn",
-      "score": 0.9698357223977091,
+      "score": 0.965858387148718,
       "metrics": {
         "n_repetitions": 8.0,
-        "pos_std_mean": 0.008797853898059208,
+        "pos_std_mean": 0.010242529494254304,
         "pos_std_max": 0.05242554243877692,
         "flip_rate_mean": 0.0,
         "flip_rate_max": 0.0,
-        "rationale_jaccard_mean": 0.9673214285714286,
+        "rationale_jaccard_mean": 0.9658588435374149,
         "rationale_jaccard_min": 0.811904761904762,
         "parse_error_rate": 0.0
+      },
+      "metrics_ci": {
+        "pos_std_mean": [
+          0.005081307682876932,
+          0.013165380560845602
+        ],
+        "flip_rate_mean": [
+          0.0,
+          0.0
+        ],
+        "rationale_jaccard_mean": [
+          0.9473150510204081,
+          0.9884800170068027
+        ]
       },
       "flags": [
         "[warn] verubecestat: PoS std 0.052"
@@ -297,6 +317,182 @@
             "n_parse_errors": 0,
             "status": "warn"
           },
+          "trastuzumab-herceptin-her2-bc": {
+            "scores": [
+              0.85,
+              0.85,
+              0.85,
+              0.85,
+              0.85,
+              0.88,
+              0.88,
+              0.87
+            ],
+            "pos_mean": 0.86,
+            "pos_std": 0.013228756555322964,
+            "pos_iqr": 0.022500000000000075,
+            "pos_min": 0.85,
+            "pos_max": 0.88,
+            "flip_rate": 0.0,
+            "modal_recommendation": "advance",
+            "rationale_jaccard": 1.0,
+            "n_parse_errors": 0,
+            "status": "pass"
+          },
+          "sotorasib-lumakras-krasg12c-nsclc": {
+            "scores": [
+              0.72,
+              0.72,
+              0.72,
+              0.72,
+              0.68,
+              0.72,
+              0.72,
+              0.72
+            ],
+            "pos_mean": 0.715,
+            "pos_std": 0.013228756555322928,
+            "pos_iqr": 0.0,
+            "pos_min": 0.68,
+            "pos_max": 0.72,
+            "flip_rate": 0.0,
+            "modal_recommendation": "advance",
+            "rationale_jaccard": 1.0,
+            "n_parse_errors": 0,
+            "status": "pass"
+          },
+          "dupilumab-dupixent": {
+            "scores": [
+              0.93,
+              0.93,
+              0.93,
+              0.93,
+              0.93,
+              0.93,
+              0.93,
+              0.93
+            ],
+            "pos_mean": 0.93,
+            "pos_std": 0.0,
+            "pos_iqr": 0.0,
+            "pos_min": 0.93,
+            "pos_max": 0.93,
+            "flip_rate": 0.0,
+            "modal_recommendation": "advance",
+            "rationale_jaccard": 1.0,
+            "n_parse_errors": 0,
+            "status": "pass"
+          },
+          "lenacapavir-sunlenca-mdr-hiv1-2022": {
+            "scores": [
+              0.88,
+              0.9,
+              0.85,
+              0.88,
+              0.88,
+              0.85,
+              0.88,
+              0.88
+            ],
+            "pos_mean": 0.875,
+            "pos_std": 0.01581138830084191,
+            "pos_iqr": 0.007499999999999951,
+            "pos_min": 0.85,
+            "pos_max": 0.9,
+            "flip_rate": 0.0,
+            "modal_recommendation": "advance",
+            "rationale_jaccard": 1.0,
+            "n_parse_errors": 0,
+            "status": "pass"
+          },
+          "solanezumab": {
+            "scores": [
+              0.08,
+              0.12,
+              0.08,
+              0.12,
+              0.08,
+              0.12,
+              0.12,
+              0.05
+            ],
+            "pos_mean": 0.09625,
+            "pos_std": 0.025464435984329202,
+            "pos_iqr": 0.039999999999999994,
+            "pos_min": 0.05,
+            "pos_max": 0.12,
+            "flip_rate": 0.0,
+            "modal_recommendation": "pass",
+            "rationale_jaccard": 0.9500000000000001,
+            "n_parse_errors": 0,
+            "status": "pass"
+          },
+          "gantenerumab": {
+            "scores": [
+              0.12,
+              0.15,
+              0.15,
+              0.15,
+              0.15,
+              0.12,
+              0.15,
+              0.15
+            ],
+            "pos_mean": 0.14250000000000002,
+            "pos_std": 0.01299038105676658,
+            "pos_iqr": 0.007500000000000007,
+            "pos_min": 0.12,
+            "pos_max": 0.15,
+            "flip_rate": 0.0,
+            "modal_recommendation": "pass",
+            "rationale_jaccard": 0.9107142857142857,
+            "n_parse_errors": 0,
+            "status": "pass"
+          },
+          "evacetrapib": {
+            "scores": [
+              0.05,
+              0.05,
+              0.05,
+              0.05,
+              0.05,
+              0.05,
+              0.12,
+              0.05
+            ],
+            "pos_mean": 0.058750000000000004,
+            "pos_std": 0.023150323971815163,
+            "pos_iqr": 0.0,
+            "pos_min": 0.05,
+            "pos_max": 0.12,
+            "flip_rate": 0.0,
+            "modal_recommendation": "pass",
+            "rationale_jaccard": 0.8369047619047618,
+            "n_parse_errors": 0,
+            "status": "pass"
+          },
+          "tarenflurbil-flurizan": {
+            "scores": [
+              0.05,
+              0.04,
+              0.05,
+              0.03,
+              0.05,
+              0.04,
+              0.05,
+              0.04
+            ],
+            "pos_mean": 0.04375,
+            "pos_std": 0.006959705453537529,
+            "pos_iqr": 0.010000000000000002,
+            "pos_min": 0.03,
+            "pos_max": 0.05,
+            "flip_rate": 0.0,
+            "modal_recommendation": "pass",
+            "rationale_jaccard": 1.0,
+            "n_parse_errors": 0,
+            "status": "pass"
+          },
           "SYN-CONFLICT-EFFICACY-TOX": {
             "scores": [
               0.15,
@@ -482,22 +678,34 @@
     "robustness": {
       "name": "robustness",
       "status": "fail",
-      "score": 0.855,
+      "score": 0.8709821428571428,
       "metrics": {
-        "mean_abs_drift": 0.026500000000000003,
+        "mean_abs_drift": 0.024017857142857146,
         "max_abs_drift": 0.11999999999999998,
-        "rec_change_rate": 0.025,
-        "mean_drift__reorder": 0.03125,
-        "mean_drift__neutralize": 0.030249999999999992,
-        "mean_drift__reformat": 0.019250000000000003,
-        "mean_drift__paraphrase": 0.025250000000000005
+        "rec_change_rate": 0.017857142857142856,
+        "mean_drift__reorder": 0.028571428571428574,
+        "mean_drift__neutralize": 0.026071428571428572,
+        "mean_drift__reformat": 0.02071428571428572,
+        "mean_drift__paraphrase": 0.020714285714285716
+      },
+      "metrics_ci": {
+        "mean_abs_drift": [
+          0.017053571428571435,
+          0.03205580357142856
+        ],
+        "rec_change_rate": [
+          0.0,
+          0.05357142857142857
+        ]
       },
       "flags": [
         "[fail] preladenant: +0.10 PoS drift under reorder",
         "[warn] osimertinib-tagrisso: +0.10 PoS drift under reorder",
         "[warn] SYN-BORDERLINE-THIN: +0.07 PoS drift under reorder",
         "[warn] torcetrapib: +0.07 PoS drift under neutralize",
-        "[fail] SYN-CONFLICT-EFFICACY-TOX: +0.06 PoS drift under neutralize; recommendation changed under 2 perturbation(s)"
+        "[warn] evacetrapib: +0.07 PoS drift under reorder",
+        "[fail] SYN-CONFLICT-EFFICACY-TOX: +0.06 PoS drift under neutralize; recommendation changed under 2 perturbation(s)",
+        "[warn] dupilumab-dupixent: +0.05 PoS drift under reformat"
       ],
       "detail": {
         "per_asset": {
@@ -993,6 +1201,334 @@
             },
             "status": "pass"
           },
+          "trastuzumab-herceptin-her2-bc": {
+            "baseline_pos": 0.85,
+            "baseline_recommendation": "advance",
+            "native_noise": 0.0,
+            "max_drift": 0.030000000000000027,
+            "max_significant_drift": 0.0,
+            "mean_drift": 0.02250000000000002,
+            "worst_perturbation": "reorder",
+            "n_rec_changes": 0,
+            "per_perturbation": {
+              "reorder": {
+                "pos": 0.88,
+                "drift": 0.030000000000000027,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "advance"
+              },
+              "neutralize": {
+                "pos": 0.85,
+                "drift": 0.0,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "advance"
+              },
+              "reformat": {
+                "pos": 0.88,
+                "drift": 0.030000000000000027,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "advance"
+              },
+              "paraphrase": {
+                "pos": 0.88,
+                "drift": 0.030000000000000027,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "advance"
+              }
+            },
+            "status": "pass"
+          },
+          "sotorasib-lumakras-krasg12c-nsclc": {
+            "baseline_pos": 0.72,
+            "baseline_recommendation": "advance",
+            "native_noise": 0.0,
+            "max_drift": 0.0,
+            "max_significant_drift": 0.0,
+            "mean_drift": 0.0,
+            "worst_perturbation": "reorder",
+            "n_rec_changes": 0,
+            "per_perturbation": {
+              "reorder": {
+                "pos": 0.72,
+                "drift": 0.0,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "advance"
+              },
+              "neutralize": {
+                "pos": 0.72,
+                "drift": 0.0,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "advance"
+              },
+              "reformat": {
+                "pos": 0.72,
+                "drift": 0.0,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "advance"
+              },
+              "paraphrase": {
+                "pos": 0.72,
+                "drift": 0.0,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "advance"
+              }
+            },
+            "status": "pass"
+          },
+          "dupilumab-dupixent": {
+            "baseline_pos": 0.93,
+            "baseline_recommendation": "advance",
+            "native_noise": 0.0,
+            "max_drift": 0.050000000000000044,
+            "max_significant_drift": 0.050000000000000044,
+            "mean_drift": 0.02250000000000002,
+            "worst_perturbation": "reformat",
+            "n_rec_changes": 0,
+            "per_perturbation": {
+              "reorder": {
+                "pos": 0.93,
+                "drift": 0.0,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "advance"
+              },
+              "neutralize": {
+                "pos": 0.9,
+                "drift": 0.030000000000000027,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "advance"
+              },
+              "reformat": {
+                "pos": 0.88,
+                "drift": 0.050000000000000044,
+                "significant": true,
+                "rec_change": false,
+                "recommendation": "advance"
+              },
+              "paraphrase": {
+                "pos": 0.92,
+                "drift": 0.010000000000000009,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "advance"
+              }
+            },
+            "status": "warn"
+          },
+          "lenacapavir-sunlenca-mdr-hiv1-2022": {
+            "baseline_pos": 0.865,
+            "baseline_recommendation": "advance",
+            "native_noise": 0.030000000000000027,
+            "max_drift": 0.015000000000000013,
+            "max_significant_drift": 0.0,
+            "mean_drift": 0.012500000000000011,
+            "worst_perturbation": "reorder",
+            "n_rec_changes": 0,
+            "per_perturbation": {
+              "reorder": {
+                "pos": 0.88,
+                "drift": 0.015000000000000013,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "advance"
+              },
+              "neutralize": {
+                "pos": 0.85,
+                "drift": 0.015000000000000013,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "advance"
+              },
+              "reformat": {
+                "pos": 0.88,
+                "drift": 0.015000000000000013,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "advance"
+              },
+              "paraphrase": {
+                "pos": 0.87,
+                "drift": 0.0050000000000000044,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "advance"
+              }
+            },
+            "status": "pass"
+          },
+          "solanezumab": {
+            "baseline_pos": 0.1,
+            "baseline_recommendation": "pass",
+            "native_noise": 0.039999999999999994,
+            "max_drift": 0.04999999999999999,
+            "max_significant_drift": 0.0,
+            "mean_drift": 0.027499999999999993,
+            "worst_perturbation": "reorder",
+            "n_rec_changes": 0,
+            "per_perturbation": {
+              "reorder": {
+                "pos": 0.15,
+                "drift": 0.04999999999999999,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "pass"
+              },
+              "neutralize": {
+                "pos": 0.08,
+                "drift": 0.020000000000000004,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "pass"
+              },
+              "reformat": {
+                "pos": 0.12,
+                "drift": 0.01999999999999999,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "pass"
+              },
+              "paraphrase": {
+                "pos": 0.12,
+                "drift": 0.01999999999999999,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "pass"
+              }
+            },
+            "status": "pass"
+          },
+          "gantenerumab": {
+            "baseline_pos": 0.15,
+            "baseline_recommendation": "pass",
+            "native_noise": 0.0,
+            "max_drift": 0.0,
+            "max_significant_drift": 0.0,
+            "mean_drift": 0.0,
+            "worst_perturbation": "reorder",
+            "n_rec_changes": 0,
+            "per_perturbation": {
+              "reorder": {
+                "pos": 0.15,
+                "drift": 0.0,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "pass"
+              },
+              "neutralize": {
+                "pos": 0.15,
+                "drift": 0.0,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "pass"
+              },
+              "reformat": {
+                "pos": 0.15,
+                "drift": 0.0,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "pass"
+              },
+              "paraphrase": {
+                "pos": 0.15,
+                "drift": 0.0,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "pass"
+              }
+            },
+            "status": "pass"
+          },
+          "evacetrapib": {
+            "baseline_pos": 0.05,
+            "baseline_recommendation": "pass",
+            "native_noise": 0.0,
+            "max_drift": 0.06999999999999999,
+            "max_significant_drift": 0.06999999999999999,
+            "mean_drift": 0.0475,
+            "worst_perturbation": "reorder",
+            "n_rec_changes": 0,
+            "per_perturbation": {
+              "reorder": {
+                "pos": 0.12,
+                "drift": 0.06999999999999999,
+                "significant": true,
+                "rec_change": false,
+                "recommendation": "pass"
+              },
+              "neutralize": {
+                "pos": 0.1,
+                "drift": 0.05,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "pass"
+              },
+              "reformat": {
+                "pos": 0.12,
+                "drift": 0.06999999999999999,
+                "significant": true,
+                "rec_change": false,
+                "recommendation": "pass"
+              },
+              "paraphrase": {
+                "pos": 0.05,
+                "drift": 0.0,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "pass"
+              }
+            },
+            "status": "warn"
+          },
+          "tarenflurbil-flurizan": {
+            "baseline_pos": 0.04,
+            "baseline_recommendation": "pass",
+            "native_noise": 0.020000000000000004,
+            "max_drift": 0.010000000000000002,
+            "max_significant_drift": 0.0,
+            "mean_drift": 0.010000000000000002,
+            "worst_perturbation": "reorder",
+            "n_rec_changes": 0,
+            "per_perturbation": {
+              "reorder": {
+                "pos": 0.05,
+                "drift": 0.010000000000000002,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "pass"
+              },
+              "neutralize": {
+                "pos": 0.03,
+                "drift": 0.010000000000000002,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "pass"
+              },
+              "reformat": {
+                "pos": 0.03,
+                "drift": 0.010000000000000002,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "pass"
+              },
+              "paraphrase": {
+                "pos": 0.03,
+                "drift": 0.010000000000000002,
+                "significant": false,
+                "rec_change": false,
+                "recommendation": "pass"
+              }
+            },
+            "status": "pass"
+          },
           "SYN-CONFLICT-EFFICACY-TOX": {
             "baseline_pos": 0.16499999999999998,
             "baseline_recommendation": "pass",
@@ -1341,13 +1877,24 @@
         "mean_anchoring_swing": 0.021250000000000005,
         "max_anchoring_swing": 0.04500000000000004,
         "mean_consistency_flip_rate": 0.0,
-        "n_anchoring_rec_changes": 0.0
+        "n_anchoring_rec_changes": 0.0,
+        "judge_disagreement_rate": 0.0,
+        "ack_rate__strict": 1.0,
+        "ack_rate__neutral": 1.0,
+        "ack_rate__lenient": 1.0
       },
+      "metrics_ci": {},
       "flags": [],
       "detail": {
         "per_asset": {
           "SYN-CONFLICT-EFFICACY-TOX": {
             "acknowledges_conflict": true,
+            "judge_votes": {
+              "strict": true,
+              "neutral": true,
+              "lenient": true
+            },
+            "judge_split": false,
             "tension": "strong efficacy vs. severe on-target-range tox",
             "mean_pos_original_order": 0.15749999999999997,
             "mean_pos_swapped_order": 0.16,
@@ -1363,6 +1910,12 @@
           },
           "SYN-CONFLICT-SCIENCE-IP": {
             "acknowledges_conflict": true,
+            "judge_votes": {
+              "strict": true,
+              "neutral": true,
+              "lenient": true
+            },
+            "judge_split": false,
             "tension": "positive science vs. blocking IP / no freedom to operate",
             "mean_pos_original_order": 0.235,
             "mean_pos_swapped_order": 0.28,
@@ -1378,6 +1931,12 @@
           },
           "SYN-CONFLICT-EFFICACY-ADME": {
             "acknowledges_conflict": true,
+            "judge_votes": {
+              "strict": true,
+              "neutral": true,
+              "lenient": true
+            },
+            "judge_split": false,
             "tension": "compelling efficacy vs. prohibitive ADME / undeliverable exposure",
             "mean_pos_original_order": 0.21000000000000002,
             "mean_pos_swapped_order": 0.22999999999999998,
@@ -1393,6 +1952,12 @@
           },
           "SYN-CONFLICT-LATE-TOX": {
             "acknowledges_conflict": true,
+            "judge_votes": {
+              "strict": true,
+              "neutral": true,
+              "lenient": true
+            },
+            "judge_split": false,
             "tension": "strong overall profile vs. a serious late-listed safety signal",
             "mean_pos_original_order": 0.10250000000000001,
             "mean_pos_swapped_order": 0.12,
@@ -1406,7 +1971,140 @@
             "status": "pass",
             "reasons": []
           }
-        }
+        },
+        "n_conflicted": 4,
+        "ci_note": "n=4 conflicted assets \u2014 too few for a trustworthy bootstrap CI; per-asset values are reported raw (descriptive only)."
+      },
+      "requires_labels": false,
+      "production_usable": true
+    },
+    "evidence_sensitivity": {
+      "name": "evidence_sensitivity",
+      "status": "warn",
+      "score": 0.75,
+      "metrics": {
+        "spof_rate": 0.25,
+        "mean_max_influence": 0.14750000000000002,
+        "median_max_influence": 0.08,
+        "mean_influence_concentration": 0.573117730992218
+      },
+      "metrics_ci": {
+        "spof_rate": [
+          0.0,
+          0.625
+        ]
+      },
+      "flags": [
+        "[warn] SYN-CONFLICT-EFFICACY-TOX: single-point-of-failure \u2014 removing `SYN-CONFLICT-EFFICACY-TOX-ev3` (tox, \u0394-0.20) flips the recommendation",
+        "[warn] SYN-CONFLICT-LATE-TOX: single-point-of-failure \u2014 removing `SYN-CONFLICT-LATE-TOX-ev4` (tox, \u0394-0.51) flips the recommendation"
+      ],
+      "detail": {
+        "per_asset": {
+          "SYN-CONFLICT-EFFICACY-TOX": {
+            "pos_full": 0.15,
+            "recommendation": "pass",
+            "noise_band": 0.02,
+            "max_influence": 0.19999999999999998,
+            "dominant_snippet": "SYN-CONFLICT-EFFICACY-TOX-ev3",
+            "dominant_type": "tox",
+            "dominant_signed_delta": -0.19999999999999998,
+            "influence_concentration": 0.7692307692307692,
+            "spof": true,
+            "noise_limited": false
+          },
+          "SYN-CONFLICT-SCIENCE-IP": {
+            "pos_full": 0.22,
+            "recommendation": "investigate",
+            "noise_band": 0.02,
+            "max_influence": 0.23,
+            "dominant_snippet": "SYN-CONFLICT-SCIENCE-IP-ev3",
+            "dominant_type": "ip_market",
+            "dominant_signed_delta": -0.23,
+            "influence_concentration": 0.8846153846153846,
+            "spof": false,
+            "noise_limited": false
+          },
+          "SYN-CONFLICT-EFFICACY-ADME": {
+            "pos_full": 0.2066666666666667,
+            "recommendation": "investigate",
+            "noise_band": 0.022570658006337084,
+            "max_influence": 0.07333333333333333,
+            "dominant_snippet": "SYN-CONFLICT-EFFICACY-ADME-ev3",
+            "dominant_type": "adme_pk",
+            "dominant_signed_delta": -0.07333333333333333,
+            "influence_concentration": 0.5116279069767442,
+            "spof": false,
+            "noise_limited": false
+          },
+          "SYN-CONFLICT-LATE-TOX": {
+            "pos_full": 0.11333333333333333,
+            "recommendation": "pass",
+            "noise_band": 0.02354859304485002,
+            "max_influence": 0.5066666666666667,
+            "dominant_snippet": "SYN-CONFLICT-LATE-TOX-ev4",
+            "dominant_type": "tox",
+            "dominant_signed_delta": -0.5066666666666667,
+            "influence_concentration": 0.9047619047619048,
+            "spof": true,
+            "noise_limited": false
+          },
+          "SYN-CONTROL-CLEAN-ADVANCE": {
+            "pos_full": 0.8066666666666666,
+            "recommendation": "advance",
+            "noise_band": 0.023548593044849925,
+            "max_influence": 0.08666666666666667,
+            "dominant_snippet": "SYN-CONTROL-CLEAN-ADVANCE-ev1",
+            "dominant_type": "binding",
+            "dominant_signed_delta": 0.08666666666666667,
+            "influence_concentration": 0.3823529411764708,
+            "spof": false,
+            "noise_limited": false
+          },
+          "SYN-CONTROL-CLEAN-PASS": {
+            "pos_full": 0.03,
+            "recommendation": "pass",
+            "noise_band": 0.02,
+            "max_influence": 0.04000000000000001,
+            "dominant_snippet": "SYN-CONTROL-CLEAN-PASS-ev1",
+            "dominant_type": "tox",
+            "dominant_signed_delta": -0.04000000000000001,
+            "influence_concentration": 0.5,
+            "spof": false,
+            "noise_limited": false
+          },
+          "SYN-BORDERLINE-BALANCED": {
+            "pos_full": 0.4066666666666667,
+            "recommendation": "investigate",
+            "noise_band": 0.023548593044849988,
+            "max_influence": 0.043333333333333335,
+            "dominant_snippet": "SYN-BORDERLINE-BALANCED-ev2",
+            "dominant_type": "preclinical",
+            "dominant_signed_delta": -0.043333333333333335,
+            "influence_concentration": 0.3823529411764708,
+            "spof": false,
+            "noise_limited": false
+          },
+          "SYN-BORDERLINE-THIN": {
+            "pos_full": 0.3499999999999999,
+            "recommendation": "investigate",
+            "noise_band": 0.02,
+            "max_influence": 5.551115123125783e-17,
+            "dominant_snippet": "SYN-BORDERLINE-THIN-ev1",
+            "dominant_type": "binding",
+            "dominant_signed_delta": -5.551115123125783e-17,
+            "influence_concentration": 0.25,
+            "spof": false,
+            "noise_limited": true
+          }
+        },
+        "dominant_by_type": {
+          "tox": 3,
+          "ip_market": 1,
+          "adme_pk": 1,
+          "binding": 2,
+          "preclinical": 1
+        },
+        "note": "Importance/fragility analysis, NOT robustness \u2014 removing evidence changes meaning. Single-snippet removal cannot detect redundant two-key failures, so 'no SPOF' is not 'no fragility'."
       },
       "requires_labels": false,
       "production_usable": true
@@ -1414,20 +2112,34 @@
     "calibration": {
       "name": "calibration",
       "status": "warn",
-      "score": 0.43333333333333324,
+      "score": 0.42000000000000015,
       "metrics": {
-        "ece": 0.11333333333333337,
-        "brier": 0.015149999999999999,
+        "ece": 0.11599999999999998,
+        "brier": 0.01767,
         "auroc": 1.0,
-        "mean_pos": 0.4816666666666667,
+        "mean_pos": 0.4699999999999999,
         "empirical_base_rate": 0.5,
         "published_base_rate": 0.079,
-        "optimism_vs_set": -0.018333333333333313,
+        "optimism_vs_set": -0.030000000000000082,
         "blind_identity": 0.0,
-        "n_bins": 6.0
+        "n_bins": 10.0
+      },
+      "metrics_ci": {
+        "brier": [
+          0.00991975,
+          0.029256124999999987
+        ],
+        "auroc": [
+          1.0,
+          1.0
+        ],
+        "ece": [
+          0.09099999999999998,
+          0.1480125
+        ]
       },
       "flags": [
-        "[warn] ECE 0.113 (bins=6); predicted confidence deviates from observed outcome frequency"
+        "[warn] ECE 0.116 (bins=10); predicted confidence deviates from observed outcome frequency"
       ],
       "detail": {
         "per_asset": {
@@ -1490,31 +2202,94 @@
             "pos": 0.1,
             "true_outcome": false,
             "name": "Verubecestat (MK-8931)"
+          },
+          "trastuzumab-herceptin-her2-bc": {
+            "pos": 0.87,
+            "true_outcome": true,
+            "name": "Trastuzumab (Herceptin)"
+          },
+          "sotorasib-lumakras-krasg12c-nsclc": {
+            "pos": 0.68,
+            "true_outcome": true,
+            "name": "Sotorasib (Lumakras / Lumykras, AMG 510)"
+          },
+          "dupilumab-dupixent": {
+            "pos": 0.93,
+            "true_outcome": true,
+            "name": "Dupilumab (Dupixent)"
+          },
+          "lenacapavir-sunlenca-mdr-hiv1-2022": {
+            "pos": 0.85,
+            "true_outcome": true,
+            "name": "Lenacapavir (Sunlenca)"
+          },
+          "solanezumab": {
+            "pos": 0.08,
+            "true_outcome": false,
+            "name": "Solanezumab"
+          },
+          "gantenerumab": {
+            "pos": 0.12,
+            "true_outcome": false,
+            "name": "Gantenerumab"
+          },
+          "evacetrapib": {
+            "pos": 0.05,
+            "true_outcome": false,
+            "name": "Evacetrapib"
+          },
+          "tarenflurbil-flurizan": {
+            "pos": 0.04,
+            "true_outcome": false,
+            "name": "Tarenflurbil (Flurizan)"
           }
         },
         "reliability_curve": [
           {
             "bin_lo": 0.0,
-            "bin_hi": 0.16666666666666666,
-            "mean_pred": 0.09499999999999999,
+            "bin_hi": 0.1,
+            "mean_pred": 0.05833333333333333,
             "observed": 0.0,
             "count": 6
           },
           {
-            "bin_lo": 0.6666666666666666,
-            "bin_hi": 0.8333333333333333,
+            "bin_lo": 0.1,
+            "bin_hi": 0.2,
+            "mean_pred": 0.1275,
+            "observed": 0.0,
+            "count": 4
+          },
+          {
+            "bin_lo": 0.6000000000000001,
+            "bin_hi": 0.7000000000000001,
+            "mean_pred": 0.68,
+            "observed": 1.0,
+            "count": 1
+          },
+          {
+            "bin_lo": 0.7000000000000001,
+            "bin_hi": 0.8,
             "mean_pred": 0.78,
             "observed": 1.0,
             "count": 1
           },
           {
-            "bin_lo": 0.8333333333333333,
-            "bin_hi": 1.0,
-            "mean_pred": 0.8859999999999999,
+            "bin_lo": 0.8,
+            "bin_hi": 0.9,
+            "mean_pred": 0.87,
             "observed": 1.0,
-            "count": 5
+            "count": 6
+          },
+          {
+            "bin_lo": 0.9,
+            "bin_hi": 1.0,
+            "mean_pred": 0.93,
+            "observed": 1.0,
+            "count": 2
           }
         ],
+        "auroc_discard_frac": 0.0,
+        "ci_note": "CIs resample the 20 labeled assets (B=2000). Brier is trustworthy; AUROC (single-class resamples dropped: 0%) and ECE (non-smooth, 10 bins) are unstable at this n.",
         "base_rate_source": "BIO/Informa/QLS, Clinical Development Success Rates 2011-2020",
         "note": "Curated set is balanced (~50% success); calibration is judged against its own base rate. The published pipeline base rate (7.9%) is an external anchor for what a production PoS distribution should be sanity-checked against, not a target for this balanced set."
       },
@@ -1524,20 +2299,34 @@
     "calibration_blinded": {
       "name": "calibration_blinded",
       "status": "warn",
-      "score": 0.43333333333333357,
+      "score": 0.41500000000000004,
       "metrics": {
-        "ece": 0.11333333333333329,
-        "brier": 0.015349999999999996,
+        "ece": 0.11699999999999999,
+        "brier": 0.01727,
         "auroc": 1.0,
-        "mean_pos": 0.47000000000000003,
+        "mean_pos": 0.4629999999999999,
         "empirical_base_rate": 0.5,
         "published_base_rate": 0.079,
-        "optimism_vs_set": -0.02999999999999997,
+        "optimism_vs_set": -0.03700000000000009,
         "blind_identity": 1.0,
-        "n_bins": 6.0
+        "n_bins": 10.0
+      },
+      "metrics_ci": {
+        "brier": [
+          0.01056975,
+          0.026260499999999996
+        ],
+        "auroc": [
+          0.9999999999999999,
+          1.0
+        ],
+        "ece": [
+          0.09348750000000002,
+          0.14451250000000002
+        ]
       },
       "flags": [
-        "[warn] ECE 0.113 (bins=6); predicted confidence deviates from observed outcome frequency"
+        "[warn] ECE 0.117 (bins=10); predicted confidence deviates from observed outcome frequency"
       ],
       "detail": {
         "per_asset": {
@@ -1600,31 +2389,87 @@
             "pos": 0.08,
             "true_outcome": false,
             "name": "Verubecestat (MK-8931)"
+          },
+          "trastuzumab-herceptin-her2-bc": {
+            "pos": 0.85,
+            "true_outcome": true,
+            "name": "Trastuzumab (Herceptin)"
+          },
+          "sotorasib-lumakras-krasg12c-nsclc": {
+            "pos": 0.72,
+            "true_outcome": true,
+            "name": "Sotorasib (Lumakras / Lumykras, AMG 510)"
+          },
+          "dupilumab-dupixent": {
+            "pos": 0.9,
+            "true_outcome": true,
+            "name": "Dupilumab (Dupixent)"
+          },
+          "lenacapavir-sunlenca-mdr-hiv1-2022": {
+            "pos": 0.85,
+            "true_outcome": true,
+            "name": "Lenacapavir (Sunlenca)"
+          },
+          "solanezumab": {
+            "pos": 0.05,
+            "true_outcome": false,
+            "name": "Solanezumab"
+          },
+          "gantenerumab": {
+            "pos": 0.12,
+            "true_outcome": false,
+            "name": "Gantenerumab"
+          },
+          "evacetrapib": {
+            "pos": 0.1,
+            "true_outcome": false,
+            "name": "Evacetrapib"
+          },
+          "tarenflurbil-flurizan": {
+            "pos": 0.03,
+            "true_outcome": false,
+            "name": "Tarenflurbil (Flurizan)"
           }
         },
         "reliability_curve": [
           {
             "bin_lo": 0.0,
-            "bin_hi": 0.16666666666666666,
-            "mean_pred": 0.08333333333333333,
+            "bin_hi": 0.1,
+            "mean_pred": 0.06625,
             "observed": 0.0,
-            "count": 6
+            "count": 8
           },
           {
-            "bin_lo": 0.6666666666666666,
-            "bin_hi": 0.8333333333333333,
-            "mean_pred": 0.78,
+            "bin_lo": 0.1,
+            "bin_hi": 0.2,
+            "mean_pred": 0.135,
+            "observed": 0.0,
+            "count": 2
+          },
+          {
+            "bin_lo": 0.7000000000000001,
+            "bin_hi": 0.8,
+            "mean_pred": 0.75,
+            "observed": 1.0,
+            "count": 2
+          },
+          {
+            "bin_lo": 0.8,
+            "bin_hi": 0.9,
+            "mean_pred": 0.8614285714285714,
+            "observed": 1.0,
+            "count": 7
+          },
+          {
+            "bin_lo": 0.9,
+            "bin_hi": 1.0,
+            "mean_pred": 0.93,
             "observed": 1.0,
             "count": 1
-          },
-          {
-            "bin_lo": 0.8333333333333333,
-            "bin_hi": 1.0,
-            "mean_pred": 0.8720000000000001,
-            "observed": 1.0,
-            "count": 5
           }
         ],
+        "auroc_discard_frac": 0.0,
+        "ci_note": "CIs resample the 20 labeled assets (B=2000). Brier is trustworthy; AUROC (single-class resamples dropped: 0%) and ECE (non-smooth, 10 bins) are unstable at this n.",
         "base_rate_source": "BIO/Informa/QLS, Clinical Development Success Rates 2011-2020",
         "note": "Curated set is balanced (~50% success); calibration is judged against its own base rate. The published pipeline base rate (7.9%) is an external anchor for what a production PoS distribution should be sanity-checked against, not a target for this balanced set."
       },
@@ -1833,6 +2678,138 @@
         "robustness_mean_drift": 0.0825
       },
       "name": "Verubecestat (MK-8931)"
+    },
+    {
+      "asset_id": "trastuzumab-herceptin-her2-bc",
+      "kind": "historical",
+      "reliability_score": 0.9266,
+      "status": "pass",
+      "recommendation": "Reliability checks passed; act with normal oversight.",
+      "flags": [],
+      "metrics": {
+        "pos_std": 0.0132,
+        "flip_rate": 0.0,
+        "rationale_jaccard": 1.0,
+        "robustness_max_drift": 0.03,
+        "robustness_mean_drift": 0.0225
+      },
+      "name": "Trastuzumab (Herceptin)"
+    },
+    {
+      "asset_id": "sotorasib-lumakras-krasg12c-nsclc",
+      "kind": "historical",
+      "reliability_score": 0.9748,
+      "status": "pass",
+      "recommendation": "Reliability checks passed; act with normal oversight.",
+      "flags": [],
+      "metrics": {
+        "pos_std": 0.0132,
+        "flip_rate": 0.0,
+        "rationale_jaccard": 1.0,
+        "robustness_max_drift": 0.0,
+        "robustness_mean_drift": 0.0
+      },
+      "name": "Sotorasib (Lumakras / Lumykras, AMG 510)"
+    },
+    {
+      "asset_id": "dupilumab-dupixent",
+      "kind": "historical",
+      "reliability_score": 0.9518,
+      "status": "warn",
+      "recommendation": "Corroborate before acting; reliability is marginal.",
+      "flags": [
+        "+0.05 PoS drift under reformat"
+      ],
+      "metrics": {
+        "pos_std": 0.0,
+        "flip_rate": 0.0,
+        "rationale_jaccard": 1.0,
+        "robustness_max_drift": 0.05,
+        "robustness_mean_drift": 0.0225
+      },
+      "name": "Dupilumab (Dupixent)"
+    },
+    {
+      "asset_id": "lenacapavir-sunlenca-mdr-hiv1-2022",
+      "kind": "historical",
+      "reliability_score": 0.9431,
+      "status": "pass",
+      "recommendation": "Reliability checks passed; act with normal oversight.",
+      "flags": [],
+      "metrics": {
+        "pos_std": 0.0158,
+        "flip_rate": 0.0,
+        "rationale_jaccard": 1.0,
+        "robustness_max_drift": 0.015,
+        "robustness_mean_drift": 0.0125
+      },
+      "name": "Lenacapavir (Sunlenca)"
+    },
+    {
+      "asset_id": "solanezumab",
+      "kind": "historical",
+      "reliability_score": 0.883,
+      "status": "pass",
+      "recommendation": "Reliability checks passed; act with normal oversight.",
+      "flags": [],
+      "metrics": {
+        "pos_std": 0.0255,
+        "flip_rate": 0.0,
+        "rationale_jaccard": 0.95,
+        "robustness_max_drift": 0.05,
+        "robustness_mean_drift": 0.0275
+      },
+      "name": "Solanezumab"
+    },
+    {
+      "asset_id": "gantenerumab",
+      "kind": "historical",
+      "reliability_score": 0.9582,
+      "status": "pass",
+      "recommendation": "Reliability checks passed; act with normal oversight.",
+      "flags": [],
+      "metrics": {
+        "pos_std": 0.013,
+        "flip_rate": 0.0,
+        "rationale_jaccard": 0.9107,
+        "robustness_max_drift": 0.0,
+        "robustness_mean_drift": 0.0
+      },
+      "name": "Gantenerumab"
+    },
+    {
+      "asset_id": "evacetrapib",
+      "kind": "historical",
+      "reliability_score": 0.8231,
+      "status": "warn",
+      "recommendation": "Corroborate before acting; reliability is marginal.",
+      "flags": [
+        "+0.07 PoS drift under reorder"
+      ],
+      "metrics": {
+        "pos_std": 0.0232,
+        "flip_rate": 0.0,
+        "rationale_jaccard": 0.8369,
+        "robustness_max_drift": 0.07,
+        "robustness_mean_drift": 0.0475
+      },
+      "name": "Evacetrapib"
+    },
+    {
+      "asset_id": "tarenflurbil-flurizan",
+      "kind": "historical",
+      "reliability_score": 0.9653,
+      "status": "pass",
+      "recommendation": "Reliability checks passed; act with normal oversight.",
+      "flags": [],
+      "metrics": {
+        "pos_std": 0.007,
+        "flip_rate": 0.0,
+        "rationale_jaccard": 1.0,
+        "robustness_max_drift": 0.01,
+        "robustness_mean_drift": 0.01
+      },
+      "name": "Tarenflurbil (Flurizan)"
     },
     {
       "asset_id": "SYN-CONFLICT-EFFICACY-TOX",

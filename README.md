@@ -33,47 +33,57 @@ wrong — not generic accuracy:
 |---|---|---|
 | **Reproducibility** | Same asset, same input — does the verdict move run to run? (PoS dispersion, recommendation flip-rate, rationale-citation stability) | No |
 | **Robustness** | Do semantics-preserving edits (reorder, entity-neutralization, reformat, paraphrase) move the verdict when they must not? | No |
-| **Conflict-handling** | On contradictory evidence, does the verdict acknowledge the conflict, stay consistent, and avoid following evidence *order*? | No |
-| **Calibration** | Do predicted PoS scores match realized outcomes on historical assets? (ECE, Brier, AUROC, reliability curve) | **Yes** |
+| **Conflict-handling** | On contradictory evidence, does the verdict acknowledge the conflict (a 3-rubric judge panel), stay consistent, and avoid following evidence *order*? | No |
+| **Evidence sensitivity** | Does the verdict hinge on a single evidence snippet (a single point of failure)? *Importance, not stability.* | No |
+| **Calibration** | Do predicted PoS scores match realized outcomes on 20 historical drugs? (ECE, Brier, AUROC, reliability curve) | **Yes** |
 
-## Why three of the four run in production
+Every headline number carries a **bootstrap 95% confidence interval** (the resampling
+unit matched to each estimand — hierarchical for reproducibility, cluster for
+robustness, case for calibration; conflict's n is too small for a CI and says so). The
+statistical design is documented in [`METHODOLOGY.md`](METHODOLOGY.md).
+
+## What runs in production, and what doesn't
 
 Reproducibility, robustness, and conflict-handling are **ground-truth-free**: they
 interrogate the agent's *behavior* (re-run it, perturb the input, reorder the
-evidence), never the eventual clinical outcome. That is what makes them a
-production trust gate — they can score a fresh verdict the moment it is produced,
-before anyone knows whether the asset would have succeeded.
+evidence), never the eventual clinical outcome. These three form the production
+**trust gate** — they can score a fresh verdict the moment it is produced, before
+anyone knows whether the asset would have succeeded. Evidence-sensitivity is also
+label-free and production-usable, but it measures *importance*, not stability, so it
+is reported *beside* the gate rather than inside it.
 
 **Calibration is different, and we keep the boundary crisp.** It compares predicted
-PoS to *realized outcomes*, so it needs labels and can only run **offline**, on a
+PoS to *realized outcomes*, so it needs labels and can only run **offline**, on the
 curated set of historical known-outcome drugs. It validates the agent against
 history; it cannot gate a live verdict. The harness never smuggles outcome labels
 into the production-usable checks.
 
 ## Results
 
-Reference agent: **`claude-sonnet-5`**, 8 repetitions, 20 assets (12 historical +
+Reference agent: **`claude-sonnet-5`**, 8 repetitions, 28 assets (20 historical +
 8 synthetic). The Claude-5 API rejects an explicit `temperature`, so these numbers
 measure the model's **native production non-determinism** — not variance we inflated.
-Every figure below is committed under [`docs/figures/`](docs/figures) and the full
-report under [`docs/sample_report/`](docs/sample_report); reproduce with `make demo`.
+Numbers carry a bootstrap 95% CI. Every figure is committed under
+[`docs/figures/`](docs/figures) and the full report under
+[`docs/sample_report/`](docs/sample_report); reproduce with `make demo`.
 
-**Overall: reliability score `0.92`, status `FAIL`** (the robustness gate).
-Of 20 verdicts, **14 pass, 4 warn, 2 fail**.
+**Overall: reliability score `0.92`, 95% CI `[0.89, 0.94]`, status `FAIL`** (the
+robustness gate). Of 28 verdicts, **20 pass, 6 warn, 2 fail**.
 
-| Audit | Status | Score | Headline numbers |
+| Audit | Status | Score | Headline metric (95% CI) |
 |---|---|---|---|
-| Reproducibility | WARN | 0.97 | PoS std mean **0.009** (max 0.052), recommendation flip-rate **0%**, rationale-citation Jaccard 0.97 (min **0.81**) |
-| Robustness | **FAIL** | 0.86 | mean \|ΔPoS\| 0.027, max 0.12, recommendation-change rate **2.5%** under semantics-preserving edits |
-| Conflict | PASS | 0.93 | conflict-acknowledgment **100%**, max anchoring swing 0.045 (< 0.10), 0 order-driven flips |
-| Calibration *(offline)* | WARN | 0.43 | **AUROC 1.00**, Brier 0.015, **ECE 0.113**, mean PoS 0.48 vs 0.50 base rate |
+| Reproducibility | WARN | 0.97 | PoS std mean **0.010** [0.005, 0.013], recommendation flip-rate **0%** [0, 0] |
+| Robustness | **FAIL** | 0.87 | mean \|ΔPoS\| **0.024** [0.017, 0.032], max 0.12, recommendation-change rate **1.8%** [0, 0.054] |
+| Conflict | PASS | 0.93 | acknowledgment **100%** (judge panel unanimous), max anchoring swing 0.045, 0 order-driven flips |
+| Evidence sensitivity | WARN | 0.75 | single-point-of-failure rate **25%** [0, 0.63] on the synthetic set |
+| Calibration *(offline)* | WARN | 0.42 | **AUROC 1.00** [1.00, 1.00], Brier 0.018, **ECE 0.116** [0.091, 0.148] |
 
 What the run actually shows — an honest, non-strawman picture of a SOTA agent:
 
 **1. Reproducible where it counts, but the rationale wanders.** PoS scores barely
-move on re-run (std 0.009) and the recommendation never flips. Yet the cited-evidence
-set drifts — Jaccard falls to **0.81** on the hardest asset (preladenant): the number
-is stable while the stated *why* shifts run to run.
+move on re-run (std **0.010** [0.005, 0.013]) and the recommendation never flips
+(**0%** [0, 0]). Yet the cited-evidence set drifts — Jaccard falls to **0.81** on the
+hardest asset (preladenant): the number is stable while the stated *why* shifts.
 
 ![reproducibility](docs/figures/reproducibility_variance.png)
 
@@ -83,29 +93,37 @@ is otherwise rock-stable, so this is real drift, not noise); on the efficacy-vs-
 asset, stripping the entity name *and* paraphrasing each flip the recommendation
 **`pass` → `investigate`**. The audit is noise-controlled — a 0.12 swing on
 verubecestat is *not* flagged, because that asset is natively noisy and the swing sits
-inside its own run-to-run band. Mean drift is small (0.027), but the tail is exactly
-where capital gets misallocated, and it is invisible without this audit.
+inside its own run-to-run band. Mean drift is small (**0.024** [0.017, 0.032]), but the
+tail is where capital gets misallocated, and it is invisible without this audit.
 
 ![robustness](docs/figures/robustness_drift.png)
 
-**3. Handles conflicting evidence well.** It acknowledges **100%** of planted
-conflicts, shows a max positional-anchoring swing of 0.045 (below the 0.10 fail line),
-and never lets evidence *order* flip the verdict.
+**3. Handles conflicting evidence well — and the judges agree.** It acknowledges
+**100%** of planted conflicts; the strict / neutral / lenient judge panel is
+**unanimous (0% disagreement)**, so the acknowledgment is not an artifact of where the
+bar is set. Max positional-anchoring swing is 0.045 (below the 0.10 fail line), and
+evidence *order* never flips the verdict.
 
-**4. Perfect ranking, imperfect calibration — with a memorization caveat.** On the 12
-historical drugs it separates the 6 approved from the 6 discontinued **flawlessly
-(AUROC 1.00, Brier 0.015)**, yet its **ECE is 0.113**: the absolute PoS values are mildly
-miscalibrated even though the ordering is perfect. Stripping each drug's identity
-(name-blinding) barely moves the verdict and leaves **AUROC at 1.00 (change +0.00)** —
-so the agent is not anchoring on the brand *string*. That does **not** rule out
-memorization: the mechanism and indication still identify these iconic drugs, so a
-clean read needs held-out assets. Mean PoS (0.48) sits on the set's balanced base rate,
-so there is no systematic optimism here; the published ~7.9% Phase-1→approval rate is
-the anchor a real-world PoS distribution should be checked against, not this set.
+**4. Two of eight synthetic verdicts hinge on one snippet.** The evidence-sensitivity
+pass finds a **25%** [0, 0.63] single-point-of-failure rate: removing one snippet flips
+the go/no-go, and the dominant snippet is a **tox** finding in most cases. That is often
+*correct* (a severe tox should be decisive) — but it tells you which verdicts rest on a
+single load-bearing fact. (Importance, not stability; it can't catch two-key failures.)
+
+![evidence sensitivity](docs/figures/evidence_sensitivity.png)
+
+**5. Perfect ranking, imperfect calibration — with a memorization caveat.** On the 20
+historical drugs it separates the 10 approved from the 10 discontinued **flawlessly —
+AUROC 1.00, and every bootstrap resample also gives 1.00 (CI [1.00, 1.00])** — yet
+**ECE is 0.116** [0.091, 0.148]: the absolute PoS values are mildly miscalibrated even
+though the ordering is perfect. Stripping each drug's identity leaves **AUROC at 1.00
+(Δ +0.00)**, so the agent isn't anchoring on the brand *string* — but that does not rule
+out memorization, since mechanism and indication still identify these iconic drugs; a
+clean read needs held-out assets. Mean PoS (0.47) sits on the set's balanced base rate.
 
 ![calibration](docs/figures/calibration_curve.png)
 
-**5. It ranks candidate agents.** The gate's real job. On the synthetic set it scores
+**6. It ranks candidate agents.** The gate's real job. On the synthetic set it scores
 `claude-sonnet-5` at **0.93** and `claude-haiku-4-5` at **0.94** on the production-usable
 axes — both fail the robustness bar, and the gate says which verdicts to trust for each.
 
@@ -141,32 +159,41 @@ make setup                      # build .venv, install the package + dev deps
 export ANTHROPIC_API_KEY=...     # required for the reference agent
 make demo                        # full audit -> figures + report + notebook in outputs/
 make test                        # test suite (offline, no network)
+
+# Audit verdicts captured from an external system (no API key, no labels):
+kavuru-convexia audit captures.json     # reproducibility / robustness / conflict + CIs
 ```
 
 `make demo` runs the whole story — build assets → run the reference agent → audit
-reproducibility / robustness / conflict → calibrate against historical outcomes →
-render figures and a per-verdict reliability report, and execute the demo notebook
-into `outputs/demo.ipynb`. Every quantitative claim above is reproduced by it.
+reproducibility / robustness / conflict / evidence-sensitivity → calibrate against
+historical outcomes → render figures and a per-verdict reliability report (with
+bootstrap CIs), and execute the demo notebook into `outputs/demo.ipynb`. Every
+quantitative claim above is reproduced by it.
 
 ## Repository layout
 
 ```
 config.py                       # re-export of the canonical config (seeds, model, thresholds)
 playground_protocol.md          # honest protocol for auditing a live playground
+METHODOLOGY.md                  # the statistical design (resampling, noise control, judge panel)
 src/kavuru_convexia/
-  assets.py                     # typed asset + evidence schema; historical + synthetic sets
+  assets.py                     # typed asset + evidence schema; 20 historical + 8 synthetic
   evaluator.py                  # AssetEvaluator ABC, ReferenceAgent, ExternalAdapter, Verdict
   llm.py                        # disk-cached Anthropic client (+ offline stub)
+  cli.py                        # `kavuru-convexia` CLI (audit / demo / assets)
   audits/
     reproducibility.py          # variance / flip-rate / rationale stability (no labels)
     robustness.py               # verdict drift under semantics-preserving edits (no labels)
-    conflict.py                 # conflict acknowledgment / consistency / anchoring (no labels)
+    conflict.py                 # acknowledgment (judge panel) / consistency / anchoring (no labels)
+    sensitivity.py              # leave-one-evidence-out importance / single-point-of-failure
     calibration.py              # reliability curve, ECE, Brier, AUROC (labels; offline)
+    stats.py                    # seeded bootstrap confidence intervals
     report_types.py             # CheckResult, AssetReliabilityEntry, VerdictReliabilityReport
     __init__.py                 # audit_agent orchestrator -> VerdictReliabilityReport
   reporting.py                  # figures + markdown/JSON report
   notebook_builder.py           # end-to-end demo (make demo entry point)
 tests/                          # schema + per-audit detector tests (adversarial stubs)
+.github/workflows/ci.yml        # offline test suite on py3.11-3.13
 ```
 
 ## Honest limitations and next steps
