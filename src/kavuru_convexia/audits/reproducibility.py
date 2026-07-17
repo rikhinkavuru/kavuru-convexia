@@ -63,6 +63,7 @@ def audit_reproducibility(
         rationale_jaccard = mean_pairwise_jaccard(cited_sets)
         status = _asset_status(pos_std, fr, rationale_jaccard)
         per_asset[a.id] = {
+            "scores": [float(s) for s in scores],  # raw per-run PoS (for variance plots)
             "pos_mean": float(np.mean(scores)),
             "pos_std": pos_std,
             "pos_iqr": iqr(scores),
