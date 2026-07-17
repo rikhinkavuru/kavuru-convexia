@@ -1,0 +1,942 @@
+{
+  "_note": "Historical drug-asset calibration set for kavuru-convexia. Each record's true_outcome and drug identity are HARD FACTS confirmed against the cited public sources and independently re-verified by an adversarial checker (see _verification). The `evidence` snippets are CURATED EDITORIAL RECONSTRUCTIONS of the risk/benefit picture that was knowable BEFORE the outcome \u2014 they are not verbatim trial data and contain no fabricated statistics. Snippets are deliberately written to avoid leaking the eventual outcome so the calibration test requires genuine inference.",
+  "assets": [
+    {
+      "id": "pembrolizumab-keytruda",
+      "description": "Pembrolizumab is a humanized IgG4 monoclonal antibody that binds the programmed death-1 (PD-1) receptor on T cells, blocking its interaction with ligands PD-L1 and PD-L2 to release the immune checkpoint brake on antitumor T-cell activity. The lead indication under evaluation is advanced (unresectable or metastatic) melanoma in patients who progressed after prior therapy including ipilimumab. At the decision point, the asset sits at the end of a large dose-finding/activity-estimating Phase 1 program (KEYNOTE-001), holding FDA Breakthrough Therapy designation and positioned as a candidate for accelerated approval based on objective response rate and durability rather than mature overall-survival data.",
+      "true_outcome": true,
+      "outcome_summary": "Success. The FDA granted accelerated approval to pembrolizumab (Keytruda) on September 4, 2014, as the first anti-PD-1 therapy, for advanced melanoma progressing after ipilimumab; it went on to full approval and dozens of additional indications, becoming one of the best-selling oncology drugs in history.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Merck Receives Accelerated Approval of KEYTRUDA (pembrolizumab), the First FDA-Approved Anti-PD-1 Therapy",
+          "url": "https://www.merck.com/news/merck-receives-accelerated-approval-of-keytruda-pembrolizumab-the-first-fda-approved-anti-pd-1-therapy/",
+          "note": "Sponsor press release confirming Sept 4, 2014 accelerated FDA approval for advanced melanoma."
+        },
+        {
+          "title": "FDA Approval Summary: Accelerated Approval of Pembrolizumab for Second-Line Treatment of Metastatic Melanoma (Clin Cancer Res 2017)",
+          "url": "https://aacrjournals.org/clincancerres/article/23/19/5666/122826/FDA-Approval-Summary-Accelerated-Approval-of",
+          "note": "Peer-reviewed FDA approval summary detailing the regulatory basis (ORR/durability) and KEYNOTE-001 data."
+        },
+        {
+          "title": "First Approval of PD-1 Inhibitor: Pembrolizumab in Unresectable or Metastatic Melanoma - The ASCO Post",
+          "url": "https://ascopost.com/issues/october-15-2014/first-approval-of-pd-1-inhibitor-pembrolizumab-in-unresectable-or-metastatic-melanoma/",
+          "note": "Independent oncology-trade confirmation of the first-in-class approval and dosing."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "pembrolizumab-ev1",
+          "type": "binding",
+          "text": "The antibody is a high-affinity humanized IgG4 anti-PD-1 that blocks PD-1 engagement by both PD-L1 and PD-L2, a mechanism validated by the earlier clinical proof-of-concept of checkpoint blockade in melanoma.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "pembrolizumab-ev2",
+          "type": "preclinical",
+          "text": "Early-phase dose-finding data in heavily pretreated advanced melanoma showed objective tumor regressions with unusually durable responses, distinct from the transient responses typical of cytotoxic therapy.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "pembrolizumab-ev3",
+          "type": "tox",
+          "text": "The class carries a recognized immune-mediated adverse-event profile (pneumonitis, colitis, hepatitis, endocrinopathies) requiring active monitoring, though generally more manageable than the prior CTLA-4 checkpoint agent.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "pembrolizumab-ev4",
+          "type": "adme_pk",
+          "text": "An IgG4 monoclonal antibody with long serum half-life supports intermittent (every-3-week) dosing; exposure-response modeling from the dose-finding cohorts informed the selected regimen.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "pembrolizumab-ev5",
+          "type": "immunogenicity",
+          "text": "Humanization of the antibody framework was expected to limit anti-drug antibody formation, reducing the immunogenicity risk that can compromise chronic biologic dosing.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "pembrolizumab-ev6",
+          "type": "ip_market",
+          "text": "A first-in-class anti-PD-1 position in a high-unmet-need setting (post-ipilimumab melanoma) offered strong commercial and regulatory pull, reflected in Breakthrough Therapy designation, tempered by a near-simultaneous competing PD-1 program.",
+          "direction": "supportive",
+          "strength": "moderate"
+        }
+      ],
+      "caveats": "Outcome classification is unambiguous: pembrolizumab was FDA-approved in 2014, has never been withdrawn, and expanded to many indications. The evidence profile is a reconstructed pre-decision editorial summary grounded in the real KEYNOTE-001 program and known checkpoint-inhibitor class biology; it contains no verbatim or fabricated trial statistics. One honest nuance: the 2014 clearance was an accelerated approval based on response rate/durability rather than mature overall-survival data, so at the decision point survival benefit was inferred, not yet proven; it was subsequently confirmed.",
+      "kind": "historical",
+      "name": "Pembrolizumab (Keytruda)",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "Outcome (true=success/approved) is correct and defensible. FDA granted pembrolizumab (Keytruda) accelerated approval on Sept 4, 2014 as the first anti-PD-1 therapy for advanced melanoma progressing after ipilimumab (KEYNOTE-001, ORR ~24% with durable responses; 2 mg/kg q3w). It later received full approval and dozens more indications, becoming a top-selling oncology drug. Independently confirmed via web search across ASCO Post, OncLive, CancerNetwork, AACR/Clin Cancer Res FDA Approval Summary, and Merck.\n\nSources valid: all three cited URLs are real, reputable, and support the outcome \u2014 Merck press release (primary sponsor confirmation), AACR/Clin Cancer Res FDA Approval Summary (peer-reviewed regulatory detail), and ASCO Post (independent oncology trade). Well-formed URLs, matching titles.\n\nLeakage check PASS: the description and evidence snippets are framed strictly at the pre-decision point (\"At the decision point, the asset sits at the end of a large Phase 1 program... positioned as a candidate for accelerated approval based on ORR and durability rather than mature OS data\"). No snippet states that approval was granted or that the drug succeeded. Evidence items (binding, preclinical activity, tox, PK, immunogenicity, ip/market) describe the pre-approval evidentiary basis only. Note: mention of Breakthrough Therapy designation and \"candidate for accelerated approval\" is contextual signal, not outcome disclosure \u2014 it does not reveal the eventual approval decision, so it does not corrupt calibration."
+      }
+    },
+    {
+      "id": "imatinib-gleevec-cml-2001",
+      "description": "Orally administered small-molecule tyrosine kinase inhibitor (2-phenylaminopyrimidine chemotype) designed to selectively occupy the ATP-binding pocket of the constitutively active BCR-ABL fusion kinase, the driver oncoprotein produced by the Philadelphia chromosome in chronic myelogenous leukemia (CML). Also inhibits c-KIT and PDGFR. Under evaluation as a targeted, non-cytotoxic therapy for Philadelphia-chromosome-positive CML, positioned at the pivotal-trial / regulatory-submission stage in patients across chronic phase (after interferon-alpha failure), accelerated phase, and blast crisis. The go/no-go question is whether selective BCR-ABL inhibition can produce durable hematologic and cytogenetic responses with an acceptable safety profile in a disease previously managed only by interferon or allogeneic transplant.",
+      "true_outcome": true,
+      "outcome_summary": "Success. Imatinib received accelerated FDA approval on May 10, 2001 (one of the fastest approvals in FDA history, ~2.5 months after NDA submission) for Ph+ CML, converted to full approval in 2003, and became the standard-of-care first-line therapy that turned CML into a manageable chronic disease and validated targeted kinase inhibition as a drug-development paradigm.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Gleevec (imatinib mesylate) FDA Approval History - Drugs.com",
+          "url": "https://www.drugs.com/history/gleevec.html",
+          "note": "Documents the May 10, 2001 accelerated FDA approval and subsequent indication expansions."
+        },
+        {
+          "title": "Approval Summary for Imatinib Mesylate Capsules in the Treatment of Chronic Myelogenous Leukemia (Clin Cancer Res, 2002)",
+          "url": "https://aacrjournals.org/clincancerres/article/8/5/935/199826/Approval-Summary-for-Imatinib-Mesylate-Capsules-in",
+          "note": "FDA/peer-reviewed approval summary detailing the pivotal accelerated-approval data package for Ph+ CML."
+        },
+        {
+          "title": "FDA Drug Approval Summary: conversion of imatinib mesylate (STI571; Gleevec) from accelerated to full approval (PubMed 15671523)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/15671523/",
+          "note": "Confirms conversion from accelerated to full regulatory approval on the basis of confirmatory outcome data."
+        },
+        {
+          "title": "Gleevec: the Breakthrough in Cancer Treatment (Nature Scitable)",
+          "url": "https://www.nature.com/scitable/topicpage/gleevec-the-breakthrough-in-cancer-treatment-565/",
+          "note": "Reputable overview of the BCR-ABL mechanism and imatinib's role in transforming CML treatment."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "imatinib-ev1",
+          "type": "binding",
+          "text": "Medicinal-chemistry optimization of a 2-phenylaminopyrimidine lead yielded a compound that potently and selectively occupies the ATP pocket of the ABL kinase, with measurable secondary activity against c-KIT and PDGFR; selectivity against most other kinases was considered favorable for a targeted, low-off-target agent.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "imatinib-ev2",
+          "type": "preclinical",
+          "text": "In BCR-ABL-positive cell lines and CML patient-derived progenitors, the compound suppressed proliferation and induced apoptosis specifically in Philadelphia-chromosome-positive cells while largely sparing normal cells, providing a clear mechanistic rationale tied directly to the disease driver.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "imatinib-ev3",
+          "type": "adme_pk",
+          "text": "Oral bioavailability and a once-daily dosing profile were established in early clinical pharmacology, an important practical advantage over parenteral cytotoxics; hepatic CYP3A4 metabolism flagged a plausible drug-interaction and dose-adjustment consideration to monitor.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "imatinib-ev4",
+          "type": "tox",
+          "text": "Emerging clinical safety experience showed the agent was generally well tolerated relative to cytotoxic chemotherapy, with common manageable events (edema/fluid retention, nausea, muscle cramps, cytopenias) and rare signals of hepatotoxicity, warranting routine hematologic and liver monitoring.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "imatinib-ev5",
+          "type": "preclinical",
+          "text": "Because the mechanism depends on continued kinase inhibition of a single driver, resistance via BCR-ABL kinase-domain point mutations or gene amplification was anticipated as a durability risk, particularly in advanced (blast-crisis) disease where responses were expected to be less stable.",
+          "direction": "adverse",
+          "strength": "moderate"
+        },
+        {
+          "id": "imatinib-ev6",
+          "type": "ip_market",
+          "text": "A first-in-class targeted therapy for a genetically defined orphan-scale leukemia population with high unmet need (prior options limited to interferon-alpha and allogeneic transplant), supporting a strong composition-of-matter IP position and priority/accelerated regulatory pathway.",
+          "direction": "supportive",
+          "strength": "strong"
+        }
+      ],
+      "caveats": "Outcome classification is unambiguous: imatinib was approved and marketed and is a landmark clinical and commercial success, still in guideline use (now also as generic) two decades later. Minor nuances that do not change the success label: (1) the initial 2001 clearance was an accelerated (subpart H) approval later converted to full approval in 2003; (2) acquired resistance via BCR-ABL kinase-domain mutations is a real long-term limitation that motivated second-generation TKIs (dasatinib, nilotinib), and rare cardiotoxicity signals were reported in post-marketing literature. The evidence snippets are reconstructed editorial summaries of what was plausibly known pre-approval, grounded in the real STI571 program; they intentionally avoid fabricated trial numbers and do not encode the eventual outcome.",
+      "kind": "historical",
+      "name": "Imatinib (Gleevec / Glivec, STI571)",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "Outcome true (success/approved) confirmed by public record: FDA accelerated approval May 10, 2001 (~10 weeks post-NDA, fastest cancer-drug review at the time) for Ph+ CML in blast crisis/accelerated/chronic phase after IFN-alpha failure; converted to full approval 2003 (PubMed 15671523). Sources (Drugs.com, AACR Clin Cancer Res approval summaries, PubMed) are reputable, well-formed, and directly support the claim. No leakage: the description frames the asset prospectively ('under evaluation', 'pivotal-trial/regulatory-submission stage', explicit open go/no-go question) and the six evidence snippets are all pre-decision (binding, preclinical, ADME, tox, resistance risk, IP/market). None state the drug was approved; ev6's mention of an 'accelerated regulatory pathway' is a supporting condition, not the eventual outcome, so it does not reveal the label."
+      }
+    },
+    {
+      "id": "sofosbuvir-sovaldi",
+      "description": "Sofosbuvir is a small-molecule nucleotide analogue prodrug that inhibits the hepatitis C virus (HCV) NS5B RNA-dependent RNA polymerase, acting as a chain terminator of viral RNA replication. It is being developed as a once-daily oral agent for chronic HCV infection across multiple genotypes, positioned as a backbone for interferon-free, all-oral combination regimens (with ribavirin and later with other direct-acting antivirals). The decision point under evaluation is the pre-approval go/no-go on advancing the pan-genotypic nucleotide analogue through pivotal Phase 3 registration trials toward regulatory filing.",
+      "true_outcome": true,
+      "outcome_summary": "Sofosbuvir was approved by the FDA on December 6, 2013 (Gilead, marketed as Sovaldi) for chronic HCV infection and became a blockbuster foundational agent enabling interferon-free cure regimens, with cure rates commonly exceeding 90 percent.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "US Food and Drug Administration Approves Gilead's Sovaldi (Sofosbuvir) for the Treatment of Chronic Hepatitis C",
+          "url": "https://www.gilead.com/news/news-details/2013/us-food-and-drug-administration-approves-gileads-sovaldi-sofosbuvir-for-the-treatment-of-chronic-hepatitis-c",
+          "note": "Sponsor press release confirming FDA approval on December 6, 2013"
+        },
+        {
+          "title": "Sofosbuvir: A Nucleotide NS5B Inhibitor for the Treatment of Chronic Hepatitis C Infection (PubMed)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24811396/",
+          "note": "Peer-reviewed review confirming mechanism as nucleotide NS5B polymerase inhibitor and approved indication"
+        },
+        {
+          "title": "Sofosbuvir: A New Oral Once-Daily Agent for the Treatment of Hepatitis C Virus Infection (PMC)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4029125/",
+          "note": "Peer-reviewed summary of pivotal trial efficacy and once-daily oral profile"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "sofosbuvir-ev1",
+          "type": "binding",
+          "text": "As a uridine nucleotide analogue prodrug, the active triphosphate metabolite is incorporated by NS5B polymerase and acts as an obligate chain terminator, a conserved and validated mechanism against the catalytic active site shared across HCV genotypes.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "sofosbuvir-ev2",
+          "type": "preclinical",
+          "text": "Phase 2 all-oral, interferon-free combinations with ribavirin produced high on-treatment viral suppression across genotypes, supporting a pan-genotypic profile and rapid reduction in viral load.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "sofosbuvir-ev3",
+          "type": "tox",
+          "text": "The nucleotide-analogue class carries a known theoretical liability for off-target host mitochondrial polymerase inhibition (the failure mode that sank fialuridine and BMS-986094); sofosbuvir's active metabolite showed high selectivity for the viral polymerase with a comparatively clean early safety readout, though class-based mitochondrial and cardiac signals warranted monitoring.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "sofosbuvir-ev4",
+          "type": "adme_pk",
+          "text": "Once-daily oral dosing with rapid hepatic activation via intracellular phosphorylation supports high liver-targeted exposure and a convenient regimen, though renal elimination of the inactive metabolite flags caution in severe renal impairment.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "sofosbuvir-ev5",
+          "type": "binding",
+          "text": "The nucleotide mechanism confers a high genetic barrier to resistance relative to non-nucleoside and protease inhibitors, with the S282T substitution rarely selected and associated with reduced viral fitness.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "sofosbuvir-ev6",
+          "type": "ip_market",
+          "text": "A large treatment-naive and treatment-experienced HCV population with substantial unmet need for interferon-sparing regimens created a major commercial opportunity, tempered by anticipated pricing scrutiny and competition from emerging direct-acting antiviral programs.",
+          "direction": "supportive",
+          "strength": "moderate"
+        }
+      ],
+      "caveats": "Outcome is unambiguous: FDA approval December 6, 2013, followed by broad clinical adoption and blockbuster commercial success; no withdrawal. The only nuance is post-launch, outside the pre-approval decision frame: FDA later issued safety communications on serious symptomatic bradycardia when sofosbuvir is co-administered with amiodarone, and on rare cases of hepatitis B reactivation in HBV/HCV co-infected patients. Neither undermines the success classification. The evidence snippets are reconstructed editorial summaries of the class mechanism, resistance profile, and PK/toxicity considerations genuinely understood pre-approval; they intentionally contain no fabricated trial-specific numbers.",
+      "kind": "historical",
+      "name": "Sofosbuvir (Sovaldi)",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "Outcome true (approved/success) confirmed by public record: FDA approved sofosbuvir (Sovaldi, Gilead) as a breakthrough therapy for chronic HCV on Dec 6, 2013; became a foundational blockbuster enabling interferon-free regimens. Corroborated by Drugs.com FDA approval history, FiercePharma, Medscape, HIV.gov. Sources valid: Gilead sponsor press release is the correct approval announcement; PubMed 24811396 and PMC4029125 support the NS5B nucleotide-inhibitor mechanism and once-daily oral profile. Leakage check passes: description frames the decision as a pre-approval Phase 3 go/no-go, and all six evidence snippets (binding/preclinical/tox/PK/resistance/market) are strictly pre-decision with no statement or implication of the eventual approval. The outcome appears only in outcome_summary and sources fields, where it belongs and would not corrupt a calibration test drawn from description+evidence. Minor observation: evidence skews uniformly favorable (5/6 supportive), consistent with the asset's genuine strength rather than outcome leakage."
+      }
+    },
+    {
+      "id": "semaglutide-ozempic",
+      "description": "Semaglutide is a long-acting, once-weekly injectable peptide analog agonist of the glucagon-like peptide-1 (GLP-1) receptor, structurally engineered from the native GLP-1 backbone with amino-acid substitutions and a C18 fatty-diacid side chain to extend half-life via albumin binding and resist DPP-4 degradation. It is under development as an adjunct to diet and exercise to improve glycemic control in adults with type 2 diabetes mellitus, acting by glucose-dependent stimulation of insulin secretion and suppression of glucagon. At the decision point, the asset has completed its pivotal Phase 3 (SUSTAIN) program comparing weekly dosing against placebo and active comparators, and is positioned for a regulatory filing / advisory committee review for T2D glycemic control.",
+      "true_outcome": true,
+      "outcome_summary": "Approved by the FDA on December 5, 2017 (Ozempic, subcutaneous 0.5 mg and 1.0 mg once-weekly) for glycemic control in adults with type 2 diabetes, following a positive October 18, 2017 advisory committee vote and the SUSTAIN Phase 3 program; it went on to become a commercially dominant, blockbuster GLP-1 agonist.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Ozempic (semaglutide) FDA Approval History - Drugs.com",
+          "url": "https://www.drugs.com/history/ozempic.html",
+          "note": "Documents original FDA approval date of December 5, 2017 and approved indications/dosing."
+        },
+        {
+          "title": "Novo Nordisk Receives FDA Approval of OZEMPIC (semaglutide) Injection - PR Newswire",
+          "url": "https://www.prnewswire.com/news-releases/novo-nordisk-receives-fda-approval-of-ozempic-semaglutide-injection-for-the-treatment-of-adults-with-type-2-diabetes-300567052.html",
+          "note": "Manufacturer press release confirming FDA approval for adults with type 2 diabetes."
+        },
+        {
+          "title": "FDA Approves Semaglutide, Novo Nordisk's Once-Weekly GLP-1 for Type 2 Diabetes - AJMC",
+          "url": "https://www.ajmc.com/view/fda-approves-semaglutide-novo-nordisks-onceweekly-glp1-for-type-2-diabetes",
+          "note": "Independent reporting on the approval, SUSTAIN program basis, and advisory committee vote."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "semaglutide-ev1",
+          "type": "binding",
+          "text": "Semaglutide is a high-affinity, selective full agonist of the GLP-1 receptor derived from the native incretin peptide, with sequence modifications intended to preserve on-target pharmacology while blocking DPP-4 cleavage. Mechanism is well-precedented by earlier approved GLP-1 agonists in the same class.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "semaglutide-ev2",
+          "type": "adme_pk",
+          "text": "A C18 fatty-diacid linker drives strong albumin binding, giving a ~1-week elimination half-life that supports once-weekly subcutaneous dosing and stable exposure. The engineered PK profile is a deliberate differentiator versus daily-dosed incretins.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "semaglutide-ev3",
+          "type": "preclinical",
+          "text": "Rodent carcinogenicity studies with long-acting GLP-1 agonists in this class showed dose- and duration-dependent thyroid C-cell (medullary) tumors, a recognized class signal that carries into boxed-warning and contraindication considerations for MEN 2 / medullary thyroid carcinoma history.",
+          "direction": "adverse",
+          "strength": "moderate"
+        },
+        {
+          "id": "semaglutide-ev4",
+          "type": "tox",
+          "text": "GLP-1 receptor agonism produces dose-limiting gastrointestinal tolerability effects (nausea, vomiting, diarrhea) that drive early discontinuations, plus class-level attention to acute pancreatitis and, for retinal outcomes, a monitored diabetic-retinopathy complication signal requiring adjudication.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "semaglutide-ev5",
+          "type": "immunogenicity",
+          "text": "As an engineered peptide analog, anti-drug antibody formation is a monitored risk, but incretin-mimetic analogs in this class have generally shown low-titer, non-neutralizing immunogenicity without clear loss of efficacy.",
+          "direction": "neutral",
+          "strength": "weak"
+        },
+        {
+          "id": "semaglutide-ev6",
+          "type": "ip_market",
+          "text": "Entering a validated but competitive once-weekly GLP-1 market against established injectable comparators, the asset is differentiated by potential for superior HbA1c and weight reduction plus a dedicated cardiovascular-outcomes readout, supported by strong composition and formulation IP.",
+          "direction": "supportive",
+          "strength": "moderate"
+        }
+      ],
+      "caveats": "Outcome classification is unambiguous: semaglutide received full FDA approval (December 5, 2017) and is marketed as Ozempic, with subsequent label expansions (cardiovascular risk reduction, chronic kidney disease). Not withdrawn and no mixed regulatory history for this indication. The evidence profile is a reconstructed, pre-outcome editorial summary grounded in the real semaglutide/GLP-1-class program (e.g., rodent C-cell tumor class signal, GI tolerability, diabetic-retinopathy monitoring) and deliberately contains no fabricated trial numbers and no outcome-revealing efficacy results. Directions/strengths reflect what was plausibly known at the pre-decision stage, not post-hoc knowledge.",
+      "kind": "historical",
+      "name": "Semaglutide (Ozempic)",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "Outcome=true confirmed by public record: FDA approved Ozempic (semaglutide) on 2017-12-05 for glycemic control in adults with T2D, after a 16-0 EMDAC advisory vote on 2017-10-18, based on the SUSTAIN Phase 3a program; 0.5/1.0 mg once-weekly SC dosing matches. Corroborated across Novo Nordisk, PR Newswire, Pharmacy Times, AJMC, Healio, Medscape, GlobeNewswire. All three cited sources are reputable and support the approval. Leakage OK: description is pre-decision tense (\"under development,\" \"positioned for a regulatory filing / advisory committee review\") and no evidence snippet discloses the eventual approval \u2014 ev3 boxed-warning language and ev6 CV-outcomes mention are class-level/forward-looking, not outcome reveals. Note the outcome_summary field does state the Dec 5 2017 approval, but the leakage check pertains to description+evidence, which are clean."
+      }
+    },
+    {
+      "id": "osimertinib-tagrisso",
+      "description": "Osimertinib is an oral, third-generation, irreversible small-molecule tyrosine kinase inhibitor designed to covalently bind mutant EGFR, sparing wild-type EGFR relative to earlier-generation TKIs. It selectively targets both activating EGFR mutations (exon 19 deletion, L858R) and the T790M resistance mutation that drives acquired resistance to first- and second-generation EGFR TKIs. The lead indication at the decision point is metastatic non-small-cell lung cancer (NSCLC) in patients whose disease has progressed on prior EGFR TKI therapy and who carry the T790M mutation. The asset is being evaluated at the point of a regulatory filing decision on the basis of single-arm phase 2 objective-response data, paired with a companion diagnostic to select T790M-positive patients.",
+      "true_outcome": true,
+      "outcome_summary": "Success. The FDA granted accelerated approval on November 13, 2015 for metastatic EGFR T790M-mutation-positive NSCLC after progression on prior EGFR TKI therapy (alongside the cobas EGFR Mutation Test v2 companion diagnostic). It was subsequently confirmed and expanded to first-line EGFR-mutant NSCLC (FLAURA) and adjuvant early-stage disease (ADAURA), becoming a standard-of-care blockbuster.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Osimertinib for the Treatment of Metastatic EGFR T790M Mutation-Positive NSCLC (Clinical Cancer Research)",
+          "url": "https://aacrjournals.org/clincancerres/article/23/9/2131/80340/Osimertinib-for-the-Treatment-of-Metastatic-EGFR",
+          "note": "Peer-reviewed review of the AURA/AURA2 efficacy and the basis for FDA approval."
+        },
+        {
+          "title": "FDA Grants Osimertinib Accelerated Approval for T790M-Positive NSCLC (CancerNetwork)",
+          "url": "https://www.cancernetwork.com/view/fda-grants-osimertinib-accelerated-approval-t790m-positive-nsclc",
+          "note": "Documents the Nov 13, 2015 accelerated approval and breakthrough-therapy designation."
+        },
+        {
+          "title": "Osimertinib: A Novel Therapeutic Option for Overcoming T790M Mutations in NSCLC (PMC)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5995494/",
+          "note": "Reviews mechanism (wild-type-sparing, irreversible T790M inhibitor) and clinical development."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "osimertinib-ev1",
+          "type": "binding",
+          "text": "The compound was engineered as an irreversible inhibitor that covalently targets the mutant EGFR cysteine, with substantially greater potency against activating and T790M-mutant receptors than against wild-type EGFR, predicting on-target activity in the exact resistance setting that defeats earlier TKIs.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "osimertinib-ev2",
+          "type": "preclinical",
+          "text": "Preclinical models of EGFR-mutant, T790M-driven NSCLC showed marked tumor regression, providing a clear mechanistic rationale for a population with a well-defined resistance biomarker and high unmet need.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "osimertinib-ev3",
+          "type": "tox",
+          "text": "The wild-type-sparing design was expected to lower the classic EGFR-inhibitor skin-rash and diarrhea burden; early clinical experience suggested most adverse events were low-grade, though a distinct class signal for QT-interval effects and rare interstitial lung disease warranted monitoring.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "osimertinib-ev4",
+          "type": "adme_pk",
+          "text": "Oral once-daily pharmacokinetics with active metabolites and CNS penetration supported convenient dosing and raised the prospect of activity against brain metastases, a common failure site in EGFR-mutant NSCLC.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "osimertinib-ev5",
+          "type": "ip_market",
+          "text": "A co-developed companion diagnostic to identify T790M-positive patients enabled a precision-medicine label and an enriched, biomarker-selected population, strengthening both the regulatory and commercial case in a large NSCLC market.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "osimertinib-ev6",
+          "type": "binding",
+          "text": "A known liability was that acquired resistance would likely emerge via secondary EGFR alterations (e.g., a C797S-type mutation at the covalent binding site), meaning durability of benefit was an open question at the decision point.",
+          "direction": "adverse",
+          "strength": "weak"
+        }
+      ],
+      "caveats": "Outcome is unambiguous: osimertinib was FDA-approved (accelerated approval Nov 13, 2015), had its benefit confirmed, and was later expanded to first-line and adjuvant settings, remaining a marketed standard-of-care agent with no withdrawal. The evidence snippets are reconstructed editorial summaries of what was plausibly known pre-approval (mechanism, preclinical rationale, PK/CNS penetration, tolerability class effects, companion-diagnostic strategy, and anticipated resistance) grounded in the real program; they are not verbatim trial figures. The specific response rates in the outcome summary come from the confirmed public record, not from the pre-outcome evidence profile.",
+      "kind": "historical",
+      "name": "Osimertinib (Tagrisso)",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "Outcome true (success) confirmed: FDA accelerated approval Nov 13, 2015 for metastatic EGFR T790M-positive NSCLC post-TKI progression, with cobas EGFR Mutation Test v2 companion diagnostic; based on AURA extension/AURA2 single-arm phase 2 (ORR ~59%, n=411). Later confirmed/expanded via FLAURA (first-line) and ADAURA (adjuvant); standard-of-care blockbuster. Sources (AACR CCR review, CancerNetwork, PMC) are reputable, well-formed, and support the approval; corroborated by FDA/Healio/OncLive coverage. No leakage: description and all six evidence snippets are framed at the pre-decision regulatory-filing point on single-arm phase 2 data and do not disclose the approval outcome; forward-looking phrasing (regulatory/commercial case, predicted on-target activity) is prospective rationale, and the set includes an adverse durability caveat (C797S) and mixed tox signal, consistent with a calibration input. The outcome_summary field does state the result but is the label, not the calibration-input description/evidence."
+      }
+    },
+    {
+      "id": "nirmatrelvir-paxlovid",
+      "description": "Orally bioavailable small-molecule covalent inhibitor of the SARS-CoV-2 main protease (3CL protease / Mpro / nsp5), co-administered with low-dose ritonavir as a CYP3A4 pharmacokinetic booster. Developed for the treatment of mild-to-moderate COVID-19 in non-hospitalized adults at high risk of progression to severe disease. At the decision point, the asset had completed a rationally designed protease-inhibitor discovery program with a peptidomimetic nitrile warhead and was entering pivotal Phase 2/3 outpatient efficacy testing against a hospitalization/death endpoint under emergency pandemic development timelines.",
+      "true_outcome": true,
+      "outcome_summary": "Success. Paxlovid received FDA Emergency Use Authorization on December 22, 2021, and full FDA approval on May 25, 2023 for treatment of mild-to-moderate COVID-19 in high-risk adults, supported by the EPIC-HR pivotal trial showing an ~86-89% relative reduction in COVID-19-related hospitalization or death when given within 5 days of symptom onset.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "FDA Approves First Oral Antiviral for Treatment of COVID-19 in Adults",
+          "url": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-oral-antiviral-treatment-covid-19-adults",
+          "note": "FDA press announcement confirming full approval of Paxlovid on May 25, 2023 for high-risk adults."
+        },
+        {
+          "title": "Drug Trials Snapshots: PAXLOVID | FDA",
+          "url": "https://www.fda.gov/drugs/development-approval-process-drugs/drug-trials-snapshots-paxlovid",
+          "note": "FDA summary of the EPIC-HR pivotal trial (NCT04960202) design and ~86% efficacy on hospitalization/death."
+        },
+        {
+          "title": "PAXLOVID (nirmatrelvir; ritonavir) FDA label",
+          "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2023/217188s000lbl.pdf",
+          "note": "Approved prescribing information establishing indication, dosing, and the ritonavir drug-interaction profile."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "nirmatrelvir-ev1",
+          "type": "binding",
+          "text": "The compound is a structure-based covalent inhibitor targeting the conserved SARS-CoV-2 3CL main protease via a nitrile warhead engaging the catalytic cysteine, with potent enzymatic inhibition and a well-defined mechanism essential to viral polyprotein processing.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "nirmatrelvir-ev2",
+          "type": "preclinical",
+          "text": "Preclinical antiviral activity showed potent inhibition of viral replication in cell culture across coronaviruses, with target conservation across SARS-CoV-2 variants suggesting a high barrier to escape and broad relevance.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "nirmatrelvir-ev3",
+          "type": "adme_pk",
+          "text": "Nirmatrelvir alone showed rapid oxidative metabolism and sub-therapeutic oral exposure; adequate plasma levels required co-dosing with the CYP3A4 inhibitor ritonavir, an accepted booster strategy but one that constrains dosing and complicates the drug-interaction profile.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "nirmatrelvir-ev4",
+          "type": "tox",
+          "text": "The ritonavir-boosting requirement introduces substantial CYP3A-mediated drug-drug interaction liability, contraindicating co-administration with several common medications and requiring dose adjustment in moderate renal impairment.",
+          "direction": "adverse",
+          "strength": "moderate"
+        },
+        {
+          "id": "nirmatrelvir-ev5",
+          "type": "ip_market",
+          "text": "Development proceeded under emergency pandemic conditions with strong unmet need for an oral outpatient antiviral, favorable regulatory pathways, and clear composition-of-matter IP position for a first-in-class oral 3CL protease inhibitor.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "nirmatrelvir-ev6",
+          "type": "preclinical",
+          "text": "Selectivity screening indicated the covalent warhead engaged the viral protease with limited activity against human proteases, supporting a manageable on-target-off-tumor safety margin ahead of clinical testing.",
+          "direction": "supportive",
+          "strength": "moderate"
+        }
+      ],
+      "caveats": "Outcome is unambiguous: EUA (Dec 2021) and full FDA approval (May 2023) are documented on FDA sources, so this classifies cleanly as a clinical/regulatory success. Minor nuance worth flagging for calibration, not enough to change the label: the drug carries a significant ritonavir-driven drug-drug-interaction burden, real-world observational effectiveness in lower-risk/vaccinated populations was more modest than EPIC-HR's high-risk unvaccinated cohort, and \"COVID rebound\" post-treatment viral/symptom recurrence generated later debate. The evidence snippets are reconstructed editorial summaries of what was plausibly known pre-decision (mechanism, PK-boosting requirement, DDI liability); they are grounded in the real program but do not quote specific trial numbers and are worded to not leak the outcome. Strengths/directions are analyst judgments, not extracted metrics.",
+      "kind": "historical",
+      "name": "Nirmatrelvir (Paxlovid, nirmatrelvir/ritonavir)",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "Outcome true (success/approved) is correct and well-documented: FDA EUA 2021-12-22, full NDA approval 2023-05-25 for mild-to-moderate COVID-19 in high-risk adults; EPIC-HR showed ~86% RRR in hospitalization/death (within 5 days), ~89% within 3 days. All three cited sources are legitimate FDA domains (press announcement, Drug Trials Snapshots, accessdata label 217188s000lbl.pdf) that plausibly support the outcome. No leakage in description or evidence: description positions the asset pre-pivotal-readout ('entering pivotal Phase 2/3 outpatient efficacy testing') and evidence ev1-ev6 present decision-point binding/preclinical/ADME/tox/IP/selectivity data with a realistic supportive/adverse mix; none reveal the approval or trial success. Only the Outcome-summary field states the result, which is expected. Minor quality nit (not leakage, not scored here): ev6 contains an oncology-template artifact phrase 'on-target-off-tumor safety margin' that is nonsensical for an antiviral."
+      }
+    },
+    {
+      "id": "torcetrapib",
+      "description": "Small-molecule oral inhibitor of cholesteryl ester transfer protein (CETP), developed by Pfizer for dyslipidemia and prevention of atherosclerotic cardiovascular disease. By blocking CETP-mediated transfer of cholesteryl esters from HDL to apoB-containing lipoproteins, it raises HDL-cholesterol substantially while lowering LDL-cholesterol, a mechanism intended to complement statin therapy. At the decision point the asset was in a large Phase III cardiovascular outcomes program (ILLUMINATE), co-formulated with atorvastatin, evaluating whether its favorable lipid-panel changes translated into reduced morbidity and mortality in patients at high coronary risk.",
+      "true_outcome": false,
+      "outcome_summary": "On December 2, 2006, Pfizer terminated the ILLUMINATE Phase III trial and all torcetrapib development at the recommendation of the Data Safety Monitoring Board, after the drug arm showed a statistically significant increase in all-cause mortality (hazard ratio ~1.58) and cardiovascular events versus placebo, despite marked HDL increases. The failure ended a ~15-year, ~$800 million program.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Effects of Torcetrapib in Patients at High Risk for Coronary Events (ILLUMINATE, NEJM 2007)",
+          "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa0706628",
+          "note": "Pivotal Phase III trial report documenting increased mortality and cardiovascular events in the torcetrapib arm, leading to trial termination."
+        },
+        {
+          "title": "Pfizer stops clinical trials of heart drug (BMJ/PMC)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1702474/",
+          "note": "Contemporaneous news account confirming the December 2006 DSMB-driven termination and excess deaths (82 vs 51)."
+        },
+        {
+          "title": "Behind Pfizer's Failure (Forbes, Dec 2006)",
+          "url": "https://www.forbes.com/2006/12/03/pfizer-heartdisease-drug-biz-cx_mh_1204torcetrapib.html",
+          "note": "Reputable news coverage of the termination and the ~$800M/15-year investment lost."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "torcetrapib-ev1",
+          "type": "binding",
+          "text": "Torcetrapib potently inhibits CETP, producing large dose-dependent increases in HDL-cholesterol and reductions in LDL-cholesterol on top of statin therapy, a lipid-profile shift long hypothesized to be cardioprotective.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "torcetrapib-ev2",
+          "type": "tox",
+          "text": "Across earlier controlled studies the compound consistently raised systolic blood pressure by several mmHg, an unexplained pressor effect not shared by other lipid agents and flagged as a safety concern before the outcomes trial.",
+          "direction": "adverse",
+          "strength": "moderate"
+        },
+        {
+          "id": "torcetrapib-ev3",
+          "type": "preclinical",
+          "text": "Mechanistic work indicated an off-target effect on the adrenal steroidogenic axis, with signals of increased aldosterone and cortisol synthesis, suggesting the blood-pressure effect may be molecule-specific rather than a class effect of CETP inhibition.",
+          "direction": "adverse",
+          "strength": "moderate"
+        },
+        {
+          "id": "torcetrapib-ev4",
+          "type": "binding",
+          "text": "The core efficacy thesis rested on the epidemiologic HDL hypothesis and surrogate lipid endpoints; whether CETP-driven HDL elevation yields functional, atheroprotective HDL and hard-outcome benefit remained unproven at the decision point.",
+          "direction": "neutral",
+          "strength": "moderate"
+        },
+        {
+          "id": "torcetrapib-ev5",
+          "type": "ip_market",
+          "text": "As a co-formulation with blockbuster atorvastatin, the asset carried substantial commercial upside and a long, heavily resourced development program, raising the stakes of the pending outcomes readout.",
+          "direction": "supportive",
+          "strength": "weak"
+        }
+      ],
+      "caveats": "Outcome is unambiguous: the drug was never approved and was terminated mid-Phase III for a mortality signal, so the failure classification is clean. The evidence snippets are honest editorial reconstructions of what was genuinely known pre-termination (potent CETP inhibition and HDL-raising as the supportive rationale; a pre-existing, unexplained blood-pressure/pressor signal and off-target aldosterone/cortisol steroidogenesis concerns as the adverse warning); they deliberately avoid the eventual mortality result and do not cite fabricated trial numbers. Note that whether torcetrapib's harm was a molecule-specific off-target toxicity versus a CETP class effect was debated at the time and only clarified later by subsequent CETP inhibitors (e.g., anacetrapib, evacetrapib) that lacked the pressor effect but still largely failed on efficacy; this nuance concerns mechanism, not the binary success/failure call.",
+      "kind": "historical",
+      "name": "Torcetrapib",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "Outcome false (failure/discontinued) is correct and well-documented. Pfizer terminated ILLUMINATE and all torcetrapib development on Dec 2, 2006 per DSMB recommendation; excess all-cause mortality (82 vs 51 deaths; HR ~1.58, 95% CI 1.14-2.19, P=0.006) and increased CV events. Confirmed via WebSearch against NEJM 2007 (NEJMoa0706628), Wikipedia, and Medscape coverage; death counts and hazard ratio in the summary match public record exactly. Sources cited (NEJM pivotal trial, PMC/BMJ news report, Forbes) are reputable, well-formed, and plausibly support the outcome. No leakage: description situates the asset at the decision point within the ongoing outcomes trial without revealing the result; evidence snippets convey legitimately predictive pre-trial adverse signals (systolic BP pressor effect, off-target aldosterone/cortisol, unproven functional-HDL hypothesis) without stating the trial failed or mortality rose. Calibration integrity intact."
+      }
+    },
+    {
+      "id": "semagacestat",
+      "description": "Semagacestat is an orally bioavailable small-molecule gamma-secretase inhibitor developed by Eli Lilly for mild-to-moderate Alzheimer disease. By blocking gamma-secretase, the enzyme that cleaves amyloid precursor protein (APP) to generate amyloid-beta (Abeta), the asset was designed to reduce Abeta production and thereby slow the accumulation of amyloid plaque central to the amyloid-cascade hypothesis. At the point of the go/no-go decision, the program had cleared Phase 1 and Phase 2 (demonstrating dose-dependent lowering of Abeta synthesis) and was under evaluation in two large, long-term, placebo-controlled Phase 3 registration trials (IDENTITY and IDENTITY-2) enrolling patients age 55+ with probable Alzheimer disease, testing cognitive and functional benefit as the primary endpoints.",
+      "true_outcome": false,
+      "outcome_summary": "Eli Lilly halted development in August 2010 after interim Phase 3 (IDENTITY) results showed semagacestat did not slow disease and, worse, was associated with significant cognitive and functional worsening versus placebo, along with an increased incidence of skin cancer; the program was discontinued and never approved.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Lilly Halts Development of Semagacestat for Alzheimer's Disease Based on Preliminary Results of Phase III Clinical Trials",
+          "url": "https://investor.lilly.com/news-releases/news-release-details/lilly-halts-development-semagacestat-alzheimers-disease-based",
+          "note": "Primary-source Lilly press release (Aug 2010) announcing termination for lack of efficacy and worsening cognition/function"
+        },
+        {
+          "title": "A Phase 3 Trial of Semagacestat for Treatment of Alzheimer's Disease (NEJM)",
+          "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1210951",
+          "note": "Peer-reviewed pivotal trial report documenting cognitive/functional worsening vs placebo and skin-cancer signal"
+        },
+        {
+          "title": "Safety profile of semagacestat, a gamma-secretase inhibitor: IDENTITY trial findings (PubMed)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24983746/",
+          "note": "Detailed safety analysis: skin cancer, renal/hepatic changes, QT prolongation, weight loss"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "semagacestat-ev1",
+          "type": "binding",
+          "text": "Semagacestat is a potent, orally active gamma-secretase inhibitor that dose-dependently suppresses amyloid-beta production; Phase 2 pharmacodynamic work confirmed measurable lowering of Abeta synthesis in CSF/plasma, providing on-target mechanistic proof consistent with the amyloid-cascade rationale.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "semagacestat-ev2",
+          "type": "preclinical",
+          "text": "Gamma-secretase is not amyloid-selective: it also cleaves Notch and many other substrates governing cell differentiation and proliferation. Preclinical and mechanistic knowledge flagged that non-selective inhibition risks Notch-related toxicities in gut, skin, and immune compartments, an off-target liability analogous to a mechanism-based rather than idiosyncratic risk.",
+          "direction": "adverse",
+          "strength": "moderate"
+        },
+        {
+          "id": "semagacestat-ev3",
+          "type": "tox",
+          "text": "Earlier and shorter-duration studies surfaced Notch-linked signals such as gastrointestinal and skin/hair changes; the key uncertainty entering the pivotal trials was whether these tolerable short-term effects would escalate over long-term dosing rather than any single disqualifying acute finding.",
+          "direction": "adverse",
+          "strength": "moderate"
+        },
+        {
+          "id": "semagacestat-ev4",
+          "type": "adme_pk",
+          "text": "The compound achieved adequate oral exposure and CNS-relevant pharmacokinetics to engage its target and lower Abeta, but a narrow therapeutic window was a live concern given that meaningful plaque effect might require sustained deep target inhibition that also maximizes Notch-pathway disruption.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "semagacestat-ev5",
+          "type": "preclinical",
+          "text": "The amyloid-cascade hypothesis underpinning the asset was still unproven in humans at decision time; it was not established that reducing Abeta production would translate into clinical cognitive benefit, leaving substantial biological risk on the efficacy side despite clean target engagement.",
+          "direction": "neutral",
+          "strength": "moderate"
+        },
+        {
+          "id": "semagacestat-ev6",
+          "type": "ip_market",
+          "text": "Alzheimer disease represented an enormous unmet-need market with no disease-modifying therapy, giving strong commercial and strategic incentive to advance a first-in-class amyloid-lowering mechanism into large registration trials.",
+          "direction": "supportive",
+          "strength": "weak"
+        }
+      ],
+      "caveats": "Outcome is an unambiguous clinical failure: Lilly voluntarily terminated the Phase 3 program in 2010 for lack of efficacy plus active harm (cognitive/functional worsening and an elevated skin-cancer rate); the drug was never approved and there is no mixed or withdrawn-after-approval history to nuance. The evidence profile is a reconstructed editorial summary of what was genuinely knowable pre-decision (mechanism-based Notch off-target risk, confirmed on-target Abeta lowering, unproven amyloid hypothesis) and does not contain verbatim trial numbers; the skin-cancer magnitude and the direction/degree of cognitive worsening were the pivotal-trial readouts and are deliberately not encoded as pre-outcome evidence. Directions on individual snippets reflect risk/benefit as it would have appeared before the readout, not the eventual result.",
+      "kind": "historical",
+      "name": "Semagacestat (LY450139)",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "Outcome CONFIRMED as failure/discontinued (true_outcome=false is correct). Eli Lilly halted semagacestat on Aug 17, 2010 after interim Phase 3 IDENTITY/IDENTITY-2 data showed no disease slowing, worsening cognition and daily function vs placebo, and elevated skin-cancer incidence; never approved. Verified via Wikipedia, Lilly investor press release, ALZFORUM, and news coverage. Sources valid: Lilly press-release URL is the genuine primary-source termination announcement; NEJM DOI 10.1056/NEJMoa1210951 = Doody et al. 2013 pivotal-trial report documenting worsening + skin-cancer signal; PubMed 24983746 plausible IDENTITY safety analysis. All reputable, well-formed. Leakage check PASS: description stops at the go/no-go decision point and does not reveal failure; evidence snippets are framed as decision-time knowledge (on-target Abeta lowering; Notch mechanism-based tox risk; escalation uncertainty; narrow therapeutic window; unproven amyloid hypothesis) and flag risk without disclosing the actual halt/worsening/skin-cancer result. The result appears only in the outcome_summary answer-key field, which is not calibration-facing. Record is accurate and usable."
+      }
+    },
+    {
+      "id": "bapineuzumab",
+      "description": "Bapineuzumab (AAB-001) is a humanized IgG1 monoclonal antibody directed at the N-terminus of aggregated amyloid-beta (Abeta), developed by Elan/Wyeth and later Pfizer and Janssen (Johnson & Johnson) for the treatment of mild-to-moderate Alzheimer's disease. It is intended to promote clearance of cerebral amyloid plaques via antibody-mediated microglial phagocytosis, testing the core amyloid-cascade hypothesis. At the decision point the asset had completed dose-ranging Phase 2 work and was in two large 18-month intravenous Phase 3 pivotal studies stratified by APOE epsilon-4 carrier status (Study 302 carriers, Study 301 non-carriers), with co-primary cognitive (ADAS-Cog) and functional (DAD) endpoints supported by amyloid-PET and CSF biomarker substudies.",
+      "true_outcome": false,
+      "outcome_summary": "Failure. In July-August 2012 the intravenous Phase 3 program was declared negative: the co-primary cognitive and functional endpoints were not met in either the APOE epsilon-4 carrier (Study 302) or non-carrier (Study 301) trial, and Johnson & Johnson/Pfizer discontinued IV development of bapineuzumab on 6 August 2012. It was never approved.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Johnson & Johnson Announces Discontinuation of Phase 3 Development of Bapineuzumab Intravenous (IV) in Mild-to-Moderate Alzheimer's Disease",
+          "url": "https://www.prnewswire.com/news-releases/johnson--johnson-announces-discontinuation-of-phase-3-development-of-bapineuzumab-intravenous-iv-in-mild-to-moderate-alzheimers-disease-165182856.html",
+          "note": "Primary sponsor announcement (6 Aug 2012) confirming discontinuation after co-primary endpoints in Studies 301 and 302 were not met."
+        },
+        {
+          "title": "Two phase 3 trials of bapineuzumab in mild-to-moderate Alzheimer's disease (Salloway et al., NEJM 2014)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24450891/",
+          "note": "Peer-reviewed pivotal results: no significant clinical benefit vs placebo; ARIA-E dose- and APOE4-dependent safety signal."
+        },
+        {
+          "title": "Bapineuzumab | ALZFORUM therapeutics entry",
+          "url": "https://www.alzforum.org/therapeutics/bapineuzumab",
+          "note": "Authoritative program history documenting discontinuation and negative biomarker/clinical outcomes."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "bapineuzumab-ev1",
+          "type": "binding",
+          "text": "The antibody targets the free N-terminal epitope of aggregated amyloid-beta and was shown preclinically and in early clinical PET substudies to engage and reduce fibrillar plaque burden, giving clear target engagement for the amyloid-cascade thesis.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "bapineuzumab-ev2",
+          "type": "tox",
+          "text": "Dose-ranging studies surfaced a consistent, dose-dependent vasogenic-edema / microhemorrhage signal (amyloid-related imaging abnormalities, ARIA-E) that was markedly more frequent in APOE epsilon-4 carriers, forcing the pivotal program to cap dosing and stratify by genotype.",
+          "direction": "adverse",
+          "strength": "strong"
+        },
+        {
+          "id": "bapineuzumab-ev3",
+          "type": "preclinical",
+          "text": "The amyloid-clearance mechanism rested on the assumption that removing plaque halts downstream neurodegeneration; the causal link between plaque reduction and cognitive stabilization in symptomatic, mild-to-moderate patients remained unproven at the go decision.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "bapineuzumab-ev4",
+          "type": "adme_pk",
+          "text": "As a large IgG delivered intravenously, CNS penetration is limited to a small fraction of the peripheral dose, constraining the achievable central concentration once the tolerated dose had to be lowered to manage ARIA.",
+          "direction": "adverse",
+          "strength": "moderate"
+        },
+        {
+          "id": "bapineuzumab-ev5",
+          "type": "ip_market",
+          "text": "Alzheimer's represented an enormous unmet-need market with no disease-modifying therapy, and the amyloid hypothesis was the dominant, well-capitalized paradigm, giving strong commercial and strategic rationale for advancing despite biomarker uncertainty.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "bapineuzumab-ev6",
+          "type": "immunogenicity",
+          "text": "Intervening at the mild-to-moderate symptomatic stage meant treatment began well after substantial amyloid accumulation and tau pathology, raising the prospect that meaningful disease modification would require far earlier intervention than the enrolled population allowed.",
+          "direction": "adverse",
+          "strength": "moderate"
+        }
+      ],
+      "caveats": "Outcome is unambiguous: the IV Phase 3 program was formally discontinued in August 2012 after negative co-primary endpoints in both the carrier and non-carrier trials, and the drug was never approved. The evidence snippets are reconstructed editorial summaries of what was genuinely known before the readout (target engagement, the dose- and APOE4-dependent ARIA safety signal, PK/CNS-penetration limits, and the unproven plaque-to-cognition link); they are grounded in the real program but contain no fabricated trial statistics. One classification nuance: subcutaneous and later-stage exploratory formulations were also wound down, and the broader failure is often read as an indictment of late-stage amyloid intervention rather than the molecule alone. The ev6 snippet concerns disease-stage/timing of intervention and is only loosely an 'immunogenicity' type; it was assigned that enum value for schema fit and should be read as a mechanism/stage caveat.",
+      "kind": "historical",
+      "name": "Bapineuzumab",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "Outcome false (failure/discontinued) is correct and defensible. J&J announced discontinuation of bapineuzumab IV Phase 3 on 6 Aug 2012 after co-primary cognitive/functional endpoints were not met in Study 301 (APOE4 non-carriers) and Study 302 (carriers); never approved. Confirmed independently via J&J press release, PRNewswire, Wikipedia, and Salloway et al. NEJM 2014. Cited sources (PRNewswire J&J announcement, PubMed NEJM 2014, ALZFORUM) are reputable, well-formed, and directly support the outcome. Leakage: the description frames the asset at the go/no-go decision point and the six evidence snippets cover only pre-decision considerations (target engagement, dose-dependent ARIA-E signal, unproven plaque-cognition link, limited CNS penetration, market rationale, late-stage-intervention concern) \u2014 none disclose the trial failure or discontinuation, so the calibration input is clean. Minor note: ev6 is labeled 'immunogenicity' but its text concerns disease-stage timing, a mislabel that does not affect verification."
+      }
+    },
+    {
+      "id": "fialuridine-fiau",
+      "description": "Fialuridine (FIAU, 1-(2-deoxy-2-fluoro-beta-D-arabinofuranosyl)-5-iodouracil) is an orally administered fluorinated pyrimidine nucleoside analog developed as an antiviral for chronic hepatitis B virus (HBV) infection. Mechanistically it is incorporated by viral and host machinery to suppress HBV DNA replication, and it advanced into a Phase II NIH-sponsored trial evaluating 24 weeks of dosing in patients with chronic HBV after showing potent in vitro antiviral activity and apparent tolerability in shorter prior studies. The go/no-go decision point sits at initiation and early conduct of this longer-duration Phase II trial, where sustained viral suppression would be weighed against the accumulating safety experience of nucleoside-analog antivirals.",
+      "true_outcome": false,
+      "outcome_summary": "Failure. In June 1993 the NIH Phase II chronic hepatitis B trial was abruptly halted after severe delayed hepatotoxicity emerged; of 15 patients, 7 developed fulminant liver failure with lactic acidosis, 5 died, and 2 survived only after liver transplantation. Fialuridine was never approved and development was terminated; the episode became a landmark case study in drug-induced mitochondrial toxicity.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Hepatic Failure and Lactic Acidosis Due to Fialuridine (FIAU), an Investigational Nucleoside Analogue for Chronic Hepatitis B \u2014 NEJM 1995",
+          "url": "https://www.nejm.org/doi/full/10.1056/NEJM199510263331702",
+          "note": "Primary peer-reviewed report: 15-patient trial, 7 with severe hepatotoxicity, 5 deaths, 2 liver transplants; documents mitochondrial injury and lactic acidosis."
+        },
+        {
+          "title": "Hepatic failure and lactic acidosis due to fialuridine (FIAU) \u2014 PubMed 7565947",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/7565947/",
+          "note": "PubMed record confirming the clinical outcome and toxicity profile of the terminated trial."
+        },
+        {
+          "title": "Review of the Fialuridine (FIAU) Clinical Trials \u2014 Institute of Medicine / National Academies Press",
+          "url": "https://www.ncbi.nlm.nih.gov/books/NBK232082/",
+          "note": "Authoritative IOM review reconstructing the trial's conduct, the June 1993 termination, and the toxicity findings; establishes non-approval and program discontinuation."
+        },
+        {
+          "title": "Review of the FDA Task Force Report 'Fialuridine: Hepatic and Pancreatic Toxicity'",
+          "url": "https://www.ncbi.nlm.nih.gov/books/NBK232094/",
+          "note": "FDA task force analysis of the hepatic and pancreatic toxicity underlying the failure."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "fiau-ev1",
+          "type": "binding",
+          "text": "As a fluorinated pyrimidine nucleoside analog, FIAU showed potent inhibition of hepatitis B virus DNA replication in vitro, supporting its antiviral rationale and driving advancement into extended-duration dosing.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "fiau-ev2",
+          "type": "preclinical",
+          "text": "Standard rodent and short-term animal toxicology studies were reassuring, but interspecies differences in mitochondrial nucleoside transport and DNA-incorporation pathways are a recognized blind spot that can prevent conventional preclinical models from surfacing delayed nucleoside-analog toxicity.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "fiau-ev3",
+          "type": "tox",
+          "text": "The nucleoside-analog class carried a known theoretical liability for interfering with host mitochondrial DNA polymerase-gamma; incorporation of the analog into mitochondrial DNA is a recognized mechanism for delayed, cumulative organ toxicity that may not appear during brief exposure.",
+          "direction": "adverse",
+          "strength": "moderate"
+        },
+        {
+          "id": "fiau-ev4",
+          "type": "adme_pk",
+          "text": "The compound's arabinofuranosyl-iodouracil structure allows intracellular phosphorylation and stable incorporation into DNA, implying tissue accumulation over weeks \u2014 a pharmacokinetic feature that makes short-course safety data a weak predictor of long-course risk.",
+          "direction": "adverse",
+          "strength": "weak"
+        },
+        {
+          "id": "fiau-ev5",
+          "type": "tox",
+          "text": "Earlier shorter-duration human exposure appeared tolerable, but the hypothesized mitochondrial mechanism predicts a latency period before cumulative toxicity would become clinically evident, so brief-exposure safety data are a weak guarantee for a full 24-week course.",
+          "direction": "mixed",
+          "strength": "weak"
+        },
+        {
+          "id": "fiau-ev6",
+          "type": "ip_market",
+          "text": "A pharmacologically effective oral HBV antiviral represented a large unmet-need commercial opportunity in the early 1990s, creating strong incentive to progress the asset despite the incompletely characterized long-term safety profile.",
+          "direction": "supportive",
+          "strength": "weak"
+        }
+      ],
+      "caveats": "Outcome is unambiguous: the Phase II trial was terminated in June 1993 and the drug was never approved or marketed \u2014 a clear clinical/regulatory failure. Classification confidence is high. The evidence profile is a reconstructed pre-outcome dossier: the binding, class-toxicity, and pharmacokinetic points reflect what was genuinely knowable from the nucleoside-analog literature and FIAU's chemistry before the fatal signal, but they are honest editorial summaries, not verbatim trial data, and no fabricated numeric endpoints are included. The critical real-world lesson \u2014 that the fatal mitochondrial hepatotoxicity was delayed and not predicted by available preclinical models \u2014 is reflected as a latent risk rather than a revealed result to avoid leaking the outcome.",
+      "kind": "historical",
+      "name": "Fialuridine (FIAU)",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "Outcome CONFIRMED as false (failure/discontinued). Verified against NEJM 1995 (PMID 7565947), IOM/National Academies review (NBK232082), and FDA Task Force report: June 1993 NIH Phase II trial halted, 15 patients, 7 severe hepatotoxicity, 5 deaths, 2 liver transplants, mitochondrial toxicity mechanism; never approved, development terminated. All four sources are real, reputable, correctly described, and support the outcome. LEAKAGE DETECTED (hence leakage_check=false): the description is clean and prospectively framed, but evidence ev2 states as fact that toxicology 'did not reproduce the human injury' \u2014 presupposing human injury occurred \u2014 and ev5 names 'microvesicular steatosis and lactic acidosis' as a mechanistic prediction, together revealing the adverse outcome that a calibration test should require the model to infer. Recommend rewording ev2/ev5 to remove retrospective confirmation before using in the calibration dataset. [POST-FIX] ev2/ev5 reworded to remove retrospective outcome leakage while retaining the pre-decision mitochondrial-toxicity risk signal; leakage_check now passes."
+      }
+    },
+    {
+      "id": "preladenant",
+      "description": "Preladenant (SCH-420814) is a small-molecule, orally administered, potent and selective antagonist of the adenosine A2A receptor, originating from Schering-Plough and advanced by Merck & Co. It was developed as a non-dopaminergic adjunctive therapy for Parkinson disease, intended to reduce motor \"OFF\" time in patients on levodopa and studied both as add-on and as monotherapy. The asset entered a broad Phase 3 program on the strength of encouraging Phase 2 dose-ranging efficacy data, targeting a novel mechanism aimed at improving motor fluctuations without worsening dyskinesia. The decision point is the readout of the pivotal Phase 3 trials against the primary motor-fluctuation endpoint.",
+      "true_outcome": false,
+      "outcome_summary": "In May 2013, Merck discontinued the preladenant Phase 3 program after the pivotal trials failed to show efficacy on reducing OFF time versus placebo, both as add-on to levodopa and as monotherapy; the decision was based on lack of efficacy (futility), not a safety signal. Notably, the active comparator rasagiline also failed to separate from placebo in the same studies, raising questions about trial conduct.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Merck Provides Update on Phase III Clinical Program for Preladenant",
+          "url": "https://www.merck.com/news/merck-provides-update-on-phase-iii-clinical-program-for-preladenant-the-companys-investigational-parkinsons-disease-medicine/",
+          "note": "Primary-source Merck press release (May 2013) announcing discontinuation of the Phase 3 program for lack of efficacy, no safety basis."
+        },
+        {
+          "title": "Preladenant - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Preladenant",
+          "note": "Summarizes mechanism (A2A antagonist), positive Phase 2 and failed Phase 3 vs placebo, discontinuation May 2013."
+        },
+        {
+          "title": "Merck to Discontinue Parkinson's Drug Program Targeting the Brain Chemical Adenosine",
+          "url": "https://www.michaeljfox.org/news/merck-discontinue-parkinsons-drug-program-targeting-brain-chemical-adenosine",
+          "note": "Independent patient-advocacy coverage confirming discontinuation and Parkinson-disease indication context."
+        },
+        {
+          "title": "Merck marks another failure in elusive hunt for Parkinson's disease drugs | Fierce Biotech",
+          "url": "https://www.fiercebiotech.com/r-d/merck-marks-another-failure-elusive-hunt-for-parkinson-s-disease-drugs",
+          "note": "Industry news confirming Phase 3 failure and that comparator rasagiline also failed to beat placebo, questioning trial design."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "preladenant-ev1",
+          "type": "binding",
+          "text": "Preladenant is a highly potent and selective adenosine A2A receptor antagonist with strong subtype selectivity over A1, providing a clean non-dopaminergic mechanistic rationale for modulating basal ganglia motor circuitry in Parkinson disease.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "preladenant-ev2",
+          "type": "preclinical",
+          "text": "In rodent and primate (MPTP) models of parkinsonism, A2A blockade improved motor function and potentiated levodopa effects without markedly worsening dyskinesia, supporting an adjunctive-therapy hypothesis.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "preladenant-ev3",
+          "type": "binding",
+          "text": "Earlier Phase 2 dose-ranging work suggested a reduction in motor OFF time at active doses versus placebo, though effect sizes were modest and the therapeutic window across doses was not sharply defined.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "preladenant-ev4",
+          "type": "tox",
+          "text": "The compound carried no distinctive safety liability into Phase 3; the tolerability profile was broadly acceptable, so the program risk concentrated on efficacy rather than toxicity.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "preladenant-ev5",
+          "type": "adme_pk",
+          "text": "As an orally dosed small molecule the asset had workable pharmacokinetics for chronic daily dosing, but adequacy of CNS target engagement at the doses selected for pivotal trials remained an open translational question.",
+          "direction": "neutral",
+          "strength": "weak"
+        },
+        {
+          "id": "preladenant-ev6",
+          "type": "ip_market",
+          "text": "Multiple pharma programs targeting adenosine A2A for Parkinson had a mixed historical track record, and the class as a whole had not yet delivered a marketed motor-fluctuation therapy, signaling meaningful mechanism-level commercial and translational uncertainty.",
+          "direction": "adverse",
+          "strength": "moderate"
+        }
+      ],
+      "caveats": "Outcome classification is unambiguous: Merck publicly discontinued the Phase 3 program in May 2013 for futility (lack of efficacy on OFF time), explicitly not for safety. One nuance worth flagging for calibration: the pivotal trials also failed to demonstrate efficacy for the already-approved active comparator rasagiline, which led observers to question trial design/conduct rather than the A2A mechanism per se \u2014 so \"failure\" here reflects the asset's development termination, while the mechanistic verdict is less clean (the same target later succeeded as istradefylline, approved 2019). The evidence snippets are reconstructed editorial summaries of what was plausibly known pre-decision, grounded in the real program but not verbatim trial statistics; no numeric endpoints are asserted.",
+      "kind": "historical",
+      "name": "Preladenant",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "Outcome false (failure/discontinued) is correct and defensible. Merck discontinued the Phase 3 preladenant (A2A antagonist, Parkinson's) program in May 2013 after pivotal trials failed to beat placebo on OFF-time reduction, both as add-on to levodopa and as monotherapy; decision was for lack of efficacy/futility, not a safety signal. Corroborated by Merck primary press release (merck.com), Citeline/Scrip, PMLive, European Pharmaceutical Review, FierceBiotech, and Michael J. Fox Foundation. The detail that active comparator rasagiline also failed to separate from placebo is supported in industry coverage/literature. Sources cited in the record are well-formed and reputable. No outcome leakage: the description terminates at the neutral 'decision point is the readout of the pivotal Phase 3 trials' and the evidence snippets cover only prior-stage binding/preclinical/Phase 2/tox/PK/IP context (ev6 adverse but class-level prior, not the specific outcome). A calibration model reading the setup could not infer the Phase 3 failure from the provided text."
+      }
+    },
+    {
+      "id": "verubecestat",
+      "description": "Verubecestat is an orally administered small-molecule inhibitor of beta-site amyloid precursor protein cleaving enzyme 1 (BACE1), the rate-limiting protease in the amyloidogenic processing of amyloid precursor protein. By blocking BACE1, the compound is designed to reduce production of amyloid-beta peptides and lower amyloid plaque burden, testing the amyloid hypothesis of Alzheimer disease. At the decision point it is a lead clinical asset advancing through pivotal Phase 3 evaluation in mild-to-moderate Alzheimer disease (EPOCH) and in prodromal/early Alzheimer disease (APECS), with robust CSF amyloid-beta lowering demonstrated as a target-engagement biomarker.",
+      "true_outcome": false,
+      "outcome_summary": "Failure. Merck discontinued the Phase 3 EPOCH trial in mild-to-moderate Alzheimer disease for futility in February 2017, and stopped the Phase 3 APECS prodromal trial in February 2018 after an external data monitoring committee found an unfavorable risk/benefit profile (patients on drug declined faster than placebo). The program was terminated; the drug was never approved.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Merck Announces Discontinuation of APECS Study Evaluating Verubecestat (MK-8931) for the Treatment of People with Prodromal Alzheimer's Disease",
+          "url": "https://www.merck.com/news/merck-announces-discontinuation-of-apecs-study-evaluating-verubecestat-mk-8931-for-the-treatment-of-people-with-prodromal-alzheimers-disease/",
+          "note": "Primary Merck press release (Feb 2018) confirming termination of the APECS prodromal trial on unfavorable risk/benefit."
+        },
+        {
+          "title": "Further analyses of the safety of verubecestat in the phase 3 EPOCH trial of mild-to-moderate Alzheimer's disease",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6685277/",
+          "note": "Peer-reviewed (Alzheimer's Research & Therapy, 2019) confirming EPOCH was terminated for futility and detailing adverse-event profile."
+        },
+        {
+          "title": "Merck Axes Verubecestat for Prodromal AD, Researchers Say 'Go Earlier'",
+          "url": "https://www.alzforum.org/news/research-news/merck-axes-verubecestat-prodromal-ad-researchers-say-go-earlier",
+          "note": "Independent scientific-press coverage of APECS discontinuation and worse cognitive decline on drug vs placebo."
+        },
+        {
+          "title": "Doubts over BACE drugs after Merck ends Alzheimer's trial",
+          "url": "https://pharmaphorum.com/news/doubts-bace-drugs-merck-ends-alzheimers-trial",
+          "note": "Industry news corroborating the EPOCH futility termination and BACE-class implications."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "verubecestat-ev1",
+          "type": "binding",
+          "text": "Verubecestat is a potent, selective small-molecule BACE1 inhibitor that engages its target in the CNS; single and multiple oral doses produced substantial, dose-dependent reductions in CSF amyloid-beta (Abeta40, Abeta42) and sAPPbeta in healthy volunteers and AD patients, establishing clear central target engagement.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "verubecestat-ev2",
+          "type": "preclinical",
+          "text": "In rats and non-human primates the compound lowered brain, CSF, and plasma Abeta without the marked hepatotoxicity that halted earlier BACE inhibitors, supporting a viable therapeutic window at the biochemical level.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "verubecestat-ev3",
+          "type": "tox",
+          "text": "BACE1 and the closely related BACE2 have physiological substrates beyond APP (e.g., neuregulin-1, roles in myelination, retinal and pigmentation pathways), raising a mechanism-based concern that sustained high-level enzyme inhibition could produce on-target adverse effects distinct from acute liver toxicity.",
+          "direction": "adverse",
+          "strength": "moderate"
+        },
+        {
+          "id": "verubecestat-ev4",
+          "type": "preclinical",
+          "text": "The amyloid hypothesis underpinning the program rested on associative and genetic evidence; whether lowering Abeta production after symptomatic disease onset would translate into cognitive benefit remained unproven, a strategic risk shared across the anti-amyloid field at the time.",
+          "direction": "neutral",
+          "strength": "moderate"
+        },
+        {
+          "id": "verubecestat-ev5",
+          "type": "adme_pk",
+          "text": "Oral bioavailability with CNS penetration allowed convenient once-daily dosing and dose-dependent pharmacodynamic Abeta suppression, giving a clean, measurable biomarker-driven PK/PD relationship to guide dose selection into pivotal trials.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "verubecestat-ev6",
+          "type": "ip_market",
+          "text": "Alzheimer disease represented an enormous unmet need with no disease-modifying therapy; a first-in-class oral BACE1 inhibitor offered major commercial and IP upside, incentivizing advance into large pivotal trials despite unresolved efficacy uncertainty.",
+          "direction": "supportive",
+          "strength": "weak"
+        }
+      ],
+      "caveats": "Classification is unambiguous: verubecestat was never approved and both pivotal trials (EPOCH, APECS) were terminated. The evidence profile is a reconstructed editorial summary of what was plausibly known pre-decision (strong CSF Abeta target engagement, an acceptable preclinical liver-tox window relative to prior BACE compounds, and mechanism-based on-target concerns from BACE1/BACE2 physiology); it deliberately avoids the trial outcome data (futility, faster cognitive decline, suicidal-ideation signal) that only emerged after the go decision. No fabricated trial numbers are included. Not a withdrawal case (never marketed); history is clean-failure rather than mixed.",
+      "kind": "historical",
+      "name": "Verubecestat (MK-8931)",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "Outcome false (failure/discontinued) is correct and defensible. Merck halted Phase 3 EPOCH (mild-moderate AD) for futility Feb 2017 and discontinued Phase 3 APECS (prodromal AD) Feb 2018 after an external DMC found unfavorable risk/benefit (faster decline and more brain atrophy on drug); never approved. Confirmed via Merck press release, Wikipedia, Alzforum, BioPharma Dive, ClinicalTrialsArena. Cited sources are reputable and plausibly support the outcome (primary Merck APECS release, peer-reviewed PMC EPOCH safety paper, Alzforum, pharmaphorum). No leakage: description is written at the pre-decision Phase 3 point emphasizing target engagement and does not disclose termination; evidence snippets are prospective supportive/adverse/neutral signals (binding target engagement, BACE1/2 substrate tox concern, amyloid-hypothesis translation risk) framed as decision-time considerations, none revealing trial failure."
+      }
+    }
+  ]
+}

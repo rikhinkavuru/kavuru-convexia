@@ -30,6 +30,9 @@ dev = ["pytest>=8.0"]
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+"kavuru_convexia.data" = ["*.json"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 # src -> the package; "." -> the repo-root config.py convenience shim.
