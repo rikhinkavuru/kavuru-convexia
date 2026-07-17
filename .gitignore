@@ -1,0 +1,19 @@
+# virtualenv / build
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# generated run artifacts (reproducible via `make demo`)
+outputs/*
+!outputs/.gitkeep
+
+# on-disk LLM response cache (keyed by prompt hash; large + machine-specific)
+.cache/
+
+# os
+.DS_Store

@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kavuru-convexia"
+version = "0.1.0"
+description = "A reliability audit harness for LLM-agent drug-asset evaluations: reproducibility, calibration, robustness, and conflict-handling."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Rikhin Kavuru", email = "rikhin@virahacks.com" }]
+keywords = ["llm", "agents", "reliability", "calibration", "drug-discovery", "evaluation"]
+dependencies = [
+  "anthropic>=0.40",
+  "numpy>=1.26",
+  "scipy>=1.11",
+  "pandas>=2.1",
+  "scikit-learn>=1.4",
+  "matplotlib>=3.8",
+  "seaborn>=0.13",
+  "nbformat>=5.9",
+  "nbclient>=0.9",
+  "ipykernel>=6.29",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# src -> the package; "." -> the repo-root config.py convenience shim.
+pythonpath = ["src", "."]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]
