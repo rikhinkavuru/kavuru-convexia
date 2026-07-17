@@ -29,6 +29,7 @@ from ..logutil import get_logger
 from ._common import clip01, evaluate_batch
 from .report_types import CheckResult
 from .robustness import neutralize_entities
+from .stats import metric_ci
 
 logger = get_logger(__name__)
 
@@ -97,6 +98,15 @@ def audit_calibration(
     brier = float(brier_score_loss(y_true, y_prob))
     auroc = float(roc_auc_score(y_true, y_prob)) if len(set(y_true)) > 1 else float("nan")
 
+    # Bootstrap CIs by resampling the labeled assets. Brier is a smooth mean and
+    # trustworthy; AUROC drops single-class resamples (fraction reported) and ECE
+    # is a non-smooth binned plug-in — both are flagged as unstable at this n.
+    brier_ci, _ = metric_ci(y_true, y_prob, brier_score_loss, clip=(0.0, 1.0))
+    auroc_ci, auroc_discard = metric_ci(y_true, y_prob, roc_auc_score, clip=(0.0, 1.0))
+    ece_ci, _ = metric_ci(y_true, y_prob,
+                          lambda yt, yp: expected_calibration_error(yt, yp, n_bins)[0], clip=(0.0, 1.0))
+    metrics_ci = {"brier": list(brier_ci[1:]), "auroc": list(auroc_ci[1:]), "ece": list(ece_ci[1:])}
+
     mean_pos = float(y_prob.mean())
     empirical_base_rate = float(y_true.mean())  # ~0.5 by construction of this set
     optimism_vs_set = mean_pos - empirical_base_rate  # systematic offset on this set
@@ -136,10 +146,15 @@ def audit_calibration(
         status=status,
         score=score,
         metrics=metrics,
+        metrics_ci=metrics_ci,
         flags=flags,
         detail={
             "per_asset": per_asset,
             "reliability_curve": curve,
+            "auroc_discard_frac": auroc_discard,
+            "ci_note": (f"CIs resample the {len(labeled)} labeled assets (B=2000). Brier is "
+                        "trustworthy; AUROC (single-class resamples dropped: "
+                        f"{auroc_discard:.0%}) and ECE (non-smooth, {n_bins} bins) are unstable at this n."),
             "base_rate_source": config.BASE_RATE_SOURCE,
             "note": ("Curated set is balanced (~50% success); calibration is judged "
                      "against its own base rate. The published pipeline base rate "

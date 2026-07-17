@@ -34,6 +34,8 @@ class CheckResult:
     status: Status
     score: float  # 0..1 reliability sub-score for this dimension (1 = fully reliable)
     metrics: dict[str, float] = field(default_factory=dict)
+    # 95% bootstrap CIs for selected headline metrics, as {metric: [lo, hi]}.
+    metrics_ci: dict[str, list[float]] = field(default_factory=dict)
     flags: list[str] = field(default_factory=list)
     detail: dict[str, Any] = field(default_factory=dict)  # per-asset + module-specific
     requires_labels: bool = False  # calibration needs outcome labels
@@ -68,10 +70,11 @@ class VerdictReliabilityReport:
     model: str
     checks: dict[str, CheckResult]
     entries: list[AssetReliabilityEntry]
-    reliability_score: float  # weighted over production-usable checks
+    reliability_score: float  # mean of per-verdict reliability scores
     overall_status: Status
     headline_flags: list[str]
     n_assets: int
+    reliability_score_ci: Optional[list[float]] = None  # 95% CI [lo, hi]
     created: str = ""
 
     def to_dict(self) -> dict[str, Any]:
@@ -81,6 +84,7 @@ class VerdictReliabilityReport:
             "created": self.created,
             "n_assets": self.n_assets,
             "reliability_score": self.reliability_score,
+            "reliability_score_ci": self.reliability_score_ci,
             "overall_status": self.overall_status,
             "headline_flags": self.headline_flags,
             "checks": {k: v.to_dict() for k, v in self.checks.items()},

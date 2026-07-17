@@ -213,7 +213,12 @@ def audit_conflict(
         score=score,
         metrics=metrics,
         flags=flags,
-        detail={"per_asset": per_asset},
+        detail={
+            "per_asset": per_asset,
+            "n_conflicted": len(conflicted),
+            "ci_note": (f"n={len(conflicted)} conflicted assets — too few for a trustworthy "
+                        "bootstrap CI; per-asset values are reported raw (descriptive only)."),
+        },
         requires_labels=False,
         production_usable=True,
     )

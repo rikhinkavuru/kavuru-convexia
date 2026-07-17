@@ -20,6 +20,7 @@ from ._common import clip01
 from .calibration import audit_calibration
 from .conflict import AckJudge, audit_conflict
 from .reproducibility import audit_reproducibility
+from .stats import mean_ci
 from .report_types import (
     AssetReliabilityEntry,
     CheckResult,
@@ -175,7 +176,10 @@ def audit_agent(
     # score reflects how each dimension actually covers the audited assets (the
     # conflict dimension only covers the conflicted subset) rather than blending
     # dimension-level scores measured over different asset counts.
-    reliability_score = float(np.mean([e.reliability_score for e in entries])) if entries else 0.0
+    entry_scores = [e.reliability_score for e in entries]
+    reliability_score = float(np.mean(entry_scores)) if entry_scores else 0.0
+    rel_ci = mean_ci(entry_scores, clip=(0.0, 1.0)) if entry_scores else (0.0, 0.0, 0.0)
+    reliability_score_ci = [round(rel_ci[1], 4), round(rel_ci[2], 4)]
     prod = {k: v for k, v in checks.items() if v.production_usable}
     overall_status = worst_status([v.status for v in prod.values()])
 
@@ -190,6 +194,7 @@ def audit_agent(
         checks=checks,
         entries=entries,
         reliability_score=round(reliability_score, 4),
+        reliability_score_ci=reliability_score_ci,
         overall_status=overall_status,
         headline_flags=headline_flags,
         n_assets=len(assets),

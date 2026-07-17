@@ -28,6 +28,7 @@ from ..evaluator import AssetEvaluator
 from ..logutil import get_logger
 from ._common import clip01, evaluate_batch
 from .report_types import CheckResult, Status, worst_status
+from .stats import mean_ci
 
 logger = get_logger(__name__)
 
@@ -223,6 +224,15 @@ def audit_robustness(
         **{f"mean_drift__{n}": float(np.mean(d)) for n, d in per_pert_drift.items() if d},
     }
 
+    # Cluster bootstrap on assets: keep each asset's fixed perturbation vector
+    # intact (the perturbations are a designed factor, not a resampled sample).
+    n_perts = max(1, len(pert_names))
+    metrics_ci = {
+        "mean_abs_drift": list(mean_ci([d["mean_drift"] for d in per_asset.values()], clip=(0.0, 1.0))[1:]),
+        "rec_change_rate": list(mean_ci(
+            [d["n_rec_changes"] / n_perts for d in per_asset.values()], clip=(0.0, 1.0))[1:]),
+    }
+
     s_drift = 1.0 - clip01(metrics["mean_abs_drift"] / config.POS_DRIFT_FAIL)
     s_rec = 1.0 - clip01(rec_change_rate)
     score = float(np.mean([s_drift, s_rec]))
@@ -242,6 +252,7 @@ def audit_robustness(
         status=status,
         score=score,
         metrics=metrics,
+        metrics_ci=metrics_ci,
         flags=flags,
         detail={"per_asset": per_asset, "perturbations": pert_names},
         requires_labels=False,

@@ -24,6 +24,7 @@ from ..evaluator import AssetEvaluator
 from ..logutil import get_logger
 from ._common import clip01, evaluate_batch, flip_rate, iqr, mean_pairwise_jaccard, modal
 from .report_types import CheckResult, Status, worst_status
+from .stats import hierarchical_mean_ci
 
 logger = get_logger(__name__)
 
@@ -56,6 +57,7 @@ def audit_reproducibility(
     verdicts = evaluate_batch(evaluator, jobs, temperature=temperature)
 
     per_asset: dict[str, dict] = {}
+    boot_items: list[dict] = []  # run-level data per asset for the hierarchical bootstrap
     for a in assets:
         runs = [verdicts[(a.id, i)] for i in range(n)]
         scores = [v.pos_score for v in runs]
@@ -84,6 +86,13 @@ def audit_reproducibility(
             "n_parse_errors": n_parse_errors,
             "status": status,
         }
+        boot_items.append({
+            "scores": np.asarray(scores, dtype=float),
+            "recs": recs,
+            "cited": [set(v.cited_evidence_ids) for v in runs],
+            "valid": [v.parse_error is None for v in runs],
+            "n": n,
+        })
 
     stds = [d["pos_std"] for d in per_asset.values()]
     frs = [d["flip_rate"] for d in per_asset.values()]
@@ -109,6 +118,22 @@ def audit_reproducibility(
     s_parse = 1.0 - clip01(metrics["parse_error_rate"])
     score = float(np.mean([s_std, s_flip, s_rationale, s_parse]))
 
+    # Hierarchical bootstrap: resample assets AND the N runs within each drawn
+    # asset, so the noise of an 8-run per-asset estimate propagates into the CI.
+    def _jaccard_over(item: dict, ri: np.ndarray) -> float:
+        valid = [item["cited"][j] for j in ri if item["valid"][j]]
+        return mean_pairwise_jaccard(valid) if len(valid) >= 2 else 0.0
+
+    n_runs = lambda it: it["n"]  # noqa: E731
+    metrics_ci = {
+        "pos_std_mean": list(hierarchical_mean_ci(
+            boot_items, lambda it, ri: float(np.std(it["scores"][ri])), n_runs, clip=(0.0, 1.0))[1:]),
+        "flip_rate_mean": list(hierarchical_mean_ci(
+            boot_items, lambda it, ri: flip_rate([it["recs"][j] for j in ri]), n_runs, clip=(0.0, 1.0))[1:]),
+        "rationale_jaccard_mean": list(hierarchical_mean_ci(
+            boot_items, _jaccard_over, n_runs, clip=(0.0, 1.0))[1:]),
+    }
+
     statuses = [d["status"] for d in per_asset.values()]
     status = worst_status(statuses)
     flags: list[str] = []
@@ -129,6 +154,7 @@ def audit_reproducibility(
         status=status,
         score=score,
         metrics=metrics,
+        metrics_ci=metrics_ci,
         flags=flags,
         detail={"per_asset": per_asset, "n": n},
         requires_labels=False,
