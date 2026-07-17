@@ -55,7 +55,9 @@ def neutralize_entities(asset: Asset) -> Asset:
 
     def scrub(text: str) -> str:
         for tok in tokens:
-            text = re.sub(rf"\b{re.escape(tok)}\b", "the candidate", text)
+            # Case-insensitive: the drug name recurs lowercased mid-sentence and in
+            # generic form; missing those would leave the identity un-blinded.
+            text = re.sub(rf"\b{re.escape(tok)}\b", "the candidate", text, flags=re.IGNORECASE)
         return text
 
     new_evidence = [replace(e, text=scrub(e.text)) for e in asset.evidence]
@@ -127,10 +129,12 @@ def default_perturbations(paraphraser: Optional[Callable[[str], str]] = None) ->
 # ---------------------------------------------------------------------------
 # Audit
 # ---------------------------------------------------------------------------
-def _asset_status(max_drift: float, n_rec_changes: int, max_drift_warn_hit: bool) -> Status:
-    if max_drift >= config.POS_DRIFT_FAIL or (n_rec_changes > 0 and max_drift_warn_hit):
+def _asset_status(max_sig_drift: float, n_rec_changes: int) -> Status:
+    # A recommendation reversal under an edit that MUST NOT change the answer is a
+    # discrete failure on its own (once attributed to the edit, not native noise).
+    if max_sig_drift >= config.POS_DRIFT_FAIL or n_rec_changes > 0:
         return "fail"
-    if max_drift >= config.POS_DRIFT_WARN or n_rec_changes > 0:
+    if max_sig_drift >= config.POS_DRIFT_WARN:
         return "warn"
     return "pass"
 
@@ -143,14 +147,22 @@ def audit_robustness(
     paraphraser: Optional[Callable[[str], str]] = None,
     temperature: Optional[float] = None,
 ) -> CheckResult:
-    """Audit verdict drift under semantics-preserving edits. Requires no labels."""
+    """Audit verdict drift under semantics-preserving edits. Requires no labels.
+
+    Two base samples estimate the evaluator's native run-to-run noise for each
+    asset; a perturbation's drift is only counted as "significant" once it clears
+    that noise floor, and a recommendation change is attributed to the edit only if
+    the base recommendation was itself stable across the two base samples.
+    """
     perturbations = perturbations if perturbations is not None else default_perturbations(paraphraser)
     pert_names = [name for name, _ in perturbations]
     logger.info("robustness: %d assets x %d perturbations (%s)",
                 len(assets), len(perturbations), ", ".join(pert_names))
 
-    jobs = [((a.id, "base"), a, "robust-base") for a in assets]
+    jobs = []
     for a in assets:
+        jobs.append(((a.id, "base0"), a, "robust-base0"))
+        jobs.append(((a.id, "base1"), a, "robust-base1"))  # control arm for the noise floor
         for name, fn in perturbations:
             jobs.append(((a.id, name), fn(a), "robust"))
     verdicts = evaluate_batch(evaluator, jobs, temperature=temperature)
@@ -160,28 +172,42 @@ def audit_robustness(
     rec_change_flags: list[bool] = []
     per_pert_drift: dict[str, list[float]] = {n: [] for n in pert_names}
     for a in assets:
-        base = verdicts[(a.id, "base")]
+        base0, base1 = verdicts[(a.id, "base0")], verdicts[(a.id, "base1")]
+        baseline_pos = (base0.pos_score + base1.pos_score) / 2.0
+        native_noise = abs(base0.pos_score - base1.pos_score)
+        # A perturbation must move PoS by more than the native noise (min floor at
+        # the WARN threshold) to count. Base recommendation must agree across the two
+        # control samples for a perturbation rec-change to be blamed on the edit.
+        noise_floor = max(config.POS_DRIFT_WARN, 2.0 * native_noise)
+        base_rec_stable = base0.recommendation == base1.recommendation
+
         pert_detail: dict[str, dict] = {}
         drifts: dict[str, float] = {}
+        sig_drifts: dict[str, float] = {}
         n_rec_changes = 0
         for name in pert_names:
             v = verdicts[(a.id, name)]
-            drift = abs(v.pos_score - base.pos_score)
-            rec_changed = v.recommendation != base.recommendation
+            drift = abs(v.pos_score - baseline_pos)
+            rec_changed = base_rec_stable and v.recommendation != base0.recommendation
             drifts[name] = drift
+            sig_drifts[name] = drift if drift > noise_floor else 0.0
             per_pert_drift[name].append(drift)
             all_drifts.append(drift)
             rec_change_flags.append(rec_changed)
             n_rec_changes += int(rec_changed)
-            pert_detail[name] = {"pos": v.pos_score, "drift": drift, "rec_change": rec_changed,
+            pert_detail[name] = {"pos": v.pos_score, "drift": drift,
+                                 "significant": drift > noise_floor, "rec_change": rec_changed,
                                  "recommendation": v.recommendation}
         max_drift = max(drifts.values())
+        max_sig_drift = max(sig_drifts.values())
         worst = max(drifts, key=drifts.get)
-        status = _asset_status(max_drift, n_rec_changes, max_drift >= config.POS_DRIFT_WARN)
+        status = _asset_status(max_sig_drift, n_rec_changes)
         per_asset[a.id] = {
-            "baseline_pos": base.pos_score,
-            "baseline_recommendation": base.recommendation,
+            "baseline_pos": baseline_pos,
+            "baseline_recommendation": base0.recommendation,
+            "native_noise": native_noise,
             "max_drift": max_drift,
+            "max_significant_drift": max_sig_drift,
             "mean_drift": float(np.mean(list(drifts.values()))),
             "worst_perturbation": worst,
             "n_rec_changes": n_rec_changes,

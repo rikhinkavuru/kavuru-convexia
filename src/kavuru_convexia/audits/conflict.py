@@ -66,7 +66,16 @@ def make_llm_ack_judge(client) -> AckJudge:
         out = client.complete(system, user, temperature=0.0, cache_tag="ackjudge")
         try:
             match = re.search(r"\{.*\}", out, re.DOTALL)
-            return bool(json.loads(match.group(0))["acknowledges"])
+            val = json.loads(match.group(0))["acknowledges"]
+            # Coerce explicitly: a JSON string "false" is truthy in Python, so
+            # bool(val) would wrongly read a "false" verdict as acknowledged.
+            if isinstance(val, bool):
+                return val
+            if isinstance(val, str):
+                return val.strip().lower() in ("true", "yes", "1")
+            if isinstance(val, (int, float)):
+                return bool(val)
+            return heuristic_ack_judge(rationale, tension)
         except Exception:  # noqa: BLE001 — fall back rather than fail the audit
             return heuristic_ack_judge(rationale, tension)
 
@@ -122,7 +131,12 @@ def audit_conflict(
         anchoring_swing = abs(mean_orig - mean_swap)
         rec_orig = modal(orig_recs)
         rec_swap = modal([v.recommendation for v in swap])
-        anchoring_rec_change = rec_orig != rec_swap
+        # Noise floor: the order-driven swing must beat the run-to-run dispersion of
+        # the original order (min floor at the WARN threshold), and a rec change is
+        # attributed to order only when the original recommendation is itself stable.
+        noise_floor = max(config.ANCHORING_POS_SWING_WARN, 2.0 * pos_std)
+        swing_significant = anchoring_swing > noise_floor
+        anchoring_rec_change = (rec_orig != rec_swap) and consistency_flip < config.FLIP_RATE_WARN
 
         # Acknowledgment: judge the rationale of a modal-recommendation run.
         rep = next((v for v in orig if v.recommendation == rec_orig), orig[0])
@@ -131,7 +145,7 @@ def audit_conflict(
         reasons = []
         if not acknowledges:
             reasons.append("did not acknowledge the conflict")
-        if anchoring_swing >= config.ANCHORING_POS_SWING_WARN or anchoring_rec_change:
+        if (anchoring_swing >= config.ANCHORING_POS_SWING_WARN and swing_significant) or anchoring_rec_change:
             reasons.append(f"order-driven PoS swing {anchoring_swing:.2f}"
                            + (", recommendation changed" if anchoring_rec_change else ""))
         if consistency_flip >= config.FLIP_RATE_WARN:
@@ -139,8 +153,9 @@ def audit_conflict(
 
         ack_status: Status = "pass" if acknowledges else "fail"
         anchor_status: Status = (
-            "fail" if (anchoring_swing >= config.ANCHORING_POS_SWING_FAIL or anchoring_rec_change)
-            else "warn" if anchoring_swing >= config.ANCHORING_POS_SWING_WARN
+            "fail" if ((anchoring_swing >= config.ANCHORING_POS_SWING_FAIL and swing_significant)
+                       or anchoring_rec_change)
+            else "warn" if (anchoring_swing >= config.ANCHORING_POS_SWING_WARN and swing_significant)
             else "pass"
         )
         consist_status: Status = (
@@ -155,6 +170,8 @@ def audit_conflict(
             "mean_pos_original_order": mean_orig,
             "mean_pos_swapped_order": mean_swap,
             "anchoring_swing": anchoring_swing,
+            "anchoring_swing_significant": swing_significant,
+            "anchoring_noise_floor": noise_floor,
             "anchoring_rec_change": anchoring_rec_change,
             "consistency_flip_rate": consistency_flip,
             "consistency_pos_std": pos_std,
@@ -176,6 +193,10 @@ def audit_conflict(
 
     s_ack = ack_rate
     s_anchor = 1.0 - clip01(metrics["mean_anchoring_swing"] / config.ANCHORING_POS_SWING_FAIL)
+    # A positional recommendation flip is a hard anchoring failure — floor the
+    # continuous sub-score so it cannot stay high while the status says fail.
+    if metrics["n_anchoring_rec_changes"] > 0:
+        s_anchor = min(s_anchor, 0.0)
     s_consist = 1.0 - clip01(metrics["mean_consistency_flip_rate"] / config.FLIP_RATE_FAIL)
     score = float(np.mean([s_ack, s_anchor, s_consist]))
 

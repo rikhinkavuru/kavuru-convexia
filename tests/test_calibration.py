@@ -49,3 +49,16 @@ def test_overconfident_stub_is_flagged():
     assert bad.metrics["ece"] >= config.ECE_FAIL
     assert bad.metrics["ece"] > good.metrics["ece"]
     assert bad.flags
+
+
+def test_bins_capped_to_sample_count():
+    # 12 labeled assets -> at most 6 bins, so bins are not sparser than the data.
+    result = audit_calibration(WellCalibratedStub(), HIST)
+    assert result.metrics["n_bins"] <= len(HIST) // 2
+
+
+def test_blinded_calibration_is_distinct_check():
+    result = audit_calibration(WellCalibratedStub(), HIST, blind_identity=True)
+    assert result.name == "calibration_blinded"
+    assert result.metrics["blind_identity"] == 1.0
+    assert not result.production_usable

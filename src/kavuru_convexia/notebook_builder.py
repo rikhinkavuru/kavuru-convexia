@@ -46,14 +46,16 @@ def run_demo(
 
     logger.info("running primary audit: %s over %d assets", agent.name, len(all_assets))
     report = audit_agent(
-        agent, all_assets, calibration_assets=historical, n=n,
+        agent, all_assets, calibration_assets=historical, blind_calibration=True, n=n,
         ack_judge=ack_judge, paraphraser=paraphraser,
     )
     figures = reporting.save_report_figures(report, config.FIGURES_DIR)
     reporting.save_markdown_report(report, config.REPORTS_DIR, figures=figures)
 
+    # A cross-agent comparison is only meaningful with a real model: offline, both
+    # "agents" share the identical deterministic stub, so the ranking is a tie.
     comparison: dict[str, VerdictReliabilityReport] = {}
-    if cross_agent:
+    if cross_agent and not agent.client.offline:
         # Fair head-to-head on the synthetic set (the primary agent's synthetic
         # runs are already cached from the full audit; only the second agent is new).
         primary_syn = audit_agent(agent, synthetic, n=n, ack_judge=ack_judge, paraphraser=paraphraser)
@@ -120,9 +122,18 @@ print("\\n".join(report.summary_lines()))"""),
     ("md", "## Figures"),
     ("code", """\
 figures = reporting.save_report_figures(report, config.FIGURES_DIR)
-for name in ("reproducibility", "robustness", "conflict", "calibration"):
+for name in ("reproducibility", "robustness", "conflict", "calibration", "calibration_blinded"):
     if name in figures:
         display(Image(str(figures[name])))"""),
+    ("md", "## Memorization check\\n\\nRe-score the historical drugs with their identity "
+           "stripped. A large AUROC drop would mean the agent recognizes famous outcomes "
+           "rather than reasoning from the evidence."),
+    ("code", """\
+cal, blind = report.checks.get("calibration"), report.checks.get("calibration_blinded")
+if cal and blind:
+    print(f"revealed : AUROC {cal.metrics['auroc']:.2f}  ECE {cal.metrics['ece']:.3f}")
+    print(f"blinded  : AUROC {blind.metrics['auroc']:.2f}  ECE {blind.metrics['ece']:.3f}")
+    print(f"AUROC change when blinded: {cal.metrics['auroc'] - blind.metrics['auroc']:+.2f}")"""),
     ("md", "## Per-verdict reliability\\n\\nEach asset's verdict gets a reliability score, a "
            "status, and human-readable flags — the actionable output of the gate."),
     ("code", """\
@@ -134,13 +145,16 @@ pd.DataFrame(rows).sort_values("reliability").reset_index(drop=True)"""),
     ("md", "## Cross-agent comparison\\n\\nThe gate's real job: rank candidate agents by "
            "reliability. Here the reference model vs. a cheaper one on the synthetic set."),
     ("code", """\
-primary_syn = audit_agent(agent, synthetic, n=config.N_REPETITIONS, ack_judge=ack_judge, paraphraser=paraphraser)
-second = ReferenceAgent(model=config.JUDGE_MODEL)
-second_syn = audit_agent(second, synthetic, n=config.N_REPETITIONS, ack_judge=ack_judge, paraphraser=paraphraser)
-comparison = {agent.model: primary_syn, second.model: second_syn}
-display(Image(str(reporting.fig_agent_comparison(comparison, config.FIGURES_DIR / "agent_comparison.png"))))
-for m, r in comparison.items():
-    print(f"{m}: reliability {r.reliability_score:.2f} ({r.overall_status})")"""),
+if agent.client.offline:
+    print("Offline mode: skipping cross-agent comparison (both agents share the same stub).")
+else:
+    primary_syn = audit_agent(agent, synthetic, n=config.N_REPETITIONS, ack_judge=ack_judge, paraphraser=paraphraser)
+    second = ReferenceAgent(model=config.JUDGE_MODEL)
+    second_syn = audit_agent(second, synthetic, n=config.N_REPETITIONS, ack_judge=ack_judge, paraphraser=paraphraser)
+    comparison = {agent.model: primary_syn, second.model: second_syn}
+    display(Image(str(reporting.fig_agent_comparison(comparison, config.FIGURES_DIR / "agent_comparison.png"))))
+    for m, r in comparison.items():
+        print(f"{m}: reliability {r.reliability_score:.2f} ({r.overall_status})")"""),
     ("md", "## Save the report"),
     ("code", """\
 md_path, json_path = reporting.save_markdown_report(report, config.REPORTS_DIR, figures=figures)

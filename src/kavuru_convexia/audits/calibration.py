@@ -28,6 +28,7 @@ from ..evaluator import AssetEvaluator
 from ..logutil import get_logger
 from ._common import clip01, evaluate_batch
 from .report_types import CheckResult
+from .robustness import neutralize_entities
 
 logger = get_logger(__name__)
 
@@ -67,15 +68,27 @@ def audit_calibration(
     assets: Sequence[Asset],
     *,
     n_bins: int = config.CALIBRATION_N_BINS,
+    blind_identity: bool = False,
     temperature: Optional[float] = None,
 ) -> CheckResult:
-    """Audit predicted PoS against realized outcomes. Requires labels; offline only."""
+    """Audit predicted PoS against realized outcomes. Requires labels; offline only.
+
+    ``blind_identity`` strips the drug name/brand from the model-facing fields
+    before scoring, so calibration reflects reasoning over the *evidence* rather
+    than recall of a famous drug's known outcome. Comparing blinded vs. revealed
+    AUROC/ECE quantifies how much the agent leans on outcome memorization.
+    """
     labeled = [a for a in assets if a.true_outcome is not None]
     if len(labeled) < 4:
         raise ValueError("calibration needs >=4 labeled assets")
-    logger.info("calibration: %d labeled assets, %d bins", len(labeled), n_bins)
+    # Keep bins coarse enough that each holds several samples (with ~12 assets, 10
+    # equal-width bins would mostly hold one point and make ECE noise, not signal).
+    n_bins = min(n_bins, max(2, len(labeled) // 2))
+    logger.info("calibration: %d labeled assets, %d bins, blind_identity=%s",
+                len(labeled), n_bins, blind_identity)
 
-    jobs = [((a.id,), a, "calibration") for a in labeled]
+    tag = "calibration-blind" if blind_identity else "calibration"
+    jobs = [((a.id,), (neutralize_entities(a) if blind_identity else a), tag) for a in labeled]
     verdicts = evaluate_batch(evaluator, jobs, temperature=temperature)
     y_true = np.array([1.0 if a.true_outcome else 0.0 for a in labeled])
     y_prob = np.array([verdicts[(a.id,)].pos_score for a in labeled])
@@ -104,6 +117,8 @@ def audit_calibration(
         "empirical_base_rate": empirical_base_rate,
         "published_base_rate": config.BASE_RATE_PHASE1_TO_APPROVAL,
         "optimism_vs_set": optimism_vs_set,
+        "blind_identity": float(blind_identity),
+        "n_bins": float(n_bins),
     }
     flags: list[str] = []
     if ece >= config.ECE_WARN:
@@ -117,7 +132,7 @@ def audit_calibration(
         flags.append(f"weak discrimination: AUROC {auroc:.2f} (PoS barely separates outcomes)")
 
     return CheckResult(
-        name="calibration",
+        name="calibration_blinded" if blind_identity else "calibration",
         status=status,
         score=score,
         metrics=metrics,

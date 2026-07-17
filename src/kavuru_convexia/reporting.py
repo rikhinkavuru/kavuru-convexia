@@ -179,6 +179,9 @@ def save_report_figures(report: VerdictReliabilityReport, figures_dir: Path | st
     if "calibration" in report.checks:
         figs["calibration"] = fig_reliability_curve(
             report.checks["calibration"], figures_dir / "calibration_curve.png")
+    if "calibration_blinded" in report.checks:
+        figs["calibration_blinded"] = fig_reliability_curve(
+            report.checks["calibration_blinded"], figures_dir / "calibration_blinded_curve.png")
     logger.info("wrote %d figures to %s", len(figs), figures_dir)
     return figs
 
@@ -248,6 +251,20 @@ def render_markdown_report(
         L.append("")
         L.append(f"> {cal.detail['note']}")
         L.append("")
+        if "calibration_blinded" in report.checks:
+            blind = report.checks["calibration_blinded"]
+            L.append("**Identity-blinding (memorization check).** Re-scored with the drug "
+                     "name/brand stripped from the model-facing fields:")
+            L.append("")
+            L.append("| | AUROC | ECE | Brier |")
+            L.append("|---|---|---|---|")
+            L.append(f"| revealed identity | {cal.metrics['auroc']:.2f} | {cal.metrics['ece']:.3f} | {cal.metrics['brier']:.3f} |")
+            L.append(f"| identity blinded | {blind.metrics['auroc']:.2f} | {blind.metrics['ece']:.3f} | {blind.metrics['brier']:.3f} |")
+            L.append("")
+            drop = cal.metrics["auroc"] - blind.metrics["auroc"]
+            L.append(f"A large AUROC drop when blinded would mean the agent leans on recognizing "
+                     f"famous outcomes; here the drop is **{drop:+.2f}**.")
+            L.append("")
         L.append(f"Source for the pipeline base rate: {cal.detail['base_rate_source']}.")
         L.append("")
 

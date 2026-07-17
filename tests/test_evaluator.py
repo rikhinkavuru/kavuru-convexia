@@ -82,6 +82,31 @@ def test_reference_agent_degrades_on_malformed_json():
     assert v.recommendation == "investigate" and v.pos_score == 0.5
 
 
+def test_extract_json_takes_first_object_not_trailing_brace():
+    # A valid verdict followed by prose containing a stray brace must still parse.
+    eid = ASSET.evidence_ids[0]
+    agent = ReferenceAgent(client=_FixedClient(
+        f'{{"pos_score":0.8,"recommendation":"advance","rationale":"r","cited_evidence_ids":["{eid}"]}}'
+        "\n\nNote: see step {2} for details."
+    ))
+    v = agent.evaluate(ASSET)
+    assert v.parse_error is None
+    assert v.pos_score == 0.8 and v.recommendation == "advance"
+
+
+def test_reference_agent_rejects_nan_pos():
+    agent = ReferenceAgent(client=_FixedClient('{"pos_score": NaN, "recommendation": "advance"}'))
+    v = agent.evaluate(ASSET)
+    assert v.parse_error is not None  # non-finite is a parse failure, not a 0.0 verdict
+
+
+def test_from_dict_clamps_and_rejects_nonfinite():
+    assert Verdict.from_dict({"asset_id": "a", "pos_score": 1.7}).pos_score == 1.0
+    assert Verdict.from_dict({"asset_id": "a", "pos_score": -0.3}).pos_score == 0.0
+    with pytest.raises(ValueError):
+        Verdict.from_dict({"asset_id": "a", "pos_score": float("nan")})
+
+
 # --------------------------------------------------------------------------
 # ExternalAdapter
 # --------------------------------------------------------------------------

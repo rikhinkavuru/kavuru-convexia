@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import csv
 import json
+import math
 import re
 from abc import ABC, abstractmethod
 from dataclasses import asdict, dataclass, field
@@ -26,6 +27,23 @@ from .logutil import get_logger
 logger = get_logger(__name__)
 
 RECOMMENDATIONS: tuple[str, ...] = ("advance", "pass", "investigate")
+
+
+def _normalize_cited(raw: Any) -> list[str]:
+    """Coerce a cited-evidence value to a list of ids, tolerating delimited strings."""
+    if isinstance(raw, str):  # a single delimited cell, e.g. "e1; e2 | e3"
+        return [c.strip() for c in re.split(r"[;|,]", raw) if c.strip()]
+    if isinstance(raw, (list, tuple)):
+        return [str(c) for c in raw]
+    return []
+
+
+def _finite_pos(value: Any) -> float:
+    """Parse a probability, rejecting non-finite values (NaN/inf corrupt Brier/ECE)."""
+    pos = float(value)
+    if not math.isfinite(pos):
+        raise ValueError(f"non-finite pos_score: {value!r}")
+    return min(1.0, max(0.0, pos))
 
 DEFAULT_SYSTEM_PROMPT = (
     "You are a rigorous drug-asset due-diligence agent for a venture that acquires "
@@ -61,16 +79,15 @@ class Verdict:
 
     @classmethod
     def from_dict(cls, d: dict[str, Any]) -> "Verdict":
-        cited = d.get("cited_evidence_ids", [])
-        if isinstance(cited, str):  # tolerate delimited CSV cells
-            cited = [c.strip() for c in re.split(r"[;|,]", cited) if c.strip()]
         rec = str(d.get("recommendation", "investigate")).lower().strip()
         return cls(
             asset_id=str(d["asset_id"]),
-            pos_score=float(d["pos_score"]),
+            # Same [0,1] + finiteness invariant the live LLM path enforces, so an
+            # out-of-range or NaN capture cannot silently corrupt Brier/ECE math.
+            pos_score=_finite_pos(d["pos_score"]),
             recommendation=rec if rec in RECOMMENDATIONS else "investigate",
             rationale=str(d.get("rationale", "")),
-            cited_evidence_ids=list(cited),
+            cited_evidence_ids=_normalize_cited(d.get("cited_evidence_ids", [])),
             model=str(d.get("model", "")),
             temperature=(float(d["temperature"]) if d.get("temperature") not in (None, "") else None),
             raw=str(d.get("raw", "")),
@@ -98,19 +115,23 @@ class AssetEvaluator(ABC):
 
 
 def _extract_json(text: str) -> dict[str, Any]:
-    """Parse the first JSON object in a model response, tolerating common noise.
+    """Parse the FIRST JSON object in a model response, tolerating common noise.
 
     Handles surrounding prose, ```json fences, and trailing commas — all frequent
-    in LLM output — so a well-judged verdict is not discarded over formatting.
+    in LLM output. Uses ``raw_decode`` from the first ``{`` so it stops at the first
+    complete object and is not fooled by a stray ``}`` in trailing prose (a greedy
+    ``{.*}`` would over-capture and discard an otherwise-valid verdict).
     """
     t = text.strip()
     if t.startswith("```"):
         t = re.sub(r"^```[a-zA-Z]*", "", t).strip().rstrip("`").strip()
-    match = re.search(r"\{.*\}", t, re.DOTALL)
-    blob = match.group(0) if match else t
-    blob = re.sub(r",(\s*[}\]])", r"\1", blob)  # drop trailing commas before } or ]
+    start = t.find("{")
+    if start == -1:
+        raise ValueError("no JSON object found in response")
+    candidate = re.sub(r",(\s*[}\]])", r"\1", t[start:])  # drop trailing commas
     try:
-        return json.loads(blob)
+        obj, _ = json.JSONDecoder().raw_decode(candidate)
+        return obj
     except json.JSONDecodeError as exc:
         raise ValueError(f"no parseable JSON object in response ({exc})") from exc
 
@@ -169,14 +190,14 @@ class ReferenceAgent(AssetEvaluator):
                            temperature=temperature, raw=text, parse_error="empty_or_refused_response")
         try:
             obj = _extract_json(text)
-            pos = min(1.0, max(0.0, float(obj["pos_score"])))
+            pos = _finite_pos(obj["pos_score"])  # rejects NaN/inf, clamps to [0,1]
             rec = str(obj.get("recommendation", "investigate")).lower().strip()
             if rec not in RECOMMENDATIONS:
                 rec = "investigate"
             rationale = str(obj.get("rationale", ""))
             # Keep only citations that reference real evidence — a hallucinated id
             # is itself a reliability signal, so we drop it rather than trust it.
-            cited = [c for c in obj.get("cited_evidence_ids", []) if c in valid_ids]
+            cited = [c for c in _normalize_cited(obj.get("cited_evidence_ids", [])) if c in valid_ids]
         except Exception as exc:  # noqa: BLE001 — any malformed verdict degrades gracefully
             error = f"{type(exc).__name__}: {exc}"
             logger.warning("verdict parse failed for %s: %s", asset.id, error)

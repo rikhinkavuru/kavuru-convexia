@@ -22,19 +22,22 @@ from .. import config
 from ..assets import Asset
 from ..evaluator import AssetEvaluator
 from ..logutil import get_logger
-from ._common import clip01, evaluate_batch, flip_rate, iqr, mean_pairwise_jaccard
+from ._common import clip01, evaluate_batch, flip_rate, iqr, mean_pairwise_jaccard, modal
 from .report_types import CheckResult, Status, worst_status
 
 logger = get_logger(__name__)
 
 
-def _asset_status(pos_std: float, fr: float, rationale_jaccard: float) -> Status:
-    if pos_std >= config.POS_STD_FAIL or fr >= config.FLIP_RATE_FAIL:
+def _asset_status(pos_std: float, fr: float, rationale_jaccard: float, parse_err_frac: float) -> Status:
+    # A run that fails to produce a parseable verdict is itself unreproducible; a
+    # majority of failed runs fails the asset, any failure warns.
+    if pos_std >= config.POS_STD_FAIL or fr >= config.FLIP_RATE_FAIL or parse_err_frac >= 0.5:
         return "fail"
     if (
         pos_std >= config.POS_STD_WARN
         or fr >= config.FLIP_RATE_WARN
         or rationale_jaccard < config.RATIONALE_JACCARD_WARN
+        or parse_err_frac > 0.0
     ):
         return "warn"
     return "pass"
@@ -57,11 +60,17 @@ def audit_reproducibility(
         runs = [verdicts[(a.id, i)] for i in range(n)]
         scores = [v.pos_score for v in runs]
         recs = [v.recommendation for v in runs]
-        cited_sets = [set(v.cited_evidence_ids) for v in runs]
+        n_parse_errors = sum(v.parse_error is not None for v in runs)
+        parse_err_frac = n_parse_errors / n
+        # Rationale stability is measured over runs that actually produced a verdict,
+        # so an evaluator that refuses/errors every run is NOT scored as "perfectly
+        # stable" (all-empty citation sets would otherwise yield Jaccard 1.0).
+        valid = [v for v in runs if v.parse_error is None]
+        cited_sets = [set(v.cited_evidence_ids) for v in valid]
+        rationale_jaccard = mean_pairwise_jaccard(cited_sets) if len(valid) >= 2 else 0.0
         pos_std = float(np.std(scores))  # population std across the n runs
         fr = flip_rate(recs)
-        rationale_jaccard = mean_pairwise_jaccard(cited_sets)
-        status = _asset_status(pos_std, fr, rationale_jaccard)
+        status = _asset_status(pos_std, fr, rationale_jaccard, parse_err_frac)
         per_asset[a.id] = {
             "scores": [float(s) for s in scores],  # raw per-run PoS (for variance plots)
             "pos_mean": float(np.mean(scores)),
@@ -70,9 +79,9 @@ def audit_reproducibility(
             "pos_min": float(np.min(scores)),
             "pos_max": float(np.max(scores)),
             "flip_rate": fr,
-            "modal_recommendation": max(set(recs), key=recs.count),
+            "modal_recommendation": modal(recs),  # deterministic tie-break
             "rationale_jaccard": rationale_jaccard,
-            "n_parse_errors": sum(v.parse_error is not None for v in runs),
+            "n_parse_errors": n_parse_errors,
             "status": status,
         }
 
@@ -92,11 +101,13 @@ def audit_reproducibility(
         ),
     }
 
-    # Dimension score: average of three [0,1] sub-scores (1 = perfectly stable).
+    # Dimension score: average of four [0,1] sub-scores (1 = perfectly stable);
+    # unparseable/refused runs drag the score down rather than being ignored.
     s_std = 1.0 - clip01(metrics["pos_std_mean"] / config.POS_STD_FAIL)
     s_flip = 1.0 - clip01(metrics["flip_rate_mean"] / config.FLIP_RATE_FAIL)
     s_rationale = clip01(metrics["rationale_jaccard_mean"])
-    score = float(np.mean([s_std, s_flip, s_rationale]))
+    s_parse = 1.0 - clip01(metrics["parse_error_rate"])
+    score = float(np.mean([s_std, s_flip, s_rationale, s_parse]))
 
     statuses = [d["status"] for d in per_asset.values()]
     status = worst_status(statuses)

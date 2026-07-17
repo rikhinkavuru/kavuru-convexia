@@ -138,6 +138,7 @@ def audit_agent(
     assets: Sequence[Asset],
     *,
     calibration_assets: Optional[Sequence[Asset]] = None,
+    blind_calibration: bool = False,
     n: int = config.N_REPETITIONS,
     ack_judge: Optional[AckJudge] = None,
     paraphraser: Optional[Callable[[str], str]] = None,
@@ -162,16 +163,20 @@ def audit_agent(
         )
     if calibration_assets:
         checks["calibration"] = audit_calibration(evaluator, calibration_assets, temperature=temperature)
+        if blind_calibration:
+            # Identity-blinded run to expose how much the revealed-identity result
+            # leans on the model recognizing a famous drug's known outcome.
+            checks["calibration_blinded"] = audit_calibration(
+                evaluator, calibration_assets, blind_identity=True, temperature=temperature)
 
     entries = _build_entries(assets, checks)
 
-    # Aggregate reliability score: weighted over the production-usable checks only.
+    # Aggregate reliability = mean of the per-verdict reliability scores, so the
+    # score reflects how each dimension actually covers the audited assets (the
+    # conflict dimension only covers the conflicted subset) rather than blending
+    # dimension-level scores measured over different asset counts.
+    reliability_score = float(np.mean([e.reliability_score for e in entries])) if entries else 0.0
     prod = {k: v for k, v in checks.items() if v.production_usable}
-    weights = {"reproducibility": config.WEIGHT_REPRODUCIBILITY,
-               "robustness": config.WEIGHT_ROBUSTNESS,
-               "conflict": config.WEIGHT_CONFLICT}
-    wsum = sum(weights[k] for k in prod)
-    reliability_score = float(sum(weights[k] * prod[k].score for k in prod) / wsum) if wsum else 0.0
     overall_status = worst_status([v.status for v in prod.values()])
 
     headline_flags: list[str] = []
