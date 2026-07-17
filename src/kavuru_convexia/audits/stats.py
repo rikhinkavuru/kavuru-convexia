@@ -21,6 +21,7 @@ never reports an impossible interval. B defaults to 2000, seeded for reproducibi
 """
 from __future__ import annotations
 
+import warnings
 from typing import Any, Callable, Optional, Sequence
 
 import numpy as np
@@ -135,17 +136,21 @@ def metric_ci(
     rng = np.random.default_rng(seed)
     boots: list[float] = []
     dropped = 0
-    for _ in range(n_boot):
-        idx = rng.integers(0, n, size=n)
-        try:
-            v = float(metric_fn(yt[idx], yp[idx]))
-        except Exception:  # noqa: BLE001 — single-class / degenerate resample
-            dropped += 1
-            continue
-        if np.isfinite(v):
-            boots.append(v)
-        else:
-            dropped += 1
+    with warnings.catch_warnings():
+        # A single-class resample makes AUROC undefined; that is the case we count
+        # and drop, so silence the expected warning rather than spam it B times.
+        warnings.simplefilter("ignore")
+        for _ in range(n_boot):
+            idx = rng.integers(0, n, size=n)
+            try:
+                v = float(metric_fn(yt[idx], yp[idx]))
+            except Exception:  # noqa: BLE001 — single-class / degenerate resample
+                dropped += 1
+                continue
+            if np.isfinite(v):
+                boots.append(v)
+            else:
+                dropped += 1
     return _summarize(point, boots, level, clip), dropped / n_boot
 
 

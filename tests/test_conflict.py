@@ -37,3 +37,15 @@ def test_requires_conflicted_assets():
     controls = [a for a in build_synthetic_assets() if not a.has_planted_conflict]
     with pytest.raises(ValueError):
         audit_conflict(GoodConflictStub(), controls)
+
+
+def test_judge_panel_records_disagreement():
+    # A panel that splits 2-1 on every asset must surface a disagreement signal.
+    def split_panel(rationale, tension):
+        return {"acknowledges": True, "votes": {"strict": False, "neutral": True, "lenient": True},
+                "split": True}
+
+    result = audit_conflict(GoodConflictStub(), CONFLICTED, n_consistency=3, ack_judge=split_panel)
+    assert result.metrics["judge_disagreement_rate"] == 1.0
+    assert result.metrics["ack_rate__strict"] == 0.0
+    assert result.metrics["ack_rate__lenient"] == 1.0

@@ -20,6 +20,7 @@ from ._common import clip01
 from .calibration import audit_calibration
 from .conflict import AckJudge, audit_conflict
 from .reproducibility import audit_reproducibility
+from .sensitivity import audit_evidence_sensitivity
 from .stats import mean_ci
 from .report_types import (
     AssetReliabilityEntry,
@@ -37,6 +38,7 @@ __all__ = [
     "audit_robustness",
     "audit_conflict",
     "audit_calibration",
+    "audit_evidence_sensitivity",
     "CheckResult",
     "VerdictReliabilityReport",
     "AssetReliabilityEntry",
@@ -140,6 +142,7 @@ def audit_agent(
     *,
     calibration_assets: Optional[Sequence[Asset]] = None,
     blind_calibration: bool = False,
+    sensitivity_assets: Optional[Sequence[Asset]] = None,
     n: int = config.N_REPETITIONS,
     ack_judge: Optional[AckJudge] = None,
     paraphraser: Optional[Callable[[str], str]] = None,
@@ -162,6 +165,12 @@ def audit_agent(
         checks["conflict"] = audit_conflict(
             evaluator, conflicted, n_consistency=n, ack_judge=ack_judge, temperature=temperature
         )
+    if sensitivity_assets:
+        # Reported alongside the gate but NOT folded into the reliability score:
+        # it measures evidence importance, not verdict stability.
+        checks["evidence_sensitivity"] = audit_evidence_sensitivity(
+            evaluator, sensitivity_assets, temperature=temperature
+        )
     if calibration_assets:
         checks["calibration"] = audit_calibration(evaluator, calibration_assets, temperature=temperature)
         if blind_calibration:
@@ -180,8 +189,11 @@ def audit_agent(
     reliability_score = float(np.mean(entry_scores)) if entry_scores else 0.0
     rel_ci = mean_ci(entry_scores, clip=(0.0, 1.0)) if entry_scores else (0.0, 0.0, 0.0)
     reliability_score_ci = [round(rel_ci[1], 4), round(rel_ci[2], 4)]
-    prod = {k: v for k, v in checks.items() if v.production_usable}
-    overall_status = worst_status([v.status for v in prod.values()])
+    # The gate = the three production-usable stability dimensions. Evidence-
+    # sensitivity is informational (importance, not stability) and calibration is
+    # offline, so neither drives the overall gate status.
+    gate = {"reproducibility", "robustness", "conflict"}
+    overall_status = worst_status([v.status for k, v in checks.items() if k in gate])
 
     headline_flags: list[str] = []
     for name, chk in checks.items():

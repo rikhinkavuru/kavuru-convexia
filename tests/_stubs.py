@@ -91,6 +91,21 @@ class PrimacyStub(AssetEvaluator):
                        asset.evidence_ids[:1], model="stub")
 
 
+class AdverseGatedStub(AssetEvaluator):
+    """PoS collapses to 'pass' iff a strong-adverse snippet is present, else 'advance'.
+
+    Removing that one snippet flips the recommendation — a single point of failure
+    the evidence-sensitivity audit should localize to the adverse snippet.
+    """
+
+    name = "AdverseGatedStub"
+
+    def evaluate(self, asset: Asset, *, temperature: Optional[float] = None, cache_tag: str = "") -> Verdict:
+        has_adv = any(e.direction == "adverse" and e.strength == "strong" for e in asset.evidence)
+        pos = 0.2 if has_adv else 0.85
+        return Verdict(asset.id, pos, _rec_for(pos), "evidence-gated", asset.evidence_ids[:1], model="stub")
+
+
 class WellCalibratedStub(AssetEvaluator):
     """Confident and correct on the historical labels — low ECE, high AUROC."""
 

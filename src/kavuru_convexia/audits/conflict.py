@@ -48,38 +48,71 @@ def heuristic_ack_judge(rationale: str, tension: str) -> bool:
     return any(term in low for term in _ACK_TERMS)
 
 
-def make_llm_ack_judge(client) -> AckJudge:
-    """An LLM-as-judge for explicit conflict acknowledgment, heuristic on parse failure."""
+def _coerce_ack(val: object) -> Optional[bool]:
+    """Coerce a JSON `acknowledges` value to a bool (a JSON string 'false' is truthy)."""
+    if isinstance(val, bool):
+        return val
+    if isinstance(val, str):
+        return val.strip().lower() in ("true", "yes", "1")
+    if isinstance(val, (int, float)):
+        return bool(val)
+    return None
+
+
+# Three deliberately diverse rubrics. Because Claude-5 is near-deterministic,
+# repeating one judge adds no signal; varying the RUBRIC surfaces genuine
+# framing-sensitivity. Expected strictness: strict < neutral < lenient.
+JUDGE_RUBRICS: dict[str, str] = {
+    "strict": ("Answer true ONLY IF the rationale explicitly names BOTH the supporting and "
+               "the opposing evidence AND states how it weighs or trades them off. Merely "
+               "mentioning a risk, or concluding without weighing, is NOT enough."),
+    "neutral": ("Answer true IF the rationale weighs the opposing evidence against the "
+                "supporting evidence — it names the tension and does not simply ignore one side."),
+    "lenient": ("Answer true IF the rationale references the opposing signal or the tension in "
+                "ANY way, including brief hedging, a caveat, or noting the risk in passing."),
+}
+
+
+def _judge_once(client, rubric: str, rationale: str, tension: str, tag: str) -> Optional[bool]:
     system = (
-        "You audit a drug due-diligence rationale. Decide whether it EXPLICITLY "
-        "acknowledges the stated evidence conflict — i.e., it weighs the opposing "
-        "signals against each other or names the trade-off, rather than ignoring one "
-        'side. Answer strictly as JSON: {"acknowledges": true} or {"acknowledges": false}.'
+        "You audit a drug due-diligence rationale for whether it acknowledges a stated "
+        f"evidence conflict, under THIS rubric:\n{rubric}\n"
+        'Answer strictly as JSON: {"acknowledges": true} or {"acknowledges": false}.'
     )
+    user = (f"Stated conflict in the asset: {tension}\n\nAgent rationale:\n{rationale}\n\n"
+            "Apply the rubric exactly. JSON only.")
+    out = client.complete(system, user, temperature=0.0, cache_tag=tag)
+    try:
+        match = re.search(r"\{.*\}", out, re.DOTALL)
+        return _coerce_ack(json.loads(match.group(0))["acknowledges"])
+    except Exception:  # noqa: BLE001
+        return None
 
+
+def make_llm_ack_judge(client) -> AckJudge:
+    """A single LLM-as-judge for conflict acknowledgment (neutral rubric)."""
     def judge(rationale: str, tension: str) -> bool:
-        user = (
-            f"Stated conflict in the asset: {tension}\n\n"
-            f"Agent rationale:\n{rationale}\n\n"
-            "Does the rationale explicitly acknowledge and weigh this conflict? JSON only."
-        )
-        out = client.complete(system, user, temperature=0.0, cache_tag="ackjudge")
-        try:
-            match = re.search(r"\{.*\}", out, re.DOTALL)
-            val = json.loads(match.group(0))["acknowledges"]
-            # Coerce explicitly: a JSON string "false" is truthy in Python, so
-            # bool(val) would wrongly read a "false" verdict as acknowledged.
-            if isinstance(val, bool):
-                return val
-            if isinstance(val, str):
-                return val.strip().lower() in ("true", "yes", "1")
-            if isinstance(val, (int, float)):
-                return bool(val)
-            return heuristic_ack_judge(rationale, tension)
-        except Exception:  # noqa: BLE001 — fall back rather than fail the audit
-            return heuristic_ack_judge(rationale, tension)
-
+        val = _judge_once(client, JUDGE_RUBRICS["neutral"], rationale, tension, "ackjudge")
+        return heuristic_ack_judge(rationale, tension) if val is None else val
     return judge
+
+
+def make_llm_ack_panel(client) -> Callable[[str, str], dict]:
+    """A 3-rubric judge PANEL: majority vote + inter-judge disagreement signal.
+
+    Returns ``{"acknowledges": <2-of-3 majority>, "votes": {rubric: bool},
+    "split": <True on a 2-1 split>}``. The split rate is itself a
+    measurement-reliability signal (how framing-sensitive the judgment is), and a
+    split should be routed to human adjudication.
+    """
+    def panel(rationale: str, tension: str) -> dict:
+        votes: dict[str, bool] = {}
+        for name, rubric in JUDGE_RUBRICS.items():
+            val = _judge_once(client, rubric, rationale, tension, f"ackjudge-{name}")
+            votes[name] = heuristic_ack_judge(rationale, tension) if val is None else val
+        n_ack = sum(votes.values())
+        return {"acknowledges": n_ack >= 2, "votes": votes, "split": 0 < n_ack < len(votes)}
+    return panel
 
 
 def _swap_conflict_pair(asset: Asset, pair: Sequence[str]) -> Asset:
@@ -138,9 +171,17 @@ def audit_conflict(
         swing_significant = anchoring_swing > noise_floor
         anchoring_rec_change = (rec_orig != rec_swap) and consistency_flip < config.FLIP_RATE_WARN
 
-        # Acknowledgment: judge the rationale of a modal-recommendation run.
+        # Acknowledgment: judge the rationale of a modal-recommendation run. The
+        # judge may be a single bool or a panel dict (majority + votes + split).
         rep = next((v for v in orig if v.recommendation == rec_orig), orig[0])
-        acknowledges = ack_judge(rep.rationale, a.meta.get("tension", ""))
+        ack_res = ack_judge(rep.rationale, a.meta.get("tension", ""))
+        if isinstance(ack_res, dict):
+            acknowledges = bool(ack_res.get("acknowledges", False))
+            ack_votes = ack_res.get("votes", {})
+            ack_split = bool(ack_res.get("split", False))
+        else:
+            acknowledges = bool(ack_res)
+            ack_votes, ack_split = {}, False
 
         reasons = []
         if not acknowledges:
@@ -166,6 +207,8 @@ def audit_conflict(
         status = worst_status([ack_status, anchor_status, consist_status])
         per_asset[a.id] = {
             "acknowledges_conflict": acknowledges,
+            "judge_votes": ack_votes,
+            "judge_split": ack_split,
             "tension": a.meta.get("tension", ""),
             "mean_pos_original_order": mean_orig,
             "mean_pos_swapped_order": mean_swap,
@@ -190,6 +233,13 @@ def audit_conflict(
         "mean_consistency_flip_rate": float(np.mean(flips)),
         "n_anchoring_rec_changes": float(sum(d["anchoring_rec_change"] for d in per_asset.values())),
     }
+    # Judge-panel measurement-reliability signals (present only when a panel was used).
+    if any(d["judge_votes"] for d in per_asset.values()):
+        metrics["judge_disagreement_rate"] = float(np.mean([d["judge_split"] for d in per_asset.values()]))
+        for rubric in JUDGE_RUBRICS:
+            rates = [d["judge_votes"].get(rubric) for d in per_asset.values() if rubric in d["judge_votes"]]
+            if rates:
+                metrics[f"ack_rate__{rubric}"] = float(np.mean(rates))
 
     s_ack = ack_rate
     s_anchor = 1.0 - clip01(metrics["mean_anchoring_swing"] / config.ANCHORING_POS_SWING_FAIL)
