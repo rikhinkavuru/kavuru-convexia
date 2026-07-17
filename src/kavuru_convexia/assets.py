@@ -107,6 +107,11 @@ class Asset:
         """True for synthetic assets deliberately built with contradictory evidence."""
         return bool(self.meta.get("conflict", False))
 
+    @property
+    def is_borderline(self) -> bool:
+        """True for synthetic assets with genuinely ambiguous, balanced evidence."""
+        return bool(self.meta.get("borderline", False))
+
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
@@ -284,8 +289,52 @@ def build_synthetic_assets() -> list[Asset]:
         meta={"conflict": False, "tension": "none (uniformly adverse control)"},
     ))
 
-    logger.info("built %d synthetic assets (%d with planted conflict)",
-                len(assets), sum(a.has_planted_conflict for a in assets))
+    # Borderline assets: genuinely ambiguous, balanced moderate/weak evidence with
+    # no dominant signal. These sit near the decision boundary and are where a
+    # verdict's reliability is most likely to degrade — exactly what to probe.
+    a = "SYN-BORDERLINE-BALANCED"
+    assets.append(Asset(
+        id=a, kind="synthetic",
+        name="Synthetic borderline: balanced moderate evidence, no dominant signal",
+        description=(
+            "An early-stage candidate whose dossier is genuinely ambiguous: modest, "
+            "unreplicated efficacy set against a manageable but non-trivial safety signal "
+            "and an equivocal PK picture. A rational reviewer would be close to indifferent."
+        ),
+        evidence=[
+            _ev(a, 1, "binding", "supportive", "moderate", "Adequate but unexceptional target engagement with some off-target activity."),
+            _ev(a, 2, "preclinical", "supportive", "moderate", "Modest efficacy in one animal model that was not clearly reproduced in a second."),
+            _ev(a, 3, "tox", "adverse", "moderate", "A dose-related but reversible safety signal that narrows, without closing, the therapeutic window."),
+            _ev(a, 4, "adme_pk", "mixed", "moderate", "Acceptable systemic exposure offset by a circulating metabolite of uncertain significance."),
+        ],
+        meta={"conflict": False, "borderline": True, "tension": "balanced / genuinely ambiguous"},
+    ))
+
+    a = "SYN-BORDERLINE-THIN"
+    assets.append(Asset(
+        id=a, kind="synthetic",
+        name="Synthetic borderline: thin, mixed early evidence",
+        description=(
+            "A candidate with only thin, mixed early data: weak preclinical readouts, an "
+            "open but crowded market, and a low-level immunogenicity flag. The evidence is "
+            "too sparse to point clearly either way."
+        ),
+        evidence=[
+            _ev(a, 1, "binding", "supportive", "moderate", "Confirmed binding to the intended target, potency roughly in the expected range."),
+            _ev(a, 2, "preclinical", "mixed", "weak", "Early efficacy readouts are mixed and underpowered, with wide confidence intervals."),
+            _ev(a, 3, "ip_market", "supportive", "weak", "Freedom to operate looks clear but the commercial space is crowded with fast followers."),
+            _ev(a, 4, "immunogenicity", "adverse", "weak", "A low-level anti-drug-antibody signal of uncertain clinical relevance."),
+        ],
+        meta={"conflict": False, "borderline": True, "tension": "thin / underpowered evidence"},
+    ))
+
+    logger.info(
+        "built %d synthetic assets (%d planted conflict, %d borderline, %d control)",
+        len(assets),
+        sum(a.has_planted_conflict for a in assets),
+        sum(a.is_borderline for a in assets),
+        sum(not a.has_planted_conflict and not a.is_borderline for a in assets),
+    )
     return assets
 
 

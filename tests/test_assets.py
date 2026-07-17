@@ -79,12 +79,16 @@ def test_synthetic_assets_have_no_labels():
     assert all(a.kind == "synthetic" for a in syn)
 
 
-def test_synthetic_conflict_and_control_split():
+def test_synthetic_population_split():
     syn = build_synthetic_assets()
     conflicted = [a for a in syn if a.has_planted_conflict]
-    controls = [a for a in syn if not a.has_planted_conflict]
+    borderline = [a for a in syn if a.is_borderline]
+    controls = [a for a in syn if not a.has_planted_conflict and not a.is_borderline]
     assert len(conflicted) == 4
+    assert len(borderline) == 2
     assert len(controls) == 2
+    # Conflict and borderline are mutually exclusive tags.
+    assert not any(a.has_planted_conflict and a.is_borderline for a in syn)
     # Each conflicted asset names its conflicting evidence pair and carries at
     # least one supportive and one adverse snippet (a genuine tension).
     for a in conflicted:
@@ -95,7 +99,10 @@ def test_synthetic_conflict_and_control_split():
 
 
 def test_synthetic_controls_are_internally_coherent():
-    controls = [a for a in build_synthetic_assets() if not a.has_planted_conflict]
+    controls = [
+        a for a in build_synthetic_assets()
+        if not a.has_planted_conflict and not a.is_borderline
+    ]
     for a in controls:
         dirs = {e.direction for e in a.evidence}
         # A control is uniformly supportive or uniformly adverse — no mixed signal.
