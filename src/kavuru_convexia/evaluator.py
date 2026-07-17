@@ -98,15 +98,21 @@ class AssetEvaluator(ABC):
 
 
 def _extract_json(text: str) -> dict[str, Any]:
-    """Parse the first JSON object in a model response, tolerating stray prose."""
+    """Parse the first JSON object in a model response, tolerating common noise.
+
+    Handles surrounding prose, ```json fences, and trailing commas — all frequent
+    in LLM output — so a well-judged verdict is not discarded over formatting.
+    """
+    t = text.strip()
+    if t.startswith("```"):
+        t = re.sub(r"^```[a-zA-Z]*", "", t).strip().rstrip("`").strip()
+    match = re.search(r"\{.*\}", t, re.DOTALL)
+    blob = match.group(0) if match else t
+    blob = re.sub(r",(\s*[}\]])", r"\1", blob)  # drop trailing commas before } or ]
     try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        pass
-    match = re.search(r"\{.*\}", text, re.DOTALL)
-    if not match:
-        raise ValueError("no JSON object found in response")
-    return json.loads(match.group(0))
+        return json.loads(blob)
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"no parseable JSON object in response ({exc})") from exc
 
 
 class ReferenceAgent(AssetEvaluator):

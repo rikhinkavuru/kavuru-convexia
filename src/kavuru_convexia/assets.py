@@ -220,21 +220,22 @@ def build_synthetic_assets() -> list[Asset]:
               "conflict_pair": [f"{a}-ev1", f"{a}-ev3"]},
     ))
 
-    a = "SYN-CONFLICT-EFFICACY-IMMUNO"
+    a = "SYN-CONFLICT-EFFICACY-ADME"
     assets.append(Asset(
         id=a, kind="synthetic",
-        name="Synthetic: durable efficacy vs. immunogenicity that limits exposure",
+        name="Synthetic: compelling efficacy vs. prohibitive drug-like properties",
         description=(
-            "A therapeutic protein (biologic) with strong efficacy signals whose repeated "
-            "dosing is limited by an immune response that lowers the drug's blood levels "
-            "over time."
+            "A small-molecule candidate with compelling efficacy whose development is "
+            "threatened by poor drug-like properties: very low oral bioavailability and "
+            "rapid clearance make it doubtful that a therapeutic exposure can be reached "
+            "in patients."
         ),
         evidence=[
-            _ev(a, 1, "binding", "supportive", "strong", "High-affinity, specific engagement of the therapeutic target with strong functional activity in disease-relevant assays."),
-            _ev(a, 2, "preclinical", "supportive", "strong", "Durable pharmacodynamic effect and disease modification in chronic-dosing animal studies."),
-            _ev(a, 3, "immunogenicity", "adverse", "strong", "Patients are likely to develop an immune response to the therapeutic protein that reduces its blood levels on repeated dosing, threatening durable efficacy."),
+            _ev(a, 1, "binding", "supportive", "strong", "Potent, selective engagement of the intended target with a clean off-target profile."),
+            _ev(a, 2, "preclinical", "supportive", "strong", "Strong efficacy across disease models when adequate exposure is achieved by parenteral dosing."),
+            _ev(a, 3, "adme_pk", "adverse", "strong", "Very low oral bioavailability and rapid metabolic clearance; projected human exposures fall well short of the efficacious range."),
         ],
-        meta={"conflict": True, "tension": "durable efficacy vs. immunogenicity that limits drug exposure",
+        meta={"conflict": True, "tension": "compelling efficacy vs. prohibitive ADME / undeliverable exposure",
               "conflict_pair": [f"{a}-ev2", f"{a}-ev3"]},
     ))
 
