@@ -155,6 +155,12 @@ class ReferenceAgent(AssetEvaluator):
     def _parse(self, asset: Asset, text: str, temperature: float) -> Verdict:
         valid_ids = set(asset.evidence_ids)
         error: Optional[str] = None
+        if not text.strip():
+            # An empty body is the API's signature of a safety refusal (stop_reason
+            # "refusal") or a dropped response — surface it rather than hide a 0.5.
+            logger.warning("empty/refused response for %s", asset.id)
+            return Verdict(asset.id, 0.5, "investigate", "", [], model=self.model,
+                           temperature=temperature, raw=text, parse_error="empty_or_refused_response")
         try:
             obj = _extract_json(text)
             pos = min(1.0, max(0.0, float(obj["pos_score"])))

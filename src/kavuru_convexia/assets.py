@@ -223,17 +223,18 @@ def build_synthetic_assets() -> list[Asset]:
     a = "SYN-CONFLICT-EFFICACY-IMMUNO"
     assets.append(Asset(
         id=a, kind="synthetic",
-        name="Synthetic: durable efficacy vs. immunogenicity that abrogates exposure",
+        name="Synthetic: durable efficacy vs. immunogenicity that limits exposure",
         description=(
-            "A biologic with strong efficacy signals whose chronic dosing is jeopardized "
-            "by a high anti-drug-antibody rate that neutralizes exposure over time."
+            "A therapeutic protein (biologic) with strong efficacy signals whose repeated "
+            "dosing is limited by an immune response that lowers the drug's blood levels "
+            "over time."
         ),
         evidence=[
-            _ev(a, 1, "binding", "supportive", "strong", "High-affinity, specific engagement of the therapeutic target with strong neutralizing activity."),
+            _ev(a, 1, "binding", "supportive", "strong", "High-affinity, specific engagement of the therapeutic target with strong functional activity in disease-relevant assays."),
             _ev(a, 2, "preclinical", "supportive", "strong", "Durable pharmacodynamic effect and disease modification in chronic-dosing animal studies."),
-            _ev(a, 3, "immunogenicity", "adverse", "strong", "High predicted and early-observed anti-drug-antibody incidence that neutralizes the biologic and collapses exposure after repeated administration."),
+            _ev(a, 3, "immunogenicity", "adverse", "strong", "Patients are likely to develop an immune response to the therapeutic protein that reduces its blood levels on repeated dosing, threatening durable efficacy."),
         ],
-        meta={"conflict": True, "tension": "durable efficacy vs. exposure-collapsing immunogenicity",
+        meta={"conflict": True, "tension": "durable efficacy vs. immunogenicity that limits drug exposure",
               "conflict_pair": [f"{a}-ev2", f"{a}-ev3"]},
     ))
 
