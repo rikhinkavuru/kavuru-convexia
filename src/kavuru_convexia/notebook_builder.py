@@ -16,7 +16,7 @@ from typing import Optional
 from . import config, reporting
 from .assets import build_synthetic_assets, load_historical_assets
 from .audits import audit_agent
-from .audits.conflict import make_llm_ack_judge
+from .audits.conflict import make_llm_ack_panel
 from .audits.report_types import VerdictReliabilityReport
 from .audits.robustness import make_llm_paraphraser
 from .config import ensure_dirs, set_global_seeds
@@ -40,14 +40,14 @@ def run_demo(
 
     agent = ReferenceAgent(model=config.ANTHROPIC_MODEL)
     judge_client = LLMClient(model=config.JUDGE_MODEL)
-    ack_judge = make_llm_ack_judge(judge_client)
+    ack_judge = make_llm_ack_panel(judge_client)  # 3-rubric panel
     # Paraphrase perturbation needs a real model; skip it when offline.
     paraphraser = None if judge_client.offline else make_llm_paraphraser(judge_client)
 
     logger.info("running primary audit: %s over %d assets", agent.name, len(all_assets))
     report = audit_agent(
-        agent, all_assets, calibration_assets=historical, blind_calibration=True, n=n,
-        ack_judge=ack_judge, paraphraser=paraphraser,
+        agent, all_assets, calibration_assets=historical, blind_calibration=True,
+        sensitivity_assets=synthetic, n=n, ack_judge=ack_judge, paraphraser=paraphraser,
     )
     figures = reporting.save_report_figures(report, config.FIGURES_DIR)
     reporting.save_markdown_report(report, config.REPORTS_DIR, figures=figures)
@@ -94,7 +94,7 @@ from kavuru_convexia.assets import load_historical_assets, build_synthetic_asset
 from kavuru_convexia.evaluator import ReferenceAgent
 from kavuru_convexia.llm import LLMClient
 from kavuru_convexia.audits import audit_agent
-from kavuru_convexia.audits.conflict import make_llm_ack_judge
+from kavuru_convexia.audits.conflict import make_llm_ack_panel
 from kavuru_convexia.audits.robustness import make_llm_paraphraser
 
 set_global_seeds(); ensure_dirs()
@@ -108,7 +108,7 @@ print(f"{len(historical)} historical (labeled) + {len(synthetic)} synthetic asse
     ("code", """\
 agent = ReferenceAgent(model=config.ANTHROPIC_MODEL)
 judge_client = LLMClient(model=config.JUDGE_MODEL)
-ack_judge = make_llm_ack_judge(judge_client)
+ack_judge = make_llm_ack_panel(judge_client)   # 3-rubric strict/neutral/lenient panel
 paraphraser = None if judge_client.offline else make_llm_paraphraser(judge_client)
 print("reference:", agent.name)"""),
     ("md", "## Run the audit\\n\\nReproducibility / robustness / conflict are label-free; "
@@ -116,13 +116,15 @@ print("reference:", agent.name)"""),
     ("code", """\
 report = audit_agent(
     agent, all_assets, calibration_assets=historical, blind_calibration=True,
-    n=config.N_REPETITIONS, ack_judge=ack_judge, paraphraser=paraphraser,
+    sensitivity_assets=synthetic, n=config.N_REPETITIONS, ack_judge=ack_judge, paraphraser=paraphraser,
 )
-print("\\n".join(report.summary_lines()))"""),
+print("\\n".join(report.summary_lines()))
+print("reliability 95% CI:", report.reliability_score_ci)"""),
     ("md", "## Figures"),
     ("code", """\
 figures = reporting.save_report_figures(report, config.FIGURES_DIR)
-for name in ("reproducibility", "robustness", "conflict", "calibration", "calibration_blinded"):
+for name in ("reproducibility", "robustness", "conflict", "evidence_sensitivity",
+             "calibration", "calibration_blinded"):
     if name in figures:
         display(Image(str(figures[name])))"""),
     ("md", "## Memorization check\\n\\nRe-score the historical drugs with their identity "

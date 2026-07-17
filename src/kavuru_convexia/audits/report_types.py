@@ -12,6 +12,17 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Literal, Optional
 
+import numpy as np
+
+
+def _json_default(obj: Any) -> Any:
+    """Make numpy scalars/arrays JSON-serializable (a defensive net for reports)."""
+    if isinstance(obj, np.generic):
+        return obj.item()
+    if isinstance(obj, np.ndarray):
+        return obj.tolist()
+    raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
+
 Status = Literal["pass", "warn", "fail"]
 
 # fail dominates warn dominates pass when combining sub-results.
@@ -94,7 +105,7 @@ class VerdictReliabilityReport:
     def to_json(self, path: Path | str) -> Path:
         p = Path(path)
         p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text(json.dumps(self.to_dict(), indent=2), encoding="utf-8")
+        p.write_text(json.dumps(self.to_dict(), indent=2, default=_json_default), encoding="utf-8")
         return p
 
     def summary_lines(self) -> list[str]:

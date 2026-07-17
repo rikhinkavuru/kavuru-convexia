@@ -27,6 +27,9 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
 
+[project.scripts]
+kavuru-convexia = "kavuru_convexia.cli:main"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

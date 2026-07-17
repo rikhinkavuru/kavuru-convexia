@@ -68,8 +68,9 @@ def audit_evidence_sensitivity(
         sigma = float(np.std([v.pos_score for v in base]))
         n_snip = len(a.evidence)
         # Bonferroni band across the S snippets (two-sided, alpha=0.05), floored.
-        z = norm.ppf(1 - 0.05 / (2 * max(1, n_snip)))
-        band = max(MIN_NOISE_BAND, sigma * z)
+        # float() strips the numpy scalar so the report stays JSON-serializable.
+        z = float(norm.ppf(1 - 0.05 / (2 * max(1, n_snip))))
+        band = float(max(MIN_NOISE_BAND, sigma * z))
 
         deltas: dict[str, float] = {}
         rec_change: dict[str, bool] = {}
@@ -95,8 +96,8 @@ def audit_evidence_sensitivity(
             "dominant_type": dom_ev.type,
             "dominant_signed_delta": deltas[dominant],
             "influence_concentration": concentration,
-            "spof": spof,
-            "noise_limited": m_a <= band,
+            "spof": bool(spof),
+            "noise_limited": bool(m_a <= band),
         }
 
     m_values = [d["max_influence"] for d in per_asset.values()]
