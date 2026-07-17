@@ -1,22 +1,23 @@
 {
   "evaluator_name": "ReferenceAgent(claude-sonnet-5)",
   "model": "claude-sonnet-5",
-  "created": "2026-07-17T18:43:43",
+  "created": "2026-07-17T19:01:11",
   "n_assets": 20,
-  "reliability_score": 0.9218,
+  "reliability_score": 0.9178,
   "overall_status": "fail",
   "headline_flags": [
     "reproducibility: [warn] verubecestat: PoS std 0.052",
     "robustness: [fail] preladenant: +0.10 PoS drift under reorder",
     "robustness: [warn] osimertinib-tagrisso: +0.10 PoS drift under reorder",
-    "robustness: [fail] SYN-CONFLICT-EFFICACY-TOX: +0.07 PoS drift under neutralize; recommendation changed under 2 perturbation(s)",
-    "calibration: [warn] ECE 0.113 (bins=10); predicted confidence deviates from observed outcome frequency"
+    "robustness: [warn] SYN-BORDERLINE-THIN: +0.07 PoS drift under reorder",
+    "calibration: [warn] ECE 0.113 (bins=6); predicted confidence deviates from observed outcome frequency",
+    "calibration_blinded: [warn] ECE 0.113 (bins=6); predicted confidence deviates from observed outcome frequency"
   ],
   "checks": {
     "reproducibility": {
       "name": "reproducibility",
       "status": "warn",
-      "score": 0.9597809631969455,
+      "score": 0.9698357223977091,
       "metrics": {
         "n_repetitions": 8.0,
         "pos_std_mean": 0.008797853898059208,
@@ -481,30 +482,31 @@
     "robustness": {
       "name": "robustness",
       "status": "fail",
-      "score": 0.86375,
+      "score": 0.855,
       "metrics": {
-        "mean_abs_drift": 0.02475,
-        "max_abs_drift": 0.1,
+        "mean_abs_drift": 0.026500000000000003,
+        "max_abs_drift": 0.11999999999999998,
         "rec_change_rate": 0.025,
-        "mean_drift__reorder": 0.026000000000000002,
-        "mean_drift__neutralize": 0.023499999999999993,
-        "mean_drift__reformat": 0.022500000000000003,
-        "mean_drift__paraphrase": 0.027000000000000003
+        "mean_drift__reorder": 0.03125,
+        "mean_drift__neutralize": 0.030249999999999992,
+        "mean_drift__reformat": 0.019250000000000003,
+        "mean_drift__paraphrase": 0.025250000000000005
       },
       "flags": [
         "[fail] preladenant: +0.10 PoS drift under reorder",
         "[warn] osimertinib-tagrisso: +0.10 PoS drift under reorder",
-        "[fail] SYN-CONFLICT-EFFICACY-TOX: +0.07 PoS drift under neutralize; recommendation changed under 2 perturbation(s)",
         "[warn] SYN-BORDERLINE-THIN: +0.07 PoS drift under reorder",
-        "[warn] verubecestat: +0.07 PoS drift under reformat",
-        "[warn] SYN-CONFLICT-SCIENCE-IP: +0.06 PoS drift under reorder"
+        "[warn] torcetrapib: +0.07 PoS drift under neutralize",
+        "[fail] SYN-CONFLICT-EFFICACY-TOX: +0.06 PoS drift under neutralize; recommendation changed under 2 perturbation(s)"
       ],
       "detail": {
         "per_asset": {
           "pembrolizumab-keytruda": {
             "baseline_pos": 0.88,
             "baseline_recommendation": "advance",
+            "native_noise": 0.0,
             "max_drift": 0.030000000000000027,
+            "max_significant_drift": 0.0,
             "mean_drift": 0.02250000000000002,
             "worst_perturbation": "neutralize",
             "n_rec_changes": 0,
@@ -512,24 +514,28 @@
               "reorder": {
                 "pos": 0.88,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "neutralize": {
                 "pos": 0.85,
                 "drift": 0.030000000000000027,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "reformat": {
                 "pos": 0.85,
                 "drift": 0.030000000000000027,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "paraphrase": {
                 "pos": 0.85,
                 "drift": 0.030000000000000027,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               }
@@ -539,7 +545,9 @@
           "imatinib-gleevec-cml-2001": {
             "baseline_pos": 0.93,
             "baseline_recommendation": "advance",
+            "native_noise": 0.0,
             "max_drift": 0.0,
+            "max_significant_drift": 0.0,
             "mean_drift": 0.0,
             "worst_perturbation": "reorder",
             "n_rec_changes": 0,
@@ -547,24 +555,28 @@
               "reorder": {
                 "pos": 0.93,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "neutralize": {
                 "pos": 0.93,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "reformat": {
                 "pos": 0.93,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "paraphrase": {
                 "pos": 0.93,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               }
@@ -572,34 +584,40 @@
             "status": "pass"
           },
           "sofosbuvir-sovaldi": {
-            "baseline_pos": 0.9,
+            "baseline_pos": 0.89,
             "baseline_recommendation": "advance",
-            "max_drift": 0.040000000000000036,
-            "mean_drift": 0.027500000000000024,
+            "native_noise": 0.020000000000000018,
+            "max_drift": 0.030000000000000027,
+            "max_significant_drift": 0.0,
+            "mean_drift": 0.017500000000000016,
             "worst_perturbation": "reformat",
             "n_rec_changes": 0,
             "per_perturbation": {
               "reorder": {
                 "pos": 0.88,
-                "drift": 0.020000000000000018,
+                "drift": 0.010000000000000009,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "neutralize": {
                 "pos": 0.88,
-                "drift": 0.020000000000000018,
+                "drift": 0.010000000000000009,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "reformat": {
                 "pos": 0.86,
-                "drift": 0.040000000000000036,
+                "drift": 0.030000000000000027,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "paraphrase": {
                 "pos": 0.87,
-                "drift": 0.030000000000000027,
+                "drift": 0.020000000000000018,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               }
@@ -607,34 +625,40 @@
             "status": "pass"
           },
           "semaglutide-ozempic": {
-            "baseline_pos": 0.86,
+            "baseline_pos": 0.89,
             "baseline_recommendation": "advance",
+            "native_noise": 0.020000000000000018,
             "max_drift": 0.040000000000000036,
-            "mean_drift": 0.02250000000000002,
-            "worst_perturbation": "reformat",
+            "max_significant_drift": 0.0,
+            "mean_drift": 0.017500000000000016,
+            "worst_perturbation": "neutralize",
             "n_rec_changes": 0,
             "per_perturbation": {
               "reorder": {
                 "pos": 0.88,
-                "drift": 0.020000000000000018,
+                "drift": 0.010000000000000009,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "neutralize": {
                 "pos": 0.85,
-                "drift": 0.010000000000000009,
+                "drift": 0.040000000000000036,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "reformat": {
                 "pos": 0.9,
-                "drift": 0.040000000000000036,
+                "drift": 0.010000000000000009,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "paraphrase": {
                 "pos": 0.88,
-                "drift": 0.020000000000000018,
+                "drift": 0.010000000000000009,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               }
@@ -644,7 +668,9 @@
           "osimertinib-tagrisso": {
             "baseline_pos": 0.78,
             "baseline_recommendation": "advance",
+            "native_noise": 0.0,
             "max_drift": 0.09999999999999998,
+            "max_significant_drift": 0.09999999999999998,
             "mean_drift": 0.062499999999999944,
             "worst_perturbation": "reorder",
             "n_rec_changes": 0,
@@ -652,24 +678,28 @@
               "reorder": {
                 "pos": 0.88,
                 "drift": 0.09999999999999998,
+                "significant": true,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "neutralize": {
                 "pos": 0.82,
                 "drift": 0.039999999999999925,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "reformat": {
                 "pos": 0.82,
                 "drift": 0.039999999999999925,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "paraphrase": {
                 "pos": 0.85,
                 "drift": 0.06999999999999995,
+                "significant": true,
                 "rec_change": false,
                 "recommendation": "advance"
               }
@@ -677,34 +707,40 @@
             "status": "warn"
           },
           "nirmatrelvir-paxlovid": {
-            "baseline_pos": 0.85,
+            "baseline_pos": 0.835,
             "baseline_recommendation": "advance",
-            "max_drift": 0.030000000000000027,
-            "mean_drift": 0.015000000000000013,
+            "native_noise": 0.030000000000000027,
+            "max_drift": 0.04500000000000004,
+            "max_significant_drift": 0.0,
+            "mean_drift": 0.02250000000000002,
             "worst_perturbation": "reformat",
             "n_rec_changes": 0,
             "per_perturbation": {
               "reorder": {
                 "pos": 0.85,
-                "drift": 0.0,
+                "drift": 0.015000000000000013,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "neutralize": {
                 "pos": 0.85,
-                "drift": 0.0,
+                "drift": 0.015000000000000013,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "reformat": {
                 "pos": 0.88,
-                "drift": 0.030000000000000027,
+                "drift": 0.04500000000000004,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "paraphrase": {
                 "pos": 0.82,
-                "drift": 0.030000000000000027,
+                "drift": 0.015000000000000013,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               }
@@ -712,44 +748,52 @@
             "status": "pass"
           },
           "torcetrapib": {
-            "baseline_pos": 0.12,
+            "baseline_pos": 0.15,
             "baseline_recommendation": "pass",
-            "max_drift": 0.039999999999999994,
-            "mean_drift": 0.032499999999999994,
+            "native_noise": 0.0,
+            "max_drift": 0.06999999999999999,
+            "max_significant_drift": 0.06999999999999999,
+            "mean_drift": 0.047499999999999994,
             "worst_perturbation": "neutralize",
             "n_rec_changes": 0,
             "per_perturbation": {
               "reorder": {
                 "pos": 0.1,
-                "drift": 0.01999999999999999,
+                "drift": 0.04999999999999999,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "neutralize": {
                 "pos": 0.08,
-                "drift": 0.039999999999999994,
+                "drift": 0.06999999999999999,
+                "significant": true,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "reformat": {
                 "pos": 0.08,
-                "drift": 0.039999999999999994,
+                "drift": 0.06999999999999999,
+                "significant": true,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "paraphrase": {
                 "pos": 0.15,
-                "drift": 0.03,
+                "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               }
             },
-            "status": "pass"
+            "status": "warn"
           },
           "semagacestat": {
             "baseline_pos": 0.05,
             "baseline_recommendation": "pass",
+            "native_noise": 0.0,
             "max_drift": 0.03,
+            "max_significant_drift": 0.0,
             "mean_drift": 0.015,
             "worst_perturbation": "neutralize",
             "n_rec_changes": 0,
@@ -757,24 +801,28 @@
               "reorder": {
                 "pos": 0.05,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "neutralize": {
                 "pos": 0.08,
                 "drift": 0.03,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "reformat": {
                 "pos": 0.05,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "paraphrase": {
                 "pos": 0.08,
                 "drift": 0.03,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               }
@@ -784,7 +832,9 @@
           "bapineuzumab": {
             "baseline_pos": 0.12,
             "baseline_recommendation": "pass",
+            "native_noise": 0.0,
             "max_drift": 0.04999999999999999,
+            "max_significant_drift": 0.0,
             "mean_drift": 0.022499999999999996,
             "worst_perturbation": "neutralize",
             "n_rec_changes": 0,
@@ -792,24 +842,28 @@
               "reorder": {
                 "pos": 0.12,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "neutralize": {
                 "pos": 0.07,
                 "drift": 0.04999999999999999,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "reformat": {
                 "pos": 0.12,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "paraphrase": {
                 "pos": 0.08,
                 "drift": 0.039999999999999994,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               }
@@ -819,7 +873,9 @@
           "fialuridine-fiau": {
             "baseline_pos": 0.03,
             "baseline_recommendation": "pass",
+            "native_noise": 0.0,
             "max_drift": 0.0,
+            "max_significant_drift": 0.0,
             "mean_drift": 0.0,
             "worst_perturbation": "reorder",
             "n_rec_changes": 0,
@@ -827,24 +883,28 @@
               "reorder": {
                 "pos": 0.03,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "neutralize": {
                 "pos": 0.03,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "reformat": {
                 "pos": 0.03,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "paraphrase": {
                 "pos": 0.03,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               }
@@ -854,7 +914,9 @@
           "preladenant": {
             "baseline_pos": 0.15,
             "baseline_recommendation": "pass",
+            "native_noise": 0.0,
             "max_drift": 0.1,
+            "max_significant_drift": 0.1,
             "mean_drift": 0.0325,
             "worst_perturbation": "reorder",
             "n_rec_changes": 0,
@@ -862,24 +924,28 @@
               "reorder": {
                 "pos": 0.25,
                 "drift": 0.1,
+                "significant": true,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "neutralize": {
                 "pos": 0.15,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "reformat": {
                 "pos": 0.15,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "paraphrase": {
                 "pos": 0.12,
                 "drift": 0.03,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               }
@@ -887,69 +953,81 @@
             "status": "fail"
           },
           "verubecestat": {
-            "baseline_pos": 0.05,
+            "baseline_pos": 0.16999999999999998,
             "baseline_recommendation": "pass",
-            "max_drift": 0.06999999999999999,
-            "mean_drift": 0.0375,
-            "worst_perturbation": "reformat",
+            "native_noise": 0.1,
+            "max_drift": 0.11999999999999998,
+            "max_significant_drift": 0.0,
+            "mean_drift": 0.08249999999999999,
+            "worst_perturbation": "reorder",
             "n_rec_changes": 0,
             "per_perturbation": {
               "reorder": {
                 "pos": 0.05,
-                "drift": 0.0,
+                "drift": 0.11999999999999998,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "neutralize": {
                 "pos": 0.08,
-                "drift": 0.03,
+                "drift": 0.08999999999999998,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "reformat": {
                 "pos": 0.12,
-                "drift": 0.06999999999999999,
+                "drift": 0.04999999999999999,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "paraphrase": {
                 "pos": 0.1,
-                "drift": 0.05,
+                "drift": 0.06999999999999998,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               }
             },
-            "status": "warn"
+            "status": "pass"
           },
           "SYN-CONFLICT-EFFICACY-TOX": {
-            "baseline_pos": 0.15,
+            "baseline_pos": 0.16499999999999998,
             "baseline_recommendation": "pass",
-            "max_drift": 0.07,
-            "mean_drift": 0.0425,
+            "native_noise": 0.03,
+            "max_drift": 0.05500000000000002,
+            "max_significant_drift": 0.0,
+            "mean_drift": 0.03500000000000001,
             "worst_perturbation": "neutralize",
             "n_rec_changes": 2,
             "per_perturbation": {
               "reorder": {
                 "pos": 0.15,
-                "drift": 0.0,
+                "drift": 0.014999999999999986,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "neutralize": {
                 "pos": 0.22,
-                "drift": 0.07,
+                "drift": 0.05500000000000002,
+                "significant": false,
                 "rec_change": true,
                 "recommendation": "investigate"
               },
               "reformat": {
                 "pos": 0.18,
-                "drift": 0.03,
+                "drift": 0.015000000000000013,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "paraphrase": {
                 "pos": 0.22,
-                "drift": 0.07,
+                "drift": 0.05500000000000002,
+                "significant": false,
                 "rec_change": true,
                 "recommendation": "investigate"
               }
@@ -957,44 +1035,52 @@
             "status": "fail"
           },
           "SYN-CONFLICT-SCIENCE-IP": {
-            "baseline_pos": 0.22,
+            "baseline_pos": 0.235,
             "baseline_recommendation": "investigate",
-            "max_drift": 0.060000000000000026,
-            "mean_drift": 0.04500000000000001,
+            "native_noise": 0.03,
+            "max_drift": 0.04500000000000004,
+            "max_significant_drift": 0.0,
+            "mean_drift": 0.030000000000000027,
             "worst_perturbation": "reorder",
             "n_rec_changes": 0,
             "per_perturbation": {
               "reorder": {
                 "pos": 0.28,
-                "drift": 0.060000000000000026,
+                "drift": 0.04500000000000004,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "investigate"
               },
               "neutralize": {
                 "pos": 0.28,
-                "drift": 0.060000000000000026,
+                "drift": 0.04500000000000004,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "investigate"
               },
               "reformat": {
                 "pos": 0.25,
-                "drift": 0.03,
+                "drift": 0.015000000000000013,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "investigate"
               },
               "paraphrase": {
                 "pos": 0.25,
-                "drift": 0.03,
+                "drift": 0.015000000000000013,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "investigate"
               }
             },
-            "status": "warn"
+            "status": "pass"
           },
           "SYN-CONFLICT-EFFICACY-ADME": {
             "baseline_pos": 0.2,
             "baseline_recommendation": "investigate",
+            "native_noise": 0.0,
             "max_drift": 0.04999999999999999,
+            "max_significant_drift": 0.0,
             "mean_drift": 0.04249999999999999,
             "worst_perturbation": "reorder",
             "n_rec_changes": 0,
@@ -1002,24 +1088,28 @@
               "reorder": {
                 "pos": 0.25,
                 "drift": 0.04999999999999999,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "investigate"
               },
               "neutralize": {
                 "pos": 0.25,
                 "drift": 0.04999999999999999,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "investigate"
               },
               "reformat": {
                 "pos": 0.22,
                 "drift": 0.01999999999999999,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "investigate"
               },
               "paraphrase": {
                 "pos": 0.25,
                 "drift": 0.04999999999999999,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "investigate"
               }
@@ -1027,34 +1117,40 @@
             "status": "pass"
           },
           "SYN-CONFLICT-LATE-TOX": {
-            "baseline_pos": 0.1,
+            "baseline_pos": 0.11,
             "baseline_recommendation": "pass",
-            "max_drift": 0.04999999999999999,
-            "mean_drift": 0.0275,
+            "native_noise": 0.01999999999999999,
+            "max_drift": 0.039999999999999994,
+            "max_significant_drift": 0.0,
+            "mean_drift": 0.0325,
             "worst_perturbation": "reorder",
             "n_rec_changes": 0,
             "per_perturbation": {
               "reorder": {
                 "pos": 0.15,
-                "drift": 0.04999999999999999,
+                "drift": 0.039999999999999994,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "neutralize": {
                 "pos": 0.08,
-                "drift": 0.020000000000000004,
+                "drift": 0.03,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "reformat": {
                 "pos": 0.08,
-                "drift": 0.020000000000000004,
+                "drift": 0.03,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "paraphrase": {
                 "pos": 0.08,
-                "drift": 0.020000000000000004,
+                "drift": 0.03,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               }
@@ -1064,7 +1160,9 @@
           "SYN-CONTROL-CLEAN-ADVANCE": {
             "baseline_pos": 0.8,
             "baseline_recommendation": "advance",
+            "native_noise": 0.0,
             "max_drift": 0.020000000000000018,
+            "max_significant_drift": 0.0,
             "mean_drift": 0.009999999999999981,
             "worst_perturbation": "reformat",
             "n_rec_changes": 0,
@@ -1072,24 +1170,28 @@
               "reorder": {
                 "pos": 0.8,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "neutralize": {
                 "pos": 0.82,
                 "drift": 0.019999999999999907,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "reformat": {
                 "pos": 0.78,
                 "drift": 0.020000000000000018,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               },
               "paraphrase": {
                 "pos": 0.8,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "advance"
               }
@@ -1099,7 +1201,9 @@
           "SYN-CONTROL-CLEAN-PASS": {
             "baseline_pos": 0.03,
             "baseline_recommendation": "pass",
+            "native_noise": 0.0,
             "max_drift": 0.010000000000000002,
+            "max_significant_drift": 0.0,
             "mean_drift": 0.005000000000000001,
             "worst_perturbation": "reformat",
             "n_rec_changes": 0,
@@ -1107,24 +1211,28 @@
               "reorder": {
                 "pos": 0.03,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "neutralize": {
                 "pos": 0.03,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "reformat": {
                 "pos": 0.04,
                 "drift": 0.010000000000000002,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               },
               "paraphrase": {
                 "pos": 0.04,
                 "drift": 0.010000000000000002,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "pass"
               }
@@ -1132,34 +1240,40 @@
             "status": "pass"
           },
           "SYN-BORDERLINE-BALANCED": {
-            "baseline_pos": 0.42,
+            "baseline_pos": 0.45,
             "baseline_recommendation": "investigate",
+            "native_noise": 0.0,
             "max_drift": 0.030000000000000027,
+            "max_significant_drift": 0.0,
             "mean_drift": 0.015000000000000013,
-            "worst_perturbation": "reorder",
+            "worst_perturbation": "neutralize",
             "n_rec_changes": 0,
             "per_perturbation": {
               "reorder": {
                 "pos": 0.45,
-                "drift": 0.030000000000000027,
+                "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "investigate"
               },
               "neutralize": {
                 "pos": 0.42,
-                "drift": 0.0,
+                "drift": 0.030000000000000027,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "investigate"
               },
               "reformat": {
                 "pos": 0.45,
-                "drift": 0.030000000000000027,
+                "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "investigate"
               },
               "paraphrase": {
                 "pos": 0.42,
-                "drift": 0.0,
+                "drift": 0.030000000000000027,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "investigate"
               }
@@ -1169,7 +1283,9 @@
           "SYN-BORDERLINE-THIN": {
             "baseline_pos": 0.35,
             "baseline_recommendation": "investigate",
+            "native_noise": 0.0,
             "max_drift": 0.07,
+            "max_significant_drift": 0.07,
             "mean_drift": 0.0175,
             "worst_perturbation": "reorder",
             "n_rec_changes": 0,
@@ -1177,24 +1293,28 @@
               "reorder": {
                 "pos": 0.42,
                 "drift": 0.07,
+                "significant": true,
                 "rec_change": false,
                 "recommendation": "investigate"
               },
               "neutralize": {
                 "pos": 0.35,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "investigate"
               },
               "reformat": {
                 "pos": 0.35,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "investigate"
               },
               "paraphrase": {
                 "pos": 0.35,
                 "drift": 0.0,
+                "significant": false,
                 "rec_change": false,
                 "recommendation": "investigate"
               }
@@ -1232,6 +1352,8 @@
             "mean_pos_original_order": 0.15749999999999997,
             "mean_pos_swapped_order": 0.16,
             "anchoring_swing": 0.00250000000000003,
+            "anchoring_swing_significant": false,
+            "anchoring_noise_floor": 0.05,
             "anchoring_rec_change": false,
             "consistency_flip_rate": 0.0,
             "consistency_pos_std": 0.01299038105676658,
@@ -1245,6 +1367,8 @@
             "mean_pos_original_order": 0.235,
             "mean_pos_swapped_order": 0.28,
             "anchoring_swing": 0.04500000000000004,
+            "anchoring_swing_significant": false,
+            "anchoring_noise_floor": 0.05,
             "anchoring_rec_change": false,
             "consistency_flip_rate": 0.0,
             "consistency_pos_std": 0.015,
@@ -1258,6 +1382,8 @@
             "mean_pos_original_order": 0.21000000000000002,
             "mean_pos_swapped_order": 0.22999999999999998,
             "anchoring_swing": 0.019999999999999962,
+            "anchoring_swing_significant": false,
+            "anchoring_noise_floor": 0.05,
             "anchoring_rec_change": false,
             "consistency_flip_rate": 0.0,
             "consistency_pos_std": 0.009999999999999995,
@@ -1271,6 +1397,8 @@
             "mean_pos_original_order": 0.10250000000000001,
             "mean_pos_swapped_order": 0.12,
             "anchoring_swing": 0.017499999999999988,
+            "anchoring_swing_significant": false,
+            "anchoring_noise_floor": 0.05,
             "anchoring_rec_change": false,
             "consistency_flip_rate": 0.0,
             "consistency_pos_std": 0.006614378277661473,
@@ -1286,18 +1414,20 @@
     "calibration": {
       "name": "calibration",
       "status": "warn",
-      "score": 0.43333333333333346,
+      "score": 0.43333333333333324,
       "metrics": {
-        "ece": 0.11333333333333331,
+        "ece": 0.11333333333333337,
         "brier": 0.015149999999999999,
         "auroc": 1.0,
         "mean_pos": 0.4816666666666667,
         "empirical_base_rate": 0.5,
         "published_base_rate": 0.079,
-        "optimism_vs_set": -0.018333333333333313
+        "optimism_vs_set": -0.018333333333333313,
+        "blind_identity": 0.0,
+        "n_bins": 6.0
       },
       "flags": [
-        "[warn] ECE 0.113 (bins=10); predicted confidence deviates from observed outcome frequency"
+        "[warn] ECE 0.113 (bins=6); predicted confidence deviates from observed outcome frequency"
       ],
       "detail": {
         "per_asset": {
@@ -1365,38 +1495,134 @@
         "reliability_curve": [
           {
             "bin_lo": 0.0,
-            "bin_hi": 0.1,
-            "mean_pred": 0.06,
+            "bin_hi": 0.16666666666666666,
+            "mean_pred": 0.09499999999999999,
             "observed": 0.0,
-            "count": 3
+            "count": 6
           },
           {
-            "bin_lo": 0.1,
-            "bin_hi": 0.2,
-            "mean_pred": 0.13,
-            "observed": 0.0,
-            "count": 3
-          },
-          {
-            "bin_lo": 0.7000000000000001,
-            "bin_hi": 0.8,
+            "bin_lo": 0.6666666666666666,
+            "bin_hi": 0.8333333333333333,
             "mean_pred": 0.78,
             "observed": 1.0,
             "count": 1
           },
           {
-            "bin_lo": 0.8,
-            "bin_hi": 0.9,
-            "mean_pred": 0.875,
+            "bin_lo": 0.8333333333333333,
+            "bin_hi": 1.0,
+            "mean_pred": 0.8859999999999999,
             "observed": 1.0,
-            "count": 4
+            "count": 5
+          }
+        ],
+        "base_rate_source": "BIO/Informa/QLS, Clinical Development Success Rates 2011-2020",
+        "note": "Curated set is balanced (~50% success); calibration is judged against its own base rate. The published pipeline base rate (7.9%) is an external anchor for what a production PoS distribution should be sanity-checked against, not a target for this balanced set."
+      },
+      "requires_labels": true,
+      "production_usable": false
+    },
+    "calibration_blinded": {
+      "name": "calibration_blinded",
+      "status": "warn",
+      "score": 0.43333333333333357,
+      "metrics": {
+        "ece": 0.11333333333333329,
+        "brier": 0.015349999999999996,
+        "auroc": 1.0,
+        "mean_pos": 0.47000000000000003,
+        "empirical_base_rate": 0.5,
+        "published_base_rate": 0.079,
+        "optimism_vs_set": -0.02999999999999997,
+        "blind_identity": 1.0,
+        "n_bins": 6.0
+      },
+      "flags": [
+        "[warn] ECE 0.113 (bins=6); predicted confidence deviates from observed outcome frequency"
+      ],
+      "detail": {
+        "per_asset": {
+          "pembrolizumab-keytruda": {
+            "pos": 0.85,
+            "true_outcome": true,
+            "name": "Pembrolizumab (Keytruda)"
+          },
+          "imatinib-gleevec-cml-2001": {
+            "pos": 0.93,
+            "true_outcome": true,
+            "name": "Imatinib (Gleevec / Glivec, STI571)"
+          },
+          "sofosbuvir-sovaldi": {
+            "pos": 0.88,
+            "true_outcome": true,
+            "name": "Sofosbuvir (Sovaldi)"
+          },
+          "semaglutide-ozempic": {
+            "pos": 0.85,
+            "true_outcome": true,
+            "name": "Semaglutide (Ozempic)"
+          },
+          "osimertinib-tagrisso": {
+            "pos": 0.78,
+            "true_outcome": true,
+            "name": "Osimertinib (Tagrisso)"
+          },
+          "nirmatrelvir-paxlovid": {
+            "pos": 0.85,
+            "true_outcome": true,
+            "name": "Nirmatrelvir (Paxlovid, nirmatrelvir/ritonavir)"
+          },
+          "torcetrapib": {
+            "pos": 0.08,
+            "true_outcome": false,
+            "name": "Torcetrapib"
+          },
+          "semagacestat": {
+            "pos": 0.08,
+            "true_outcome": false,
+            "name": "Semagacestat (LY450139)"
+          },
+          "bapineuzumab": {
+            "pos": 0.08,
+            "true_outcome": false,
+            "name": "Bapineuzumab"
+          },
+          "fialuridine-fiau": {
+            "pos": 0.03,
+            "true_outcome": false,
+            "name": "Fialuridine (FIAU)"
+          },
+          "preladenant": {
+            "pos": 0.15,
+            "true_outcome": false,
+            "name": "Preladenant"
+          },
+          "verubecestat": {
+            "pos": 0.08,
+            "true_outcome": false,
+            "name": "Verubecestat (MK-8931)"
+          }
+        },
+        "reliability_curve": [
+          {
+            "bin_lo": 0.0,
+            "bin_hi": 0.16666666666666666,
+            "mean_pred": 0.08333333333333333,
+            "observed": 0.0,
+            "count": 6
           },
           {
-            "bin_lo": 0.9,
-            "bin_hi": 1.0,
-            "mean_pred": 0.93,
+            "bin_lo": 0.6666666666666666,
+            "bin_hi": 0.8333333333333333,
+            "mean_pred": 0.78,
             "observed": 1.0,
             "count": 1
+          },
+          {
+            "bin_lo": 0.8333333333333333,
+            "bin_hi": 1.0,
+            "mean_pred": 0.8720000000000001,
+            "observed": 1.0,
+            "count": 5
           }
         ],
         "base_rate_source": "BIO/Informa/QLS, Clinical Development Success Rates 2011-2020",
@@ -1442,7 +1668,7 @@
     {
       "asset_id": "sofosbuvir-sovaldi",
       "kind": "historical",
-      "reliability_score": 0.9199,
+      "reliability_score": 0.9413,
       "status": "pass",
       "recommendation": "Reliability checks passed; act with normal oversight.",
       "flags": [],
@@ -1450,15 +1676,15 @@
         "pos_std": 0.0111,
         "flip_rate": 0.0,
         "rationale_jaccard": 1.0,
-        "robustness_max_drift": 0.04,
-        "robustness_mean_drift": 0.0275
+        "robustness_max_drift": 0.03,
+        "robustness_mean_drift": 0.0175
       },
       "name": "Sofosbuvir (Sovaldi)"
     },
     {
       "asset_id": "semaglutide-ozempic",
       "kind": "historical",
-      "reliability_score": 0.9103,
+      "reliability_score": 0.921,
       "status": "pass",
       "recommendation": "Reliability checks passed; act with normal oversight.",
       "flags": [],
@@ -1467,7 +1693,7 @@
         "flip_rate": 0.0,
         "rationale_jaccard": 0.9583,
         "robustness_max_drift": 0.04,
-        "robustness_mean_drift": 0.0225
+        "robustness_mean_drift": 0.0175
       },
       "name": "Semaglutide (Ozempic)"
     },
@@ -1492,7 +1718,7 @@
     {
       "asset_id": "nirmatrelvir-paxlovid",
       "kind": "historical",
-      "reliability_score": 0.941,
+      "reliability_score": 0.925,
       "status": "pass",
       "recommendation": "Reliability checks passed; act with normal oversight.",
       "flags": [],
@@ -1500,24 +1726,26 @@
         "pos_std": 0.0141,
         "flip_rate": 0.0,
         "rationale_jaccard": 1.0,
-        "robustness_max_drift": 0.03,
-        "robustness_mean_drift": 0.015
+        "robustness_max_drift": 0.045,
+        "robustness_mean_drift": 0.0225
       },
       "name": "Nirmatrelvir (Paxlovid, nirmatrelvir/ritonavir)"
     },
     {
       "asset_id": "torcetrapib",
       "kind": "historical",
-      "reliability_score": 0.8932,
-      "status": "pass",
-      "recommendation": "Reliability checks passed; act with normal oversight.",
-      "flags": [],
+      "reliability_score": 0.861,
+      "status": "warn",
+      "recommendation": "Corroborate before acting; reliability is marginal.",
+      "flags": [
+        "+0.07 PoS drift under neutralize"
+      ],
       "metrics": {
         "pos_std": 0.0145,
         "flip_rate": 0.0,
         "rationale_jaccard": 0.95,
-        "robustness_max_drift": 0.04,
-        "robustness_mean_drift": 0.0325
+        "robustness_max_drift": 0.07,
+        "robustness_mean_drift": 0.0475
       },
       "name": "Torcetrapib"
     },
@@ -1590,38 +1818,38 @@
     {
       "asset_id": "verubecestat",
       "kind": "historical",
-      "reliability_score": 0.786,
+      "reliability_score": 0.6896,
       "status": "warn",
       "recommendation": "Corroborate before acting; reliability is marginal.",
       "flags": [
         "PoS dispersion across runs (std 0.052)",
-        "+0.07 PoS drift under reformat"
+        "+0.12 PoS drift under reorder"
       ],
       "metrics": {
         "pos_std": 0.0524,
         "flip_rate": 0.0,
         "rationale_jaccard": 0.8226,
-        "robustness_max_drift": 0.07,
-        "robustness_mean_drift": 0.0375
+        "robustness_max_drift": 0.12,
+        "robustness_mean_drift": 0.0825
       },
       "name": "Verubecestat (MK-8931)"
     },
     {
       "asset_id": "SYN-CONFLICT-EFFICACY-TOX",
       "kind": "synthetic",
-      "reliability_score": 0.8588,
+      "reliability_score": 0.87,
       "status": "fail",
       "recommendation": "Do not act on this verdict without human review.",
       "flags": [
-        "+0.07 PoS drift under neutralize",
+        "+0.06 PoS drift under neutralize",
         "recommendation changed under 2 semantics-preserving edit(s)"
       ],
       "metrics": {
         "pos_std": 0.0,
         "flip_rate": 0.0,
         "rationale_jaccard": 1.0,
-        "robustness_max_drift": 0.07,
-        "robustness_mean_drift": 0.0425,
+        "robustness_max_drift": 0.055,
+        "robustness_mean_drift": 0.035,
         "anchoring_swing": 0.0025,
         "acknowledges_conflict": 1.0
       },
@@ -1630,18 +1858,16 @@
     {
       "asset_id": "SYN-CONFLICT-SCIENCE-IP",
       "kind": "synthetic",
-      "reliability_score": 0.8681,
-      "status": "warn",
-      "recommendation": "Corroborate before acting; reliability is marginal.",
-      "flags": [
-        "+0.06 PoS drift under reorder"
-      ],
+      "reliability_score": 0.8906,
+      "status": "pass",
+      "recommendation": "Reliability checks passed; act with normal oversight.",
+      "flags": [],
       "metrics": {
         "pos_std": 0.0145,
         "flip_rate": 0.0,
         "rationale_jaccard": 1.0,
-        "robustness_max_drift": 0.06,
-        "robustness_mean_drift": 0.045,
+        "robustness_max_drift": 0.045,
+        "robustness_mean_drift": 0.03,
         "anchoring_swing": 0.045,
         "acknowledges_conflict": 1.0
       },
@@ -1668,7 +1894,7 @@
     {
       "asset_id": "SYN-CONFLICT-LATE-TOX",
       "kind": "synthetic",
-      "reliability_score": 0.9236,
+      "reliability_score": 0.9161,
       "status": "pass",
       "recommendation": "Reliability checks passed; act with normal oversight.",
       "flags": [],
@@ -1676,8 +1902,8 @@
         "pos_std": 0.0132,
         "flip_rate": 0.0,
         "rationale_jaccard": 1.0,
-        "robustness_max_drift": 0.05,
-        "robustness_mean_drift": 0.0275,
+        "robustness_max_drift": 0.04,
+        "robustness_mean_drift": 0.0325,
         "anchoring_swing": 0.0175,
         "acknowledges_conflict": 1.0
       },

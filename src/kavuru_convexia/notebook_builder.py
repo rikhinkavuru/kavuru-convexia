@@ -115,7 +115,7 @@ print("reference:", agent.name)"""),
            "calibration uses the historical outcomes and is marked offline."),
     ("code", """\
 report = audit_agent(
-    agent, all_assets, calibration_assets=historical,
+    agent, all_assets, calibration_assets=historical, blind_calibration=True,
     n=config.N_REPETITIONS, ack_judge=ack_judge, paraphraser=paraphraser,
 )
 print("\\n".join(report.summary_lines()))"""),

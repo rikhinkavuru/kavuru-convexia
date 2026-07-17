@@ -1,4 +1,3 @@
-<!-- RESULTS_PLACEHOLDER markers are filled from a real `make demo` run before release. -->
 # kavuru-convexia
 
 **A reliability audit harness for LLM-agent drug-asset evaluations.**
@@ -65,8 +64,8 @@ Of 20 verdicts, **14 pass, 4 warn, 2 fail**.
 
 | Audit | Status | Score | Headline numbers |
 |---|---|---|---|
-| Reproducibility | WARN | 0.96 | PoS std mean **0.009** (max 0.052), recommendation flip-rate **0%**, rationale-citation Jaccard 0.97 (min **0.81**) |
-| Robustness | **FAIL** | 0.86 | mean \|ΔPoS\| 0.025, **max 0.10**, recommendation-change rate **2.5%** under semantics-preserving edits |
+| Reproducibility | WARN | 0.97 | PoS std mean **0.009** (max 0.052), recommendation flip-rate **0%**, rationale-citation Jaccard 0.97 (min **0.81**) |
+| Robustness | **FAIL** | 0.86 | mean \|ΔPoS\| 0.027, max 0.12, recommendation-change rate **2.5%** under semantics-preserving edits |
 | Conflict | PASS | 0.93 | conflict-acknowledgment **100%**, max anchoring swing 0.045 (< 0.10), 0 order-driven flips |
 | Calibration *(offline)* | WARN | 0.43 | **AUROC 1.00**, Brier 0.015, **ECE 0.113**, mean PoS 0.48 vs 0.50 base rate |
 
@@ -80,10 +79,13 @@ is stable while the stated *why* shifts run to run.
 ![reproducibility](docs/figures/reproducibility_variance.png)
 
 **2. Not robust to cosmetic rewrites — the headline gap.** Edits that cannot change
-the answer do. Reordering preladenant's evidence moves its PoS by **0.10**; on the
-efficacy-vs-tox asset, stripping the entity name *and* paraphrasing each flip the
-recommendation **`pass` → `investigate`**. Mean drift is small (0.025), but the tail
-is exactly where capital gets misallocated — and it is invisible without this audit.
+the answer do. Reordering preladenant's evidence moves its PoS by **0.10** (its verdict
+is otherwise rock-stable, so this is real drift, not noise); on the efficacy-vs-tox
+asset, stripping the entity name *and* paraphrasing each flip the recommendation
+**`pass` → `investigate`**. The audit is noise-controlled — a 0.12 swing on
+verubecestat is *not* flagged, because that asset is natively noisy and the swing sits
+inside its own run-to-run band. Mean drift is small (0.027), but the tail is exactly
+where capital gets misallocated, and it is invisible without this audit.
 
 ![robustness](docs/figures/robustness_drift.png)
 
@@ -91,17 +93,21 @@ is exactly where capital gets misallocated — and it is invisible without this 
 conflicts, shows a max positional-anchoring swing of 0.045 (below the 0.10 fail line),
 and never lets evidence *order* flip the verdict.
 
-**4. Perfect ranking, imperfect calibration.** On the 12 historical drugs it separates
-the 6 approved from the 6 discontinued **flawlessly (AUROC 1.00, Brier 0.015)** — yet
-its **ECE is 0.113**: the absolute PoS values are mildly miscalibrated even though the
-ordering is perfect. Mean PoS (0.48) sits on the set's balanced base rate, so there is
-no systematic optimism *here*; the published ~7.9% Phase-1→approval rate is the anchor a
-real-world PoS distribution should be checked against, not this curated set.
+**4. Perfect ranking, imperfect calibration — with a memorization caveat.** On the 12
+historical drugs it separates the 6 approved from the 6 discontinued **flawlessly
+(AUROC 1.00, Brier 0.015)**, yet its **ECE is 0.113**: the absolute PoS values are mildly
+miscalibrated even though the ordering is perfect. Stripping each drug's identity
+(name-blinding) barely moves the verdict and leaves **AUROC at 1.00 (change +0.00)** —
+so the agent is not anchoring on the brand *string*. That does **not** rule out
+memorization: the mechanism and indication still identify these iconic drugs, so a
+clean read needs held-out assets. Mean PoS (0.48) sits on the set's balanced base rate,
+so there is no systematic optimism here; the published ~7.9% Phase-1→approval rate is
+the anchor a real-world PoS distribution should be checked against, not this set.
 
 ![calibration](docs/figures/calibration_curve.png)
 
 **5. It ranks candidate agents.** The gate's real job. On the synthetic set it scores
-`claude-sonnet-5` at **0.92** and `claude-haiku-4-5` at **0.94** on the production-usable
+`claude-sonnet-5` at **0.93** and `claude-haiku-4-5` at **0.94** on the production-usable
 axes — both fail the robustness bar, and the gate says which verdicts to trust for each.
 
 ![agent comparison](docs/figures/agent_comparison.png)
@@ -124,9 +130,10 @@ class AssetEvaluator(ABC):
 
 In production it becomes a **reliability gate**: every PoS verdict is scored for
 reproducibility, robustness, and conflict-handling, and the verdict carries a
-reliability score plus flags — e.g. _"recommendation flipped in 2/8 runs; +0.22 PoS
-drift under paraphrase; over-confident vs. base rate → do not act without human
-review."_ Verdicts that clear the gate go forward; the rest are routed to a human.
+reliability score plus flags — e.g. _"recommendation flipped `pass`→`investigate`
+under paraphrase; +0.10 PoS drift under evidence reorder → do not act on this verdict
+without human review."_ Verdicts that clear the gate go forward; the rest are routed
+to a human.
 Applied to two candidate agents, it tells you which one to put in the capital path.
 
 ## Quickstart
@@ -167,7 +174,34 @@ tests/                          # schema + per-audit detector tests (adversarial
 ## Honest limitations and next steps
 
 <!-- LIMITATIONS:BEGIN -->
-_Filled after the run._
+- **One model family.** The numbers are for a single Claude model. The harness is
+  model-agnostic (`config.ANTHROPIC_MODEL` + `ExternalAdapter`), but a broader agent
+  panel would sharpen the conclusions.
+- **Native non-determinism only.** Claude-5 rejects an explicit `temperature`, so
+  reproducibility reflects the model's *native* production variance; a
+  temperature-exposed deployment would likely disperse more. The harness measures
+  whatever the deployment actually does — it does not inflate variance.
+- **Outcome memorization.** The historical set uses famous real drugs, so the agent
+  may recognize them and recall outcomes — which is why revealed-identity AUROC is so
+  high. The identity-blinding check *quantifies* this (see Results), but true blinding
+  is impossible for iconic drugs (mechanism + indication identify them). A production
+  calibration needs held-out or contemporaneous assets the model cannot have memorized.
+- **Small, balanced calibration set.** 12 labeled assets, balanced by construction;
+  ECE on 12 points is coarse even at capped bin resolution. This is an offline sanity
+  check, not a production metric — larger, time-sliced, outcome-labeled banks sharpen it.
+- **Curated evidence.** Snippets are faithful reconstructions of the pre-decision
+  picture, not raw trial data; calibration measures judgment over a stylized dossier.
+- **Judge non-determinism.** Conflict acknowledgment uses an LLM judge (+ heuristic
+  fallback) at temperature 0 with caching; a judge panel would be more robust — the
+  very variance this project studies also affects judges.
+- **Refusals are real.** During development the safety layer refused an asset outright;
+  a production gate should treat refusal/availability as a first-class reliability
+  signal (the harness now surfaces empty/refused responses as a parse failure).
+
+**Next steps:** plug Convexia's playground verdicts in via `ExternalAdapter` (protocol
+included); expand and time-slice the historical bank; add a judge panel and per-verdict
+human-review routing; wire the gate as a pre-commit check in the acquisition pipeline;
+extend the perturbation set (numeric-magnitude edits, evidence-dropout sensitivity).
 <!-- LIMITATIONS:END -->
 
 ## Data provenance & honesty
