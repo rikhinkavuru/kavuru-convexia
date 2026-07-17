@@ -52,7 +52,6 @@ into the production-usable checks.
 
 ## Results
 
-<!-- RESULTS:BEGIN -->
 Reference agent: **`claude-sonnet-5`**, 8 repetitions, 20 assets (12 historical +
 8 synthetic). The Claude-5 API rejects an explicit `temperature`, so these numbers
 measure the model's **native production non-determinism** — not variance we inflated.
@@ -111,7 +110,6 @@ the anchor a real-world PoS distribution should be checked against, not this set
 axes — both fail the robustness bar, and the gate says which verdicts to trust for each.
 
 ![agent comparison](docs/figures/agent_comparison.png)
-<!-- RESULTS:END -->
 
 ## How it slots onto the PoS agent
 
@@ -173,7 +171,6 @@ tests/                          # schema + per-audit detector tests (adversarial
 
 ## Honest limitations and next steps
 
-<!-- LIMITATIONS:BEGIN -->
 - **One model family.** The numbers are for a single Claude model. The harness is
   model-agnostic (`config.ANTHROPIC_MODEL` + `ExternalAdapter`), but a broader agent
   panel would sharpen the conclusions.
@@ -202,7 +199,6 @@ tests/                          # schema + per-audit detector tests (adversarial
 included); expand and time-slice the historical bank; add a judge panel and per-verdict
 human-review routing; wire the gate as a pre-commit check in the acquisition pipeline;
 extend the perturbation set (numeric-magnitude edits, evidence-dropout sensitivity).
-<!-- LIMITATIONS:END -->
 
 ## Data provenance & honesty
 
