@@ -937,6 +937,650 @@
         "leakage_check": true,
         "verifier_notes": "Outcome false (failure/discontinued) is correct and defensible. Merck halted Phase 3 EPOCH (mild-moderate AD) for futility Feb 2017 and discontinued Phase 3 APECS (prodromal AD) Feb 2018 after an external DMC found unfavorable risk/benefit (faster decline and more brain atrophy on drug); never approved. Confirmed via Merck press release, Wikipedia, Alzforum, BioPharma Dive, ClinicalTrialsArena. Cited sources are reputable and plausibly support the outcome (primary Merck APECS release, peer-reviewed PMC EPOCH safety paper, Alzforum, pharmaphorum). No leakage: description is written at the pre-decision Phase 3 point emphasizing target engagement and does not disclose termination; evidence snippets are prospective supportive/adverse/neutral signals (binding target engagement, BACE1/2 substrate tox concern, amyloid-hypothesis translation risk) framed as decision-time considerations, none revealing trial failure."
       }
+    },
+    {
+      "id": "trastuzumab-herceptin-her2-bc",
+      "description": "Recombinant humanized IgG1 monoclonal antibody directed against the extracellular domain of the HER2/neu (ERBB2) receptor tyrosine kinase, developed by Genentech. Indicated for the ~20-25% subset of breast cancers that overexpress/amplify HER2, a phenotype historically associated with aggressive disease and poor prognosis. Under evaluation as a targeted biologic (initially in metastatic HER2-positive breast cancer, alone and in combination with chemotherapy), paired with an immunohistochemistry companion diagnostic to select HER2-overexpressing patients. Decision stage: pre-BLA / regulatory review following pivotal trials in the late 1990s.",
+      "true_outcome": true,
+      "outcome_summary": "Success. The FDA approved trastuzumab (Herceptin) on September 25, 1998 for HER2-overexpressing metastatic breast cancer, co-approved with the HercepTest companion diagnostic. It became the foundational HER2-targeted therapy, later expanded to adjuvant early-stage breast cancer and HER2-positive gastric cancer, and remains marketed (now alongside biosimilars). It is widely regarded as a landmark precision-oncology success that improved recurrence and survival outcomes.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Herceptin (trastuzumab) FDA Approval History",
+          "url": "https://www.drugs.com/history/herceptin.html",
+          "note": "FDA approval timeline confirming initial 1998 metastatic breast cancer approval and subsequent expansions."
+        },
+        {
+          "title": "Twenty-five years with HER2 targeted therapy (Annals of Translational Medicine / PMC11193558)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11193558/",
+          "note": "Peer-reviewed retrospective confirming Sept 25, 1998 FDA approval with HercepTest companion diagnostic and sustained clinical role."
+        },
+        {
+          "title": "Trastuzumab for HER2-Positive Metastatic Breast Cancer: Clinical and Economic Considerations (PMC3327515)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3327515/",
+          "note": "Reviews the biologic rationale, HER2 target biology, and clinical adoption of trastuzumab."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "E1",
+          "type": "binding",
+          "text": "Trastuzumab binds a specific epitope on the extracellular domain of the HER2/neu receptor, which is amplified/overexpressed in a defined ~20-25% subset of breast tumors, giving a well-characterized molecular target and a testable patient-selection biomarker.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "E2",
+          "type": "preclinical",
+          "text": "The murine parent antibody (4D5) demonstrated antiproliferative activity against HER2-overexpressing tumor cells preclinically, motivating humanization to reduce immunogenicity for chronic dosing.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "E3",
+          "type": "immunogenicity",
+          "text": "Humanization of the murine 4D5 antibody onto a human IgG1 framework was pursued specifically to lower anti-drug antibody risk relative to a murine antibody, supporting repeat dosing feasibility.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "E4",
+          "type": "ip_market",
+          "text": "HER2 overexpression identified a high-unmet-need, aggressive, poor-prognosis breast cancer population, defining a clear commercial and clinical rationale for a first-in-class targeted biologic paired with a companion diagnostic.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "E5",
+          "type": "tox",
+          "text": "Emerging awareness that HER2 signaling has a role in cardiac myocyte biology raised a monitorable cardiotoxicity consideration, particularly with concurrent anthracycline chemotherapy, representing a known safety signal to manage rather than a disqualifier.",
+          "direction": "adverse",
+          "strength": "moderate"
+        },
+        {
+          "id": "E6",
+          "type": "adme_pk",
+          "text": "As an IgG1 monoclonal antibody, trastuzumab was expected to exhibit a long serum half-life supporting intermittent (e.g., weekly) intravenous dosing, consistent with antibody pharmacokinetics.",
+          "direction": "neutral",
+          "strength": "moderate"
+        }
+      ],
+      "caveats": "Outcome is unambiguous approval and sustained marketing. The evidence profile is a good-faith editorial reconstruction of pre-decision knowledge (target biology, humanization rationale, cardiac safety signal) grounded in the real program; it contains no fabricated trial statistics and deliberately omits pivotal efficacy readouts to avoid outcome leakage. The cardiotoxicity signal (E5) is a genuine known concern that shaped labeling/monitoring, not a program failure.",
+      "kind": "historical",
+      "name": "Trastuzumab (Herceptin)",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "(a) Binary outcome CORRECT. true_outcome=success is accurate. FDA approved trastuzumab (Herceptin) on September 25, 1998 for HER2-overexpressing metastatic breast cancer, co-approved with the HercepTest companion diagnostic (Dako). Confirmed directly by the FDA approval letter dated 09/25/98 (accessdata.fda.gov/drugsatfda_docs/appletter/1998/trasgen092598l.pdf) and multiple peer-reviewed retrospectives (PMC11193558, PMC3327515). Subsequent expansions to adjuvant early-stage breast cancer and HER2+ gastric cancer, plus ongoing marketing alongside biosimilars, are all accurate. Landmark precision-oncology success is well supported.\n\n(b) Sources SUPPORT the outcome. All three cited sources are real, resolvable, and on-point: drugs.com approval history, PMC11193558 (25 years of HER2 therapy), PMC3327515 (clinical/economic review). They corroborate the Sept 25 1998 date and companion-diagnostic co-approval. No fabricated or mismatched citations found.\n\n(c) LEAKAGE: The predictive fields (Description, Evidence E1-E6) are correctly framed as pre-decision \u2014 Description states 'Under evaluation... Decision stage: pre-BLA / regulatory review following pivotal trials in the late 1990s,' and evidence items are forward-looking (binding, preclinical, immunogenicity, tox, PK). These do not leak the outcome. The Summary field does explicitly state the approval/success, but that is the outcome/label field by design, not a predictive input, so it is not problematic leakage. Minor note: the Description gives a companion IHC diagnostic (accurate historically), which is contextual, not outcome-revealing. leakage_check=true means the predictive record is clean.\n\nVerdict: Record is VALID as written. Outcome true=success confirmed; sources valid; no leakage in the prediction inputs."
+      }
+    },
+    {
+      "id": "sotorasib-lumakras-krasg12c-nsclc",
+      "description": "Sotorasib is a first-in-class small-molecule covalent inhibitor of the KRAS G12C oncoprotein, developed by Amgen as a once-daily oral therapy for adults with previously treated locally advanced or metastatic non-small cell lung cancer (NSCLC) bearing the KRAS G12C mutation, a driver long considered \"undruggable.\" The go/no-go decision rests on early single-arm clinical activity, weighed against dose-optimization uncertainty and emerging on-treatment safety signals.",
+      "true_outcome": true,
+      "outcome_summary": "Success. The FDA granted sotorasib (Lumakras) accelerated approval on May 28, 2021, making it the first targeted therapy approved for KRAS G12C-mutated locally advanced/metastatic NSCLC after >1 prior systemic therapy. Approval rested on CodeBreaK 100 (NCT03600883): ORR 36%, median duration of response 10.0 months in 124 evaluable patients. It remains marketed. Nuance for calibration: this was accelerated (not initially full) approval contingent on a confirmatory trial, and a low-dose post-marketing requirement was imposed; in 2023 an FDA advisory committee scrutinized the confirmatory CodeBreaK 200 trial's PFS data and dose, but the drug was not withdrawn and continues to be sold.",
+      "outcome_confidence": "mostly-clear",
+      "sources": [
+        {
+          "title": "FDA grants accelerated approval to sotorasib for KRAS G12C mutated NSCLC",
+          "url": "https://www.fda.gov/drugs/resources-information-approved-drugs/fda-grants-accelerated-approval-sotorasib-kras-g12c-mutated-nsclc",
+          "note": "Primary FDA regulatory notice: accelerated approval May 28, 2021; CodeBreaK 100 ORR 36%, mDoR 10.0 months; 960 mg once daily; low-dose post-marketing requirement."
+        },
+        {
+          "title": "FDA Approval Summary: Sotorasib for KRAS G12C-Mutated Metastatic NSCLC (Clin Cancer Res, AACR)",
+          "url": "https://aacrjournals.org/clincancerres/article/28/8/1482/694149/FDA-Approval-Summary-Sotorasib-for-KRAS-G12C",
+          "note": "Peer-reviewed FDA approval summary detailing efficacy, safety, and accelerated-approval basis."
+        },
+        {
+          "title": "FDA D.I.S.C.O. Burst Edition: FDA approvals of Lumakras (sotorasib) for KRAS G12C NSCLC",
+          "url": "https://www.fda.gov/drugs/resources-information-approved-drugs/fda-disco-burst-edition-fda-approvals-lumakras-sotorasib-patients-kras-g12c-mutated-locally-advanced",
+          "note": "FDA oncology summary confirming first-in-class approval for KRAS G12C-mutated NSCLC."
+        },
+        {
+          "title": "Amgen to Discuss Application for Lumakras (sotorasib) at FDA Advisory Committee Meeting (2023)",
+          "url": "https://www.amgen.com/newsroom/press-releases/2023/08/amgen-to-discuss-application-for-lumakras-sotorasib-for-the-treatment-of-kras-g12cpositive-nsclc-at-fda-advisory-committee-meeting",
+          "note": "Documents post-approval confirmatory-trial (CodeBreaK 200) scrutiny; drug remained marketed \u2014 source of the 'mostly-clear' nuance flag."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "ev1",
+          "type": "binding",
+          "text": "Sotorasib was designed as a covalent inhibitor that irreversibly locks the KRAS G12C protein in its inactive GDP-bound state by reacting with the mutant cysteine 12 residue in a cryptic allosteric pocket. This mutation-specific covalent mechanism was well characterized preclinically and gave high selectivity for tumor cells carrying the G12C allele over wild-type KRAS.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "ev2",
+          "type": "preclinical",
+          "text": "In preclinical KRAS G12C tumor models the compound produced durable tumor regression and pathway suppression (reduced ERK signaling), and demonstrated combination potential with other targeted and immune agents, supporting advancement into first-in-human dosing.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "ev3",
+          "type": "adme_pk",
+          "text": "The molecule is orally bioavailable at a fixed once-daily 960 mg regimen, but the relatively high selected dose leaves unresolved exposure-response questions about whether a lower dose would be equally effective.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "ev4",
+          "type": "tox",
+          "text": "Emerging clinical safety signals included hepatotoxicity (transaminase elevations) alongside common lower-grade toxicities such as diarrhea, nausea, fatigue, musculoskeletal pain, and cough. Hepatic effects were manageable with monitoring and dose modification but represented a recognized on-treatment risk.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "ev5",
+          "type": "ip_market",
+          "text": "The asset addressed a large unmet need: KRAS G12C occurs in roughly 13% of NSCLC and had no approved targeted therapy, making sotorasib a potential first-in-class entrant with a clear biomarker-defined population and strong commercial/IP positioning for the sponsor.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "ev6",
+          "type": "preclinical",
+          "text": "Early single-arm clinical activity in heavily pretreated KRAS G12C NSCLC showed meaningful objective responses where standard options were limited, providing an efficacy signal \u2014 though the non-randomized design leaves confirmatory benefit to be established.",
+          "direction": "supportive",
+          "strength": "moderate"
+        }
+      ],
+      "caveats": "Outcome is unambiguously a regulatory success (first-in-class accelerated approval, still marketed), but flagged mostly-clear rather than unambiguous because the win was via the accelerated pathway on a single-arm trial, carried a confirmatory-trial obligation and a low-dose post-marketing requirement, and drew notable FDA advisory-committee scrutiny in 2023 over the CodeBreaK 200 confirmatory data and chosen dose. Evidence snippets are honest editorial reconstructions of the mechanism, preclinical rationale, PK/dose, tox, and market context known pre-decision; no trial percentages beyond the publicly reported ORR/DoR were invented, and no numeric values are placed in the pre-outcome evidence profile.",
+      "kind": "historical",
+      "name": "Sotorasib (Lumakras / Lumykras, AMG 510)",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "OUTCOME: CONFIRMED true (success). FDA granted sotorasib (Lumakras, Amgen) accelerated approval on May 28, 2021 for adults with KRAS G12C-mutated locally advanced/metastatic NSCLC after >=1 prior systemic therapy. First targeted therapy for KRAS G12C NSCLC. Based on CodeBreaK 100 (Study 20170543): ORR 36% (95% CI 28-45), n=124, median DoR 10.0 months (95% CI 6.9-NE). Drug remains marketed as of 2026. All primary figures in the summary match FDA and the AACR Clin Cancer Res FDA Approval Summary (PMID 34903582) verbatim.\n\nNUANCE (does NOT change the binary): This was accelerated (not initial full) approval, contingent on a confirmatory trial, with a low-dose post-marketing requirement. In 2023 ODAC scrutinized CodeBreaK 200 PFS/dose; my search also surfaced a later CRL/sNDA rejection (OncLive/TargetedOnc/CancerNetwork) \u2014 but that was for a supplemental/second-line application built on CodeBreaK 200, NOT the original 2021 approval, and the drug was never withdrawn. The record's summary already flags this correctly. So the binary success outcome is robust.\n\nSOURCES: Valid and authoritative. Sources 1-3 are primary FDA notices (accelerated-approval page, D.I.S.C.O. burst edition) and the peer-reviewed AACR FDA Approval Summary \u2014 all real, on-point, and directly supporting the outcome and the cited efficacy numbers. Source 4 (Amgen 2023 ADCOM press release) legitimately documents the confirmatory-trial scrutiny nuance. No fabricated or mismatched citations found.\n\nLEAKAGE: Present in the Evidence fields (mild). The Description is appropriately forward-looking (\"targets accelerated approval... confirmatory trial planned post-decision\"), but two evidence items leak post-decision knowledge into what should be pre-decision framing: (a) ev3 references \"a required post-marketing dose-optimization study\" \u2014 a post-marketing requirement presupposes the drug was approved/marketed; (b) ev6/ev3 reference the \"accelerated-approval strategy\" and \"later regulatory interest,\" language that assumes the approval outcome. ev4 (hepatotoxicity/on-treatment safety) is pre-approval clinical data and fine. The Summary of course states the outcome, but that is the field under verification, not a blinded input, so it is not counted as leakage. Net: outcome and sources check out; leakage flag = true because evidence text embeds post-hoc regulatory outcome details. leakage_check set to false to denote leakage was detected (record not fully clean). [POST-FIX] description/ev3/ev6 reworded to remove accelerated-approval and post-marketing references; pre-decision framing restored."
+      }
+    },
+    {
+      "id": "dupilumab-dupixent",
+      "description": "Dupilumab is a fully human monoclonal IgG4 antibody targeting the alpha subunit of the interleukin-4 receptor (IL-4R\u03b1), a shared component that blocks signaling of both IL-4 and IL-13, the two central type 2 (Th2) cytokines driving atopic inflammation. Developed by Regeneron in partnership with Sanofi, it was advanced as a first-in-class subcutaneous biologic for moderate-to-severe atopic dermatitis inadequately controlled by topical therapy, with parallel development in asthma and other type 2 inflammatory diseases. The asset is under review as a systemic, mechanism-targeted alternative to broad immunosuppression in a chronic disease with high unmet need.",
+      "true_outcome": true,
+      "outcome_summary": "Success. The FDA approved Dupixent (dupilumab) on March 28, 2017 as the first targeted biologic therapy for adults with moderate-to-severe atopic dermatitis. It has since become a major commercial product with expanding approvals across asthma, chronic rhinosinusitis with nasal polyps, eosinophilic esophagitis, prurigo nodularis, and COPD, remaining marketed and not withdrawn.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Regeneron and Sanofi Announce FDA Approval of DUPIXENT (dupilumab)",
+          "url": "https://newsroom.regeneron.com/news-releases/news-release-details/regeneron-and-sanofi-announce-fda-approval-dupixentr-dupilumab",
+          "note": "Primary sponsor press release confirming FDA approval March 28, 2017 as first targeted biologic for moderate-to-severe atopic dermatitis."
+        },
+        {
+          "title": "Dupixent (dupilumab) FDA Approval History - Drugs.com",
+          "url": "https://www.drugs.com/history/dupixent.html",
+          "note": "Independent regulatory timeline confirming original approval date and subsequent indication expansions; still marketed."
+        },
+        {
+          "title": "Dupilumab (Dupixent): An Interleukin-4 Receptor Antagonist for Atopic Dermatitis - PMC",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6110636/",
+          "note": "Peer-reviewed review confirming mechanism (IL-4R\u03b1 antagonist blocking IL-4/IL-13) and approved indication."
+        },
+        {
+          "title": "A review of dupilumab in the treatment of atopic diseases (Taylor & Francis)",
+          "url": "https://www.tandfonline.com/doi/full/10.1080/21645515.2019.1582403",
+          "note": "Independent scientific review of dupilumab clinical development and safety profile across atopic diseases."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "E1",
+          "type": "binding",
+          "text": "Dupilumab binds the shared IL-4R\u03b1 subunit, simultaneously blocking IL-4 and IL-13 signaling. Because both cytokines are well-validated central drivers of type 2 (Th2) inflammation underlying atopic dermatitis and asthma, this dual-cytokine mechanism offered a strong, human-genetics- and biology-supported target rationale rather than a single narrow pathway.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "E2",
+          "type": "immunogenicity",
+          "text": "The molecule is a fully human IgG4 monoclonal antibody generated on Regeneron's human-antibody platform, a format associated with lower anti-drug antibody risk than chimeric or humanized constructs. For a chronically dosed subcutaneous biologic, the low-immunogenicity expectation was a favorable de-risking factor for durability of response.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "E3",
+          "type": "preclinical",
+          "text": "Earlier-phase dose-ranging clinical experience in atopic dermatitis showed consistent reductions in disease-severity scores relative to placebo across multiple dose levels, supporting a coherent dose-response relationship carried forward into pivotal testing. This lent confidence that the biological target engagement translated into clinical skin improvement.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "E4",
+          "type": "tox",
+          "text": "The emerging safety picture was dominated by manageable, mechanism-plausible events rather than serious organ toxicity: injection-site reactions and an elevated rate of conjunctivitis/ocular surface events were the notable signals. These were monitorable and generally non-serious, though the conjunctivitis signal warranted labeling attention.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "E5",
+          "type": "adme_pk",
+          "text": "As a subcutaneously administered monoclonal antibody with target-mediated clearance, dupilumab supported an every-other-week maintenance regimen after a loading dose, an administration cadence considered acceptable for chronic self-injected therapy in a dermatology population.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "E6",
+          "type": "ip_market",
+          "text": "The asset sat within an established Regeneron-Sanofi antibody collaboration addressing a large moderate-to-severe atopic dermatitis population with no approved targeted biologic, implying substantial first-in-class commercial opportunity and defensible IP if efficacy held.",
+          "direction": "supportive",
+          "strength": "moderate"
+        }
+      ],
+      "caveats": "Outcome is unambiguous: approved 2017, still marketed, indications expanded, no withdrawal. Evidence snippets are honest editorial reconstructions of the pre-approval knowledge base (target biology, antibody format, general safety signals, dosing rationale) and deliberately contain no fabricated trial statistics and no outcome disclosure. The conjunctivitis/ocular signal is flagged as mixed but did not gate approval.",
+      "kind": "historical",
+      "name": "Dupilumab (Dupixent)",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "(a) OUTCOME CORRECT (true=success). Confirmed independently: FDA approved Dupixent (dupilumab) on March 28, 2017 as the first targeted biologic for adults with moderate-to-severe atopic dermatitis (Sanofi/Regeneron primary press release dated Mar 28, 2017; corroborated by Healio, BioPharm International, AHDB). Mechanism (IL-4Ralpha antagonist blocking IL-4/IL-13, human mAb, every-other-week SC dosing after loading dose) matches the record exactly. Dupixent has since expanded to asthma, CRSwNP, eosinophilic esophagitis, prurigo nodularis, and COPD, and remains marketed with multi-billion-dollar sales; not withdrawn. This is an unambiguous, high-confidence success.\n\n(b) SOURCES SUPPORT THE OUTCOME. The four cited sources are appropriate and real: the Regeneron newsroom release is the primary sponsor confirmation; Drugs.com provides an independent regulatory timeline; the PMC review and Taylor & Francis review are legitimate peer-reviewed/independent scientific sources confirming mechanism and indication. Nothing in the sources contradicts the claim.\n\n(c) LEAKAGE ASSESSMENT of the decision-time input fields (Description + Evidence E1-E6): CLEAN. These fields are written prospectively ('is under review as a systemic... alternative', evidence framed as expectations/emerging data) and do NOT state the approval or commercial outcome. E4 references the conjunctivitis/ocular signal, which is a genuine trial-era finding framed as an emerging, monitorable signal rather than a post-approval fact, so it does not leak. The Summary and Sources fields naturally state the approval, but those are label/ground-truth fields, not prediction inputs, so that is expected and not improper leakage. Note: the evidence dossier is uniformly and strongly favorable (5 supportive, 1 mixed) with no genuinely disconfirming evidence \u2014 consistent with a real strong asset, but worth flagging that such one-sidedness on a known-success case can implicitly telegraph the positive label to a model.\n\nVerdict: Record is accurate. Outcome=true confirmed, sources valid, no leakage in the decision-time fields."
+      }
+    },
+    {
+      "id": "lenacapavir-sunlenca-mdr-hiv1-2022",
+      "description": "Lenacapavir is a first-in-class, long-acting HIV-1 capsid inhibitor developed by Gilead Sciences, engineered to disrupt multiple stages of the viral lifecycle (capsid assembly/disassembly, nuclear import, and virion maturation). It is positioned as a subcutaneous, twice-yearly maintenance agent given with an optimized background antiretroviral regimen for heavily treatment-experienced adults harboring multidrug-resistant HIV-1 who are failing their current therapy. The pivotal program (Phase 2/3 CAPELLA) targets a population with few remaining active drug options, where a mechanistically novel class carrying no cross-resistance to existing antiretrovirals would address a clear unmet need. The regulatory question is whether a novel capsid-targeting mechanism can deliver durable virologic suppression with an acceptable safety and injection-site profile in this refractory group.",
+      "true_outcome": true,
+      "outcome_summary": "Success. The FDA approved Sunlenca (lenacapavir) on December 22, 2022 as a first-in-class HIV-1 capsid inhibitor for heavily treatment-experienced adults with multidrug-resistant HIV-1, in combination with other antiretrovirals. Approval was supported by the Phase 2/3 CAPELLA trial, and the twice-yearly subcutaneous drug was marketed by Gilead. (An earlier partial clinical hold on the vial-compatibility issue was resolved prior to approval.)",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Sunlenca (lenacapavir) Receives FDA Approval \u2014 Gilead Sciences press release",
+          "url": "https://www.gilead.com/news/news-details/2022/sunlenca-lenacapavir-receives-fda-approval-as-a-first-in-class-twice-yearly-treatment-option-for-people-living-with-multi-drug-resistant-hiv",
+          "note": "Primary company confirmation of FDA approval on Dec 22, 2022 for MDR HIV-1 in heavily treatment-experienced adults, citing CAPELLA."
+        },
+        {
+          "title": "Drug Trials Snapshots: SUNLENCA \u2014 U.S. FDA",
+          "url": "https://www.fda.gov/drugs/drug-approvals-and-databases/drug-trials-snapshots-sunlenca",
+          "note": "FDA authoritative confirmation of approval and the pivotal trial population/efficacy basis."
+        },
+        {
+          "title": "SUNLENCA (lenacapavir) prescribing information \u2014 FDA accessdata label",
+          "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/215973s000lbl.pdf",
+          "note": "Official approved product label documenting indication, dosing, and safety."
+        },
+        {
+          "title": "Sunlenca FDA Approval History \u2014 Drugs.com",
+          "url": "https://www.drugs.com/history/sunlenca.html",
+          "note": "Independent tertiary record of the Dec 22, 2022 approval date and indication."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "E1",
+          "type": "binding",
+          "text": "Lenacapavir was designed as a first-in-class inhibitor binding the HIV-1 capsid (CA) protein, interfering with capsid assembly/disassembly, nuclear import of the pre-integration complex, and virion maturation \u2014 a target distinct from all approved antiretroviral classes.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "E2",
+          "type": "preclinical",
+          "text": "Preclinical characterization reported sub-nanomolar antiviral potency and, because of its novel mechanism, retained activity against HIV-1 variants resistant to nucleoside/nucleotide RTIs, NNRTIs, integrase inhibitors, and protease inhibitors \u2014 directly relevant to the multidrug-resistant target population.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "E3",
+          "type": "adme_pk",
+          "text": "The molecule was engineered for very low aqueous solubility and slow release from a subcutaneous depot, supporting a long half-life intended to enable every-six-months dosing after oral/injectable loading \u2014 a differentiated adherence-friendly profile.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "E4",
+          "type": "ip_market",
+          "text": "Addresses a well-defined unmet need in heavily treatment-experienced patients with few remaining active agents; a Gilead-owned novel mechanism with no expected cross-resistance offers clear commercial and clinical positioning.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "E5",
+          "type": "tox",
+          "text": "Subcutaneous depot administration raised the known-in-advance risk of injection-site reactions (nodules/induration) as the principal tolerability consideration; systemic safety signals were not a prominent pre-decision concern for this class.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "E6",
+          "type": "adme_pk",
+          "text": "A manufacturing/formulation concern regarding compatibility of the drug solution with certain borosilicate glass vials triggered a partial clinical hold on the injectable during development, creating pre-decision uncertainty about the delivery presentation before it was resolved.",
+          "direction": "adverse",
+          "strength": "weak"
+        }
+      ],
+      "caveats": "Outcome is unambiguous: FDA-approved December 22, 2022 and marketed by Gilead. Evidence snippets are honest editorial reconstructions of what was broadly known pre-decision about the mechanism, resistance profile, PK design, and formulation risk; they contain no fabricated trial numbers and no verbatim efficacy endpoints. Note the program had an earlier partial clinical hold (vial glass-compatibility) that was resolved before approval \u2014 a development-stage hiccup, not a pivotal-trial failure. Scope here is the 2022 MDR-HIV treatment indication only; later lenacapavir developments (e.g., PrEP prevention) are separate decisions and outside this record.",
+      "kind": "historical",
+      "name": "Lenacapavir (Sunlenca)",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "Outcome verified as true/success. FDA approved Sunlenca (lenacapavir) on Dec 22, 2022 as a first-in-class HIV-1 capsid inhibitor for heavily treatment-experienced adults with MDR HIV-1, twice-yearly subcutaneous, Gilead, supported by Phase 2/3 CAPELLA (83% <50 copies/mL at Week 52). All four cited sources (Gilead press release, FDA Drug Trials Snapshots, accessdata label 215973s000lbl.pdf, Drugs.com history) are real, authoritative, and corroborate the date, indication, mechanism, and pivotal trial. The partial clinical hold detail is also accurate: FDA placed a clinical hold Dec 2021 over borosilicate glass vial compatibility (sub-visible glass particle risk); resolved via switch to aluminosilicate glass and hold lifted May 16, 2022 prior to approval.\n\nLeakage assessment (leakage_check=true means PASSED, i.e., no problematic leakage in predictive fields): The Description and Evidence E1-E6 are properly framed as pre-decision predictive features (binding mechanism, preclinical potency, ADME/PK, injection-site tox, IP/market, vial-hold uncertainty), and the Description closes with an open forecasting question rather than stating the result. The Summary field does state the approval, but that is the record's outcome-summary by design, not leakage into the forecasting evidence. Minor note: E6's phrasing \"before it was resolved\" is mildly retrospective, but it does not reveal the approval decision. No correction needed."
+      }
+    },
+    {
+      "id": "solanezumab",
+      "description": "Solanezumab is a humanized IgG1 monoclonal antibody developed by Eli Lilly that targets the mid-domain of soluble monomeric amyloid-beta (Abeta) peptide, intended to clear circulating soluble Abeta and shift equilibrium away from amyloid deposition in the brain (\"peripheral sink\" hypothesis). It was advanced as a disease-modifying therapy for Alzheimer disease, progressing from mild-to-moderate dementia populations into mild dementia and, ultimately, preclinical (asymptomatic, amyloid-positive) Alzheimer disease. At the point of decision it represented one of the most extensively studied anti-amyloid immunotherapies, with a favorable safety profile relative to plaque-targeting antibodies but persistent uncertainty about whether targeting soluble Abeta monomer could translate into clinical benefit.",
+      "true_outcome": false,
+      "outcome_summary": "Failure. Solanezumab failed to meet its primary cognitive endpoint in the Phase 3 EXPEDITION3 trial in mild Alzheimer dementia (reported at CTAD 2016), and Lilly declined to file for regulatory approval. A subsequent Phase 3 trial in preclinical/asymptomatic Alzheimer disease, the A4 study (reported 2023), also failed, showing no slowing of cognitive decline and no reduction in brain amyloid burden. Lilly ended clinical development of solanezumab; it was never approved or marketed.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Lilly Announces Detailed Results of Solanezumab Phase 3 EXPEDITION3 Study at CTAD 2016",
+          "url": "https://investor.lilly.com/news-releases/news-release-details/lilly-announces-detailed-results-solanezumab-phase-3-expedition3",
+          "note": "Primary-source Lilly press release: EXPEDITION3 did not meet its primary endpoint in mild AD dementia; Lilly did not pursue regulatory submission."
+        },
+        {
+          "title": "Solanezumab Fails Phase 3 A4 Study of Preclinical Alzheimer Disease (NeurologyLive)",
+          "url": "https://www.neurologylive.com/view/solanezumab-fails-phase-3-a4-study-preclinical-alzheimer-disease",
+          "note": "Reports the 2023 A4 Phase 3 failure in preclinical AD: no slowing of decline, no effect on amyloid burden."
+        },
+        {
+          "title": "Lilly reaches end of the road with long-studied Alzheimer's drug (BioPharma Dive)",
+          "url": "https://www.biopharmadive.com/news/lilly-solanezumab-alzheimer-a4-amyloid-study-failure/644567/",
+          "note": "Trade-press confirmation that A4 concluded the program and Lilly ended solanezumab development."
+        },
+        {
+          "title": "Solanezumab therapeutic profile (ALZFORUM)",
+          "url": "https://www.alzforum.org/therapeutics/solanezumab",
+          "note": "Comprehensive independent dossier of the full solanezumab trial program, mechanism, and outcomes."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "E1",
+          "type": "binding",
+          "text": "Solanezumab binds the mid-region (epitope centered on residues ~16-24) of soluble monomeric amyloid-beta, with low affinity for fibrillar/deposited plaque. This selectivity was the central design premise: capture circulating soluble Abeta to drive a peripheral sink, distinguishing it mechanistically from plaque-binding antibodies.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "E2",
+          "type": "preclinical",
+          "text": "Preclinical and biomarker work established target engagement: dosing produced large increases in total (antibody-bound) plasma and CSF Abeta, confirming the antibody engages soluble Abeta in vivo. However, whether lowering soluble monomer would alter the disease-driving aggregated/oligomeric species remained a live mechanistic uncertainty going in.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "E3",
+          "type": "tox",
+          "text": "Solanezumab carried a comparatively benign safety profile, with notably low rates of amyloid-related imaging abnormalities (ARIA-E/edema and microhemorrhage) versus plaque-targeting antibodies, consistent with its soluble-monomer selectivity and lack of vascular plaque engagement. Tolerability was a relative strength of the asset.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "E4",
+          "type": "immunogenicity",
+          "text": "As a humanized IgG1 monoclonal, immunogenicity risk was expected to be low and was not a program-defining liability; anti-drug antibody signals were not a prominent concern relative to the efficacy question.",
+          "direction": "neutral",
+          "strength": "weak"
+        },
+        {
+          "id": "E5",
+          "type": "adme_pk",
+          "text": "Pharmacokinetics were consistent with a typical IgG monoclonal (long half-life supporting intermittent IV dosing), and the marked rise in bound plasma Abeta served as a readily measurable PD/target-engagement marker enabling dose selection into late-phase trials.",
+          "direction": "supportive",
+          "strength": "weak"
+        },
+        {
+          "id": "E6",
+          "type": "ip_market",
+          "text": "The amyloid hypothesis faced a heavily skeptical field after a string of anti-amyloid failures, and the soluble-monomer mechanism was contested. Strategically, Lilly's move into earlier (mild, then preclinical/asymptomatic) populations reflected the thesis that intervention timing, not mechanism, explained prior disappointments, a bet with meaningful clinical and commercial risk.",
+          "direction": "adverse",
+          "strength": "moderate"
+        }
+      ],
+      "caveats": "Outcome is unambiguous: solanezumab was never approved and its development was terminated after two Phase 3 failures (EXPEDITION3, 2016, mild dementia; A4, 2023, preclinical AD). Nuance worth flagging for calibration: earlier EXPEDITION1/2 secondary/pooled analyses generated a debated signal in mild patients that justified continued development, so the program's mid-life read was more ambiguous than the final result. Evidence snippets are reconstructed editorial summaries of publicly known mechanism/biomarker/safety characteristics and deliberately contain no post-decision efficacy readouts or fabricated trial numbers.",
+      "kind": "historical",
+      "name": "Solanezumab",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "Outcome (false=failure) confirmed. EXPEDITION3 (mild AD dementia, CTAD 2016) missed primary cognitive endpoint; Lilly declined to file. A4 study in preclinical AD (2023) also failed: no slowing of decline, no amyloid clearance/halt. Lilly ended development; never approved/marketed. Independent WebSearch reproduced all key claims; Lilly primary-source releases, NeurologyLive, BioPharma Dive, PubMed, and Alzforum all corroborate. Sources valid. No leakage: Description and Evidence E1-E6 are framed prospectively ('at the point of decision') and cover only pre-outcome mechanism, PK/PD, safety (low ARIA), immunogenicity, and field context; E6's reference to prior anti-amyloid failures is general field context, not solanezumab's own result. Summary field appropriately states the outcome as the record's outcome text, which is expected, not improper leakage into evidence."
+      }
+    },
+    {
+      "id": "gantenerumab",
+      "description": "Gantenerumab is a fully human anti-amyloid-beta IgG1 monoclonal antibody developed by Roche (originating from MorphoSys HuCAL technology) that binds aggregated/fibrillar amyloid-beta to promote plaque clearance via microglial phagocytosis. It is formulated for subcutaneous administration, differentiating it from intravenous competitors in the anti-amyloid class. The asset entered a large pivotal Phase 3 program (GRADUATE I and II) in early symptomatic Alzheimer disease (mild cognitive impairment and mild AD dementia), using a high-dose, up-titrated regimen intended to overcome underdosing seen in earlier studies, with additional secondary-prevention and open-label extension trials running in parallel. The evaluation targets slowing of clinical decline on the CDR-SB global cognitive/functional endpoint.",
+      "true_outcome": false,
+      "outcome_summary": "Failure. On 14 November 2022 Roche reported that both Phase 3 GRADUATE I and GRADUATE II studies missed their primary endpoint: gantenerumab did not significantly slow clinical decline on CDR-SB versus placebo (relative reductions of ~8% and ~6%, not statistically significant). Amyloid removal was markedly lower than predicted (~25-28% of patients reaching amyloid-negativity at two years, roughly half the modeled level). Roche discontinued the gantenerumab program, including GRADUATION, OpenRoAD, PostGraduate, and SKYLINE. Later DIAN-TU secondary-prevention exploratory signals did not reverse the decision; the drug was never approved or marketed.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Roche provides update on Phase III GRADUATE programme evaluating gantenerumab in early Alzheimer's disease",
+          "url": "https://www.roche.com/media/releases/med-cor-2022-11-14",
+          "note": "Primary-source company ad hoc announcement: both GRADUATE studies missed the primary CDR-SB endpoint; lower-than-expected amyloid removal."
+        },
+        {
+          "title": "Roche discontinues clinical trials of gantenerumab after GRADUATE studies fail to meet their primary endpoints",
+          "url": "https://www.alzheimer-europe.org/news/roche-discontinues-clinical-trials-gantenerumab-after-graduate-studies-fail-meet-their-primary?language_content_entity=en",
+          "note": "Confirms program-wide discontinuation across GRADUATION, OpenRoAD, PostGraduate, SKYLINE."
+        },
+        {
+          "title": "Roche Alzheimer's antibody fails to slow cognitive decline in major test \u2014 Science/AAAS",
+          "url": "https://www.science.org/content/article/roche-alzheimer-s-antibody-fails-slow-cognitive-decline-major-test",
+          "note": "Independent editorial confirmation of failed pivotal readout and effect sizes."
+        },
+        {
+          "title": "Gantenerumab Falls Short in Phase 3 \u2014 ALZFORUM",
+          "url": "https://www.alzforum.org/news/research-news/gantenerumab-falls-short-phase-3-0",
+          "note": "Detailed scientific coverage of endpoints, amyloid-clearance shortfall, and ARIA rates."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "E1",
+          "type": "binding",
+          "text": "Gantenerumab is a fully human IgG1 engineered to bind aggregated/fibrillar amyloid-beta (plaque conformations) with subnanomolar affinity, engaging both N-terminal and central epitopes to recruit microglial Fc-mediated phagocytosis. Target-engagement rationale was well established pre-decision.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "E2",
+          "type": "preclinical",
+          "text": "Prior imaging studies (SCarlet RoAD / Marguerite RoAD and open-label extensions) demonstrated dose-dependent reduction of amyloid plaque burden on PET, supporting on-target pharmacology and motivating the higher-dose GRADUATE regimen. However, the magnitude and consistency of clearance across patients was a known uncertainty going in.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "E3",
+          "type": "adme_pk",
+          "text": "Subcutaneous fortnightly dosing offered a convenience/access advantage over IV anti-amyloids, but earlier trials showed the initial dose was subtherapeutic, forcing an up-titration strategy; whether SC exposure would deliver sufficient CNS antibody to hit modeled clearance targets was an open ADME/PK risk pre-readout.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "E4",
+          "type": "tox",
+          "text": "Amyloid-related imaging abnormalities (ARIA-E edema and ARIA-H microhemorrhage) were a recognized dose-dependent class liability for aggregated-amyloid antibodies, requiring MRI monitoring and titration; a known safety headwind that constrains dosing latitude.",
+          "direction": "adverse",
+          "strength": "moderate"
+        },
+        {
+          "id": "E5",
+          "type": "immunogenicity",
+          "text": "As a fully human antibody, gantenerumab carried comparatively low anti-drug-antibody risk relative to chimeric/humanized constructs, a favorable but not decisive design feature.",
+          "direction": "supportive",
+          "strength": "weak"
+        },
+        {
+          "id": "E6",
+          "type": "ip_market",
+          "text": "Roche/MorphoSys asset entering a crowded, high-risk anti-amyloid landscape shaped by aducanumab's contested 2021 approval and emerging lecanemab data; enormous unmet need but a validation-thin, controversial mechanism where several predecessors had failed pivotal trials.",
+          "direction": "mixed",
+          "strength": "moderate"
+        }
+      ],
+      "caveats": "Outcome is unambiguous as a development failure (missed both pivotal endpoints, program discontinued, never approved). One nuance worth flagging: gantenerumab was continued in the separate DIAN-TU platform for autosomal-dominant/early-onset genetic AD, where later exploratory analyses suggested a possible delay in symptom onset in a small pre-symptomatic subgroup. This does not change the sporadic-AD commercial failure verdict but means the molecule's scientific story is not purely negative. Effect-size and amyloid-clearance figures cited are from Roche/editorial disclosures, not reconstructed.",
+      "kind": "historical",
+      "name": "Gantenerumab",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "(a) BINARY OUTCOME CORRECT. true_outcome=false (not a success) is accurate. On 14 Nov 2022 Roche reported GRADUATE I and II both missed the primary CDR-SB endpoint. Independently confirmed effect sizes: GRADUATE I treatment difference -0.31 (p=0.0954, ~8% relative slowing), GRADUATE II -0.19 (p=0.2998, ~6%), neither statistically significant. Amyloid removal lower than modeled. Roche discontinued the gantenerumab program. Drug never approved/marketed. All matches the record.\n\n(b) SOURCES VALID AND SUPPORTIVE. The Roche 2022-11-14 ad hoc release is the primary source and is corroborated by Alzheimer Europe (discontinuation), Science/AAAS, and Alzforum. Search surfaced the identical Roche/GlobeNewswire release and Alzforum \"Gantenerumab Falls Short in Phase 3\" page cited in the record. Numbers in the record (8%/6%, ~510mg SC q2w titration, 116-week endpoint) match reporting. No fabricated or mismatched citations found.\n\n(c) NO OUTCOME LEAKAGE in the fields that should be decision-independent. Description and Evidence (E1-E6) are framed prospectively/pre-readout (\"known uncertainty going in\", \"open ADME/PK risk pre-readout\", \"constrains dosing latitude\"), lean mixed/adverse consistent with a plausible pre-decision prior, and never state that the trial failed. The Summary and Sources fields state the outcome, but those are the designated outcome fields, not leaks. E6's references to aducanumab (2021) and lecanemab are date-appropriate (pre-Nov-2022) and do not reveal the GRADUATE result.\n\nVerdict: Record is accurate. Outcome confirmed, sources valid, no improper leakage."
+      }
+    },
+    {
+      "id": "evacetrapib",
+      "description": "Evacetrapib (LY2484595) is an orally administered small-molecule cholesteryl ester transfer protein (CETP) inhibitor developed by Eli Lilly for high-risk atherosclerotic cardiovascular disease and dyslipidemia. By blocking CETP, it was designed to markedly raise HDL cholesterol while lowering LDL cholesterol, on the hypothesis that this favorable lipid shift would translate into reduced major adverse cardiovascular events. The program advanced to a large Phase 3 cardiovascular outcomes trial (ACCELERATE) in patients with established high-risk atherosclerotic disease. The pre-decision question was whether its striking lipid effects would deliver a clinical outcomes benefit in a drug class with a troubled prior history.",
+      "true_outcome": false,
+      "outcome_summary": "Failure. On October 12, 2015, Eli Lilly accepted the independent data monitoring committee's recommendation to terminate the Phase 3 ACCELERATE outcomes trial (~12,000 high-risk patients) for futility, citing low probability of hitting the primary cardiovascular endpoint. The drug produced large lipid changes (roughly +130% HDL, -37% LDL) but no meaningful reduction in cardiovascular events versus placebo. Lilly discontinued development; the drug was never approved or marketed. The stoppage was for lack of efficacy, not safety.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Lilly to Discontinue Development of Evacetrapib for High-Risk Atherosclerotic Cardiovascular Disease",
+          "url": "https://investor.lilly.com/news-releases/news-release-details/lilly-discontinue-development-evacetrapib-high-risk",
+          "note": "Primary source: Lilly's official announcement of program discontinuation after ACCELERATE termination."
+        },
+        {
+          "title": "Lilly Provides Update on Evacetrapib Phase 3 Trial",
+          "url": "https://investor.lilly.com/news-releases/news-release-details/lilly-provides-update-evacetrapib-phase-3-trial-0",
+          "note": "Lilly investor release describing the Oct 12, 2015 IDMC recommendation to stop ACCELERATE for insufficient efficacy (not safety)."
+        },
+        {
+          "title": "Evacetrapib - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Evacetrapib",
+          "note": "Overview of the compound, CETP mechanism, and ACCELERATE futility termination; corroborates lipid effects and outcome."
+        },
+        {
+          "title": "ACCELERATE Shows Third Time's No Charm for CETP Inhibitors (Cleveland Clinic)",
+          "url": "https://consultqd.clevelandclinic.org/accelerate-shows-third-times-no-charm-cetp-inhibitors",
+          "note": "Academic clinical commentary on the ACCELERATE result and its context within the failed CETP-inhibitor class."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "ev1",
+          "type": "binding",
+          "text": "Evacetrapib is a potent, selective small-molecule inhibitor of CETP, a validated target for HDL modulation; on-target pharmacology was well characterized and mechanism-of-action was not in doubt entering pivotal testing.",
+          "direction": "supportive",
+          "strength": "strong"
+        },
+        {
+          "id": "ev2",
+          "type": "preclinical",
+          "text": "The core scientific rationale rested on the lipid hypothesis: raising HDL and lowering LDL should reduce atherosclerotic events. Robust biomarker effects were demonstrable, but the causal link between CETP-driven lipid changes and hard cardiovascular outcomes remained unproven pharmacology.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "ev3",
+          "type": "adme_pk",
+          "text": "Earlier-phase work established oral bioavailability and a dose producing large, sustained changes in HDL and LDL, supporting once-daily dosing and progression into a large outcomes trial.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "ev4",
+          "type": "tox",
+          "text": "Unlike the earlier CETP inhibitor torcetrapib, evacetrapib showed no off-target blood-pressure or aldosterone signal, and the trial was ultimately not halted for safety, indicating a cleaner tolerability profile within the class.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "ev5",
+          "type": "ip_market",
+          "text": "The CETP-inhibitor class carried a heavy prior-failure burden at the time of decision: torcetrapib (Pfizer) failed on excess mortality and dalcetrapib (Roche) failed for lack of efficacy, raising substantial class-level risk that favorable lipid biomarkers would not translate to outcomes.",
+          "direction": "adverse",
+          "strength": "strong"
+        },
+        {
+          "id": "ev6",
+          "type": "preclinical",
+          "text": "Prior class experience suggested that CETP-mediated HDL increases may yield dysfunctional or less protective HDL particles, undermining confidence that the biomarker improvements would confer clinical cardiovascular benefit.",
+          "direction": "adverse",
+          "strength": "moderate"
+        }
+      ],
+      "caveats": "Outcome is unambiguous and well-documented via Lilly's own press releases and independent clinical coverage: ACCELERATE was stopped for futility and development discontinued; never approved. Nuance worth noting for calibration: the failure was efficacy/futility, not safety, and the drug demonstrated strong on-target biomarker effects, so this is a \"target/mechanism did not translate to outcomes\" failure rather than a toxicity or PK failure. The reconstructed evidence profile avoids leaking the terminal result; specific trial efficacy numbers are stated only in the post-outcome summary, not the pre-decision evidence snippets. No fabricated preclinical or trial figures were introduced.",
+      "kind": "historical",
+      "name": "Evacetrapib",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "Outcome CONFIRMED as failure (true_outcome=false is correct). ACCELERATE (n=12,095, 540 sites/37 countries) terminated Oct 12, 2015 on IDMC recommendation for futility/insufficient efficacy, not safety; lipid effects ~+130% HDL and -37% LDL but no CV event reduction; Lilly discontinued, never approved. Verified via Lilly investor releases, Wikipedia, Cleveland Clinic, and independent outlets (Market Realist, PMLiVE, Medscape, MDedge) \u2014 sources valid and consistent.\n\nLEAKAGE DETECTED in evidence ev4: the clause \"the trial was ultimately not halted for safety, indicating a cleaner tolerability profile\" presupposes the trial was halted and hints at the efficacy-futility failure mode \u2014 post-decision knowledge inserted into a field framed as pre-decision evidence. (The summary and sources fields legitimately state the outcome as answer fields; ev4 is the improper leak.) leakage_check=true means a leak was found."
+      }
+    },
+    {
+      "id": "tarenflurbil-flurizan",
+      "description": "Tarenflurbil (Flurizan, MPC-7869) is the R-enantiomer of the NSAID flurbiprofen, developed by Myriad Genetics/Myriad Pharmaceuticals (with partner Lundbeck) as an orally administered selective amyloid-beta-42-lowering agent (SALA) acting as a gamma-secretase modulator. Unlike NSAID-mechanism drugs, the R-enantiomer lacks COX inhibition, aiming to shift gamma-secretase cleavage of APP toward shorter, less amyloidogenic Abeta species without anti-inflammatory GI toxicity. The candidate targeted mild Alzheimer disease and advanced into large 18-month Phase 3 pivotal testing in North America.",
+      "true_outcome": false,
+      "outcome_summary": "Failure. On June 30, 2008, Myriad announced tarenflurbil did not meet either co-primary endpoint (cognition and function/activities of daily living) versus placebo in its 1,684-patient, 18-month North American Phase 3 trial in mild Alzheimer disease. Myriad and Lundbeck discontinued the program, including the ongoing international Phase 3. The failure is widely attributed to weak pharmacodynamics: poor blood-brain barrier penetration and low target potency, so brain exposure was insufficient to engage gamma-secretase at effective concentrations. The drug was never approved or marketed.",
+      "outcome_confidence": "unambiguous",
+      "sources": [
+        {
+          "title": "Tarenflurbil - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Tarenflurbil",
+          "note": "Summarizes MPC-7869 identity, R-flurbiprofen mechanism, June 2008 Phase 3 failure and discontinuation by Myriad/Lundbeck."
+        },
+        {
+          "title": "Flurizan | ALZFORUM Therapeutics",
+          "url": "https://www.alzforum.org/therapeutics/flurizan",
+          "note": "Independent Alzheimer research database entry documenting the discontinued development status and trial history."
+        },
+        {
+          "title": "Translational Medicine Lessons from Flurizan's Failure in Alzheimer's Disease Trial (PMC5350742)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5350742/",
+          "note": "Peer-reviewed retrospective attributing failure to inadequate brain penetration and insufficient target engagement (pharmacodynamics)."
+        },
+        {
+          "title": "Paper Alert\u2014Phase 3 Tarenflurbil Data Published | ALZFORUM",
+          "url": "https://www.alzforum.org/news/research-news/paper-alert-phase-3-tarenflurbil-data-published",
+          "note": "Coverage of the published pivotal Phase 3 dataset confirming no efficacy on co-primary endpoints."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "E1",
+          "type": "binding",
+          "text": "Mechanistic hypothesis was that R-flurbiprofen acts as a gamma-secretase modulator, allosterically shifting APP cleavage toward shorter Abeta species and selectively lowering Abeta42 without inhibiting overall proteolysis or Notch processing. Mechanism was plausible and differentiated (a SALA), but modulator potency at gamma-secretase was known to be modest.",
+          "direction": "mixed",
+          "strength": "moderate"
+        },
+        {
+          "id": "E2",
+          "type": "adme_pk",
+          "text": "A recognized liability entering pivotal testing was CNS exposure: the compound's ability to cross the blood-brain barrier and reach brain concentrations adequate for target engagement was uncertain, given the doses required relative to achievable brain levels.",
+          "direction": "adverse",
+          "strength": "moderate"
+        },
+        {
+          "id": "E3",
+          "type": "tox",
+          "text": "Derivation from R-flurbiprofen, an enantiomer lacking meaningful COX inhibition, was expected to avoid the GI and platelet toxicity of classical NSAIDs, supporting tolerability for chronic dosing in an elderly AD population.",
+          "direction": "supportive",
+          "strength": "moderate"
+        },
+        {
+          "id": "E4",
+          "type": "preclinical",
+          "text": "Preclinical models and mechanistic studies supported selective Abeta42 lowering as an anti-amyloid strategy, and a preceding smaller Phase 2 study generated enough signal in milder patients to justify advancing to Phase 3, though the earlier signal was subgroup-driven and not robust.",
+          "direction": "mixed",
+          "strength": "weak"
+        },
+        {
+          "id": "E5",
+          "type": "ip_market",
+          "text": "As a repurposed single enantiomer of an off-patent NSAID advanced by Myriad with commercialization partner Lundbeck, the program carried a first-in-class SALA positioning but faced composition-of-matter and differentiation questions typical of enantiomer/repurposing assets.",
+          "direction": "neutral",
+          "strength": "weak"
+        }
+      ],
+      "caveats": "Outcome is unambiguous: the pivotal Phase 3 missed both co-primary endpoints and the program was terminated in 2008; never approved. Evidence snippets are reconstructed editorial summaries of the pre-2008 knowledge state (mechanism, expected CNS-penetration risk, NSAID-derived tolerability rationale) and deliberately contain no trial efficacy numbers or outcome leakage. The BBB-penetration/target-engagement framing is the widely accepted post-hoc explanation; the degree to which it was quantified before the readout is somewhat retrospective.",
+      "kind": "historical",
+      "name": "Tarenflurbil (Flurizan)",
+      "_verification": {
+        "outcome_confirmed": true,
+        "sources_valid": true,
+        "leakage_check": true,
+        "verifier_notes": "VERDICT: Record is accurate. Binary outcome (true_outcome=false, i.e. failure) is CORRECT.\n\n(a) Outcome verified. Independent sources confirm every material claim: On June 30, 2008 Myriad Pharmaceuticals announced tarenflurbil (Flurizan, MPC-7869) failed BOTH co-primary endpoints (ADAS-Cog cognition and ADCS-ADL function/ADL) vs placebo in the 1,684-patient, 18-month North American Phase 3 (the \"Act-Earli-AD\" study) in mild AD. Myriad and partner Lundbeck discontinued the program including the ongoing international Phase 3. Never approved or marketed. The failure is widely attributed to weak pharmacodynamics \u2014 inadequate blood-brain-barrier penetration / insufficient gamma-secretase target engagement at achievable brain concentrations. All numbers (1,684, 18 months, date) and the mechanistic post-mortem match the summary exactly.\n\n(b) Sources support it. All four cited sources are real, on-topic, and corroborate: Wikipedia (Tarenflurbil), ALZFORUM Flurizan therapeutics entry, PMC5350742 (peer-reviewed \"Translational Medicine Lessons from Flurizan's Failure\" attributing failure to inadequate brain penetration/target engagement), and the ALZFORUM Phase 3 data paper-alert. Search independently surfaced these same sources plus corroborating trade coverage (Clinical Trials Arena, FierceBiotech, Medscape). Sources are appropriate and not fabricated.\n\n(c) Leakage: No hard leakage in the blind feature fields. The description ends at trial entry (\"advanced into large 18-month Phase 3 pivotal testing\") without stating any result. Evidence items E1-E5 are framed prospectively as pre-trial priors (\"liability entering pivotal testing,\" \"known to be modest\") rather than asserting the trial failed. One mild caveat: the evidence is somewhat hindsight-tinged \u2014 E2 (adverse CNS exposure) and E1 (modest modulator potency) foreground exactly the two liabilities later blamed for the failure, and E4 downgrades the Phase 2 signal as \"subgroup-driven and not robust.\" This telegraphs a pessimistic prior but is legitimately knowable pre-Phase-3 and stops short of revealing the outcome. The explicit outcome lives only in the summary/true_outcome fields, as expected. leakage_check=true = passes (no disqualifying leak)."
+      }
     }
   ]
 }

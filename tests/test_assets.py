@@ -44,12 +44,12 @@ def test_asset_round_trips_through_dict():
 # --------------------------------------------------------------------------
 def test_historical_assets_are_labeled_and_balanced():
     hist = load_historical_assets()
-    assert len(hist) == 12
+    assert len(hist) == 20
     assert all(a.kind == "historical" for a in hist)
     assert all(a.true_outcome is not None for a in hist)
     # A balanced label set keeps calibration base rates meaningful.
     n_success = sum(a.true_outcome for a in hist)
-    assert n_success == 6 and len(hist) - n_success == 6
+    assert n_success == 10 and len(hist) - n_success == 10
 
 
 def test_historical_assets_are_sourced_and_verified():
