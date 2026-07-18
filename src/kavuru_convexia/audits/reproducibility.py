@@ -121,7 +121,10 @@ def audit_reproducibility(
     # Hierarchical bootstrap: resample assets AND the N runs within each drawn
     # asset, so the noise of an 8-run per-asset estimate propagates into the CI.
     def _jaccard_over(item: dict, ri: np.ndarray) -> float:
-        valid = [item["cited"][j] for j in ri if item["valid"][j]]
+        # Jaccard is a pairwise U-statistic; naive with-replacement resampling would
+        # create identical (self) pairs that score 1.0 and bias the CI upward. De-dup
+        # the drawn run indices so the inner bootstrap only varies WHICH runs appear.
+        valid = [item["cited"][j] for j in np.unique(ri) if item["valid"][j]]
         return mean_pairwise_jaccard(valid) if len(valid) >= 2 else 0.0
 
     n_runs = lambda it: it["n"]  # noqa: E731

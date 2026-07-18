@@ -106,6 +106,24 @@ class AdverseGatedStub(AssetEvaluator):
         return Verdict(asset.id, pos, _rec_for(pos), "evidence-gated", asset.evidence_ids[:1], model="stub")
 
 
+class DecoupledSpofStub(AssetEvaluator):
+    """Recommendation flips on a SMALL-delta snippet; a big-delta snippet doesn't flip it.
+
+    Removing the strong-adverse snippet moves PoS a lot but never changes the call;
+    removing the supportive-preclinical snippet barely moves PoS but flips the
+    recommendation. The single point of failure is thus NOT the max-influence snippet.
+    """
+
+    name = "DecoupledSpofStub"
+
+    def evaluate(self, asset: Asset, *, temperature: Optional[float] = None, cache_tag: str = "") -> Verdict:
+        has_adv = any(e.direction == "adverse" and e.strength == "strong" for e in asset.evidence)
+        has_pre = any(e.type == "preclinical" and e.direction == "supportive" for e in asset.evidence)
+        pos = 0.6 + (0.30 if not has_adv else 0.0) - (0.05 if not has_pre else 0.0)
+        rec = "advance" if has_pre else "pass"  # the preclinical snippet is the real SPOF
+        return Verdict(asset.id, min(1.0, pos), rec, "decoupled", asset.evidence_ids[:1], model="stub")
+
+
 class WellCalibratedStub(AssetEvaluator):
     """Confident and correct on the historical labels — low ECE, high AUROC."""
 

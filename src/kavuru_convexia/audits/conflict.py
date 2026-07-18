@@ -83,9 +83,13 @@ def _judge_once(client, rubric: str, rationale: str, tension: str, tag: str) -> 
             "Apply the rubric exactly. JSON only.")
     out = client.complete(system, user, temperature=0.0, cache_tag=tag)
     try:
-        match = re.search(r"\{.*\}", out, re.DOTALL)
-        return _coerce_ack(json.loads(match.group(0))["acknowledges"])
+        # Reuse the robust first-object parser (a greedy {.*} would over-capture a
+        # second brace pair in the model's prose and silently drop the verdict).
+        from ..evaluator import _extract_json
+
+        return _coerce_ack(_extract_json(out).get("acknowledges"))
     except Exception:  # noqa: BLE001
+        logger.debug("ack-judge parse failed (tag %s); using heuristic fallback", tag)
         return None
 
 
@@ -160,16 +164,22 @@ def audit_conflict(
         pos_std = float(np.std(orig_scores))
         consistency_flip = flip_rate(orig_recs)
 
-        mean_swap = float(np.mean([v.pos_score for v in swap]))
+        swap_scores = [v.pos_score for v in swap]
+        swap_recs = [v.recommendation for v in swap]
+        mean_swap = float(np.mean(swap_scores))
         anchoring_swing = abs(mean_orig - mean_swap)
         rec_orig = modal(orig_recs)
-        rec_swap = modal([v.recommendation for v in swap])
-        # Noise floor: the order-driven swing must beat the run-to-run dispersion of
-        # the original order (min floor at the WARN threshold), and a rec change is
-        # attributed to order only when the original recommendation is itself stable.
-        noise_floor = max(config.ANCHORING_POS_SWING_WARN, 2.0 * pos_std)
+        rec_swap = modal(swap_recs)
+        # Noise floor = standard error of the DIFFERENCE of the two group means (the
+        # swing is a mean-vs-mean comparison, so the per-sample SD is the wrong scale).
+        se_diff = (pos_std ** 2 / n_consistency + float(np.var(swap_scores)) / m_anchor) ** 0.5
+        noise_floor = max(config.ANCHORING_POS_SWING_WARN, 2.0 * se_diff)
         swing_significant = anchoring_swing > noise_floor
-        anchoring_rec_change = (rec_orig != rec_swap) and consistency_flip < config.FLIP_RATE_WARN
+        # Attribute a rec change to ORDER only when BOTH orders are internally stable —
+        # otherwise an ordinary run-to-run flip masquerades as anchoring.
+        both_orders_stable = (consistency_flip < config.FLIP_RATE_WARN
+                              and flip_rate(swap_recs) < config.FLIP_RATE_WARN)
+        anchoring_rec_change = (rec_orig != rec_swap) and both_orders_stable
 
         # Acknowledgment: judge the rationale of a modal-recommendation run. The
         # judge may be a single bool or a panel dict (majority + votes + split).

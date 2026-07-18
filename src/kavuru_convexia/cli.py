@@ -37,35 +37,49 @@ def _print_check(chk: CheckResult) -> None:
 
 
 def cmd_audit(args: argparse.Namespace) -> int:
+    from collections import defaultdict
+
     path = Path(args.captures)
     if not path.exists():
         print(f"error: captures file not found: {path}", file=sys.stderr)
         return 2
-    adapter = ExternalAdapter.from_csv(path) if path.suffix == ".csv" else ExternalAdapter.from_json(path)
 
+    def load() -> ExternalAdapter:  # fresh adapter per audit so cursors don't collide
+        return ExternalAdapter.from_csv(path) if path.suffix.lower() == ".csv" else ExternalAdapter.from_json(path)
+
+    depths = {aid: len(runs) for aid, runs in load()._by_asset.items()}  # noqa: SLF001
     by_id = {a.id: a for a in all_assets()}
-    covered = [by_id[aid] for aid in adapter._by_asset if aid in by_id]  # noqa: SLF001
+    covered = [by_id[aid] for aid in depths if aid in by_id]
     if not covered:
         print("error: no captured asset ids match the bundled assets", file=sys.stderr)
         return 2
-    n = min(len(adapter._by_asset[a.id]) for a in covered)  # noqa: SLF001  captures per asset
-    print(f"Auditing {len(covered)} asset(s) from {path.name} ({n} capture(s) each)")
+    reproducible = [a for a in covered if depths[a.id] >= 2]
+    skipped = [a for a in covered if depths[a.id] < 2]
+    print(f"Auditing {len(covered)} asset(s) from {path.name}")
+    if skipped:
+        print(f"  ({len(skipped)} asset(s) with <2 captures skipped for reproducibility)")
 
     ran = 0
-    try:
-        _print_check(audit_reproducibility(adapter, covered, n=n))
-        ran += 1
-    except (KeyError, ValueError) as exc:
-        logger.warning("reproducibility skipped: %s", exc)
-    conflicted = [a for a in covered if a.has_planted_conflict]
+    # Reproducibility per capture-depth group, so a shallow asset does not cap the
+    # depth used for the well-captured ones.
+    groups: dict[int, list] = defaultdict(list)
+    for a in reproducible:
+        groups[depths[a.id]].append(a)
+    for depth, grp in sorted(groups.items()):
+        try:
+            _print_check(audit_reproducibility(load(), grp, n=depth))
+            ran += 1
+        except (KeyError, ValueError) as exc:
+            logger.warning("reproducibility skipped (depth %d): %s", depth, exc)
+    conflicted = [a for a in reproducible if a.has_planted_conflict]
     if conflicted:
         try:
-            _print_check(audit_conflict(adapter, conflicted, n_consistency=n))
+            _print_check(audit_conflict(load(), conflicted, n_consistency=min(depths[a.id] for a in conflicted)))
             ran += 1
         except (KeyError, ValueError) as exc:
             logger.warning("conflict skipped (need orig+swap captures): %s", exc)
     try:
-        _print_check(audit_robustness(adapter, covered))
+        _print_check(audit_robustness(load(), covered))
         ran += 1
     except (KeyError, ValueError) as exc:
         logger.warning("robustness skipped (need perturbed captures): %s", exc)
