@@ -3,7 +3,7 @@
 - **Model:** `claude-sonnet-5`
 - **Assets audited:** 28
 - **Overall status:** **FAIL**  (reliability score **0.92** 95% CI [0.89, 0.94])
-- **Generated:** 2026-07-17T19:43:24
+- **Generated:** 2026-07-17T20:03:30
 
 ## Audit summary
 
@@ -34,7 +34,7 @@
 - robustness: [fail] preladenant: +0.10 PoS drift under reorder
 - robustness: [warn] osimertinib-tagrisso: +0.10 PoS drift under reorder
 - robustness: [warn] SYN-BORDERLINE-THIN: +0.07 PoS drift under reorder
-- evidence_sensitivity: [warn] SYN-CONFLICT-EFFICACY-TOX: single-point-of-failure — removing `SYN-CONFLICT-EFFICACY-TOX-ev3` (tox, Δ-0.20) flips the recommendation
+- evidence_sensitivity: [warn] SYN-CONFLICT-EFFICACY-TOX: single-point-of-failure — removing `SYN-CONFLICT-EFFICACY-TOX-ev1` (binding, Δ-0.03) flips the recommendation
 - evidence_sensitivity: [warn] SYN-CONFLICT-LATE-TOX: single-point-of-failure — removing `SYN-CONFLICT-LATE-TOX-ev4` (tox, Δ-0.51) flips the recommendation
 - calibration: [warn] ECE 0.116 (bins=10); predicted confidence deviates from observed outcome frequency
 - calibration_blinded: [warn] ECE 0.117 (bins=10); predicted confidence deviates from observed outcome frequency
@@ -82,7 +82,7 @@
 
 Single-point-of-failure rate **25%** [0.000, 0.625]; mean max single-evidence influence 0.15. Dominant evidence by type: `{'tox': 3, 'ip_market': 1, 'adme_pk': 1, 'binding': 2, 'preclinical': 1}`.
 
-- [warn] SYN-CONFLICT-EFFICACY-TOX: single-point-of-failure — removing `SYN-CONFLICT-EFFICACY-TOX-ev3` (tox, Δ-0.20) flips the recommendation
+- [warn] SYN-CONFLICT-EFFICACY-TOX: single-point-of-failure — removing `SYN-CONFLICT-EFFICACY-TOX-ev1` (binding, Δ-0.03) flips the recommendation
 - [warn] SYN-CONFLICT-LATE-TOX: single-point-of-failure — removing `SYN-CONFLICT-LATE-TOX-ev4` (tox, Δ-0.51) flips the recommendation
 
 ## Calibration note (offline)

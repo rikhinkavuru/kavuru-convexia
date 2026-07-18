@@ -1,7 +1,7 @@
 {
   "evaluator_name": "ReferenceAgent(claude-sonnet-5)",
   "model": "claude-sonnet-5",
-  "created": "2026-07-17T19:43:24",
+  "created": "2026-07-17T20:03:30",
   "n_assets": 28,
   "reliability_score": 0.9208,
   "reliability_score_ci": [
@@ -14,7 +14,7 @@
     "robustness: [fail] preladenant: +0.10 PoS drift under reorder",
     "robustness: [warn] osimertinib-tagrisso: +0.10 PoS drift under reorder",
     "robustness: [warn] SYN-BORDERLINE-THIN: +0.07 PoS drift under reorder",
-    "evidence_sensitivity: [warn] SYN-CONFLICT-EFFICACY-TOX: single-point-of-failure \u2014 removing `SYN-CONFLICT-EFFICACY-TOX-ev3` (tox, \u0394-0.20) flips the recommendation",
+    "evidence_sensitivity: [warn] SYN-CONFLICT-EFFICACY-TOX: single-point-of-failure \u2014 removing `SYN-CONFLICT-EFFICACY-TOX-ev1` (binding, \u0394-0.03) flips the recommendation",
     "evidence_sensitivity: [warn] SYN-CONFLICT-LATE-TOX: single-point-of-failure \u2014 removing `SYN-CONFLICT-LATE-TOX-ev4` (tox, \u0394-0.51) flips the recommendation",
     "calibration: [warn] ECE 0.116 (bins=10); predicted confidence deviates from observed outcome frequency",
     "calibration_blinded: [warn] ECE 0.117 (bins=10); predicted confidence deviates from observed outcome frequency"
@@ -44,8 +44,8 @@
           0.0
         ],
         "rationale_jaccard_mean": [
-          0.9473150510204081,
-          0.9884800170068027
+          0.9401935941043085,
+          0.9868253968253968
         ]
       },
       "flags": [
@@ -1995,7 +1995,7 @@
         ]
       },
       "flags": [
-        "[warn] SYN-CONFLICT-EFFICACY-TOX: single-point-of-failure \u2014 removing `SYN-CONFLICT-EFFICACY-TOX-ev3` (tox, \u0394-0.20) flips the recommendation",
+        "[warn] SYN-CONFLICT-EFFICACY-TOX: single-point-of-failure \u2014 removing `SYN-CONFLICT-EFFICACY-TOX-ev1` (binding, \u0394-0.03) flips the recommendation",
         "[warn] SYN-CONFLICT-LATE-TOX: single-point-of-failure \u2014 removing `SYN-CONFLICT-LATE-TOX-ev4` (tox, \u0394-0.51) flips the recommendation"
       ],
       "detail": {
@@ -2010,7 +2010,11 @@
             "dominant_signed_delta": -0.19999999999999998,
             "influence_concentration": 0.7692307692307692,
             "spof": true,
-            "noise_limited": false
+            "spof_snippet": "SYN-CONFLICT-EFFICACY-TOX-ev1",
+            "spof_type": "binding",
+            "spof_delta": -0.03,
+            "noise_limited": false,
+            "single_evidence": false
           },
           "SYN-CONFLICT-SCIENCE-IP": {
             "pos_full": 0.22,
@@ -2022,43 +2026,59 @@
             "dominant_signed_delta": -0.23,
             "influence_concentration": 0.8846153846153846,
             "spof": false,
-            "noise_limited": false
+            "spof_snippet": null,
+            "spof_type": null,
+            "spof_delta": null,
+            "noise_limited": false,
+            "single_evidence": false
           },
           "SYN-CONFLICT-EFFICACY-ADME": {
             "pos_full": 0.2066666666666667,
             "recommendation": "investigate",
-            "noise_band": 0.022570658006337084,
+            "noise_band": 0.03191973066424679,
             "max_influence": 0.07333333333333333,
             "dominant_snippet": "SYN-CONFLICT-EFFICACY-ADME-ev3",
             "dominant_type": "adme_pk",
             "dominant_signed_delta": -0.07333333333333333,
             "influence_concentration": 0.5116279069767442,
             "spof": false,
-            "noise_limited": false
+            "spof_snippet": null,
+            "spof_type": null,
+            "spof_delta": null,
+            "noise_limited": false,
+            "single_evidence": false
           },
           "SYN-CONFLICT-LATE-TOX": {
             "pos_full": 0.11333333333333333,
             "recommendation": "pass",
-            "noise_band": 0.02354859304485002,
+            "noise_band": 0.03330273965883163,
             "max_influence": 0.5066666666666667,
             "dominant_snippet": "SYN-CONFLICT-LATE-TOX-ev4",
             "dominant_type": "tox",
             "dominant_signed_delta": -0.5066666666666667,
             "influence_concentration": 0.9047619047619048,
             "spof": true,
-            "noise_limited": false
+            "spof_snippet": "SYN-CONFLICT-LATE-TOX-ev4",
+            "spof_type": "tox",
+            "spof_delta": -0.5066666666666667,
+            "noise_limited": false,
+            "single_evidence": false
           },
           "SYN-CONTROL-CLEAN-ADVANCE": {
             "pos_full": 0.8066666666666666,
             "recommendation": "advance",
-            "noise_band": 0.023548593044849925,
+            "noise_band": 0.0333027396588315,
             "max_influence": 0.08666666666666667,
             "dominant_snippet": "SYN-CONTROL-CLEAN-ADVANCE-ev1",
             "dominant_type": "binding",
             "dominant_signed_delta": 0.08666666666666667,
             "influence_concentration": 0.3823529411764708,
             "spof": false,
-            "noise_limited": false
+            "spof_snippet": null,
+            "spof_type": null,
+            "spof_delta": null,
+            "noise_limited": false,
+            "single_evidence": false
           },
           "SYN-CONTROL-CLEAN-PASS": {
             "pos_full": 0.03,
@@ -2070,19 +2090,27 @@
             "dominant_signed_delta": -0.04000000000000001,
             "influence_concentration": 0.5,
             "spof": false,
-            "noise_limited": false
+            "spof_snippet": null,
+            "spof_type": null,
+            "spof_delta": null,
+            "noise_limited": false,
+            "single_evidence": false
           },
           "SYN-BORDERLINE-BALANCED": {
             "pos_full": 0.4066666666666667,
             "recommendation": "investigate",
-            "noise_band": 0.023548593044849988,
+            "noise_band": 0.033302739658831584,
             "max_influence": 0.043333333333333335,
             "dominant_snippet": "SYN-BORDERLINE-BALANCED-ev2",
             "dominant_type": "preclinical",
             "dominant_signed_delta": -0.043333333333333335,
             "influence_concentration": 0.3823529411764708,
             "spof": false,
-            "noise_limited": false
+            "spof_snippet": null,
+            "spof_type": null,
+            "spof_delta": null,
+            "noise_limited": false,
+            "single_evidence": false
           },
           "SYN-BORDERLINE-THIN": {
             "pos_full": 0.3499999999999999,
@@ -2094,7 +2122,11 @@
             "dominant_signed_delta": -5.551115123125783e-17,
             "influence_concentration": 0.25,
             "spof": false,
-            "noise_limited": true
+            "spof_snippet": null,
+            "spof_type": null,
+            "spof_delta": null,
+            "noise_limited": true,
+            "single_evidence": false
           }
         },
         "dominant_by_type": {
